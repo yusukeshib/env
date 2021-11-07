@@ -11,6 +11,6 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 source "$HOME/.config/zsh/aliases.zsh"
 source "$HOME/.config/zsh/zinit.zsh"
-source "${ZDOTDIR:-${HOME}}/.config/zsh/`uname`.zsh"
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-source $HOME/.cargo/env
+source "$HOME/.config/zsh/`uname`.zsh"
+[ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
+[ -f $HOME/.cargo/env ] && source $HOME/.cargo/env

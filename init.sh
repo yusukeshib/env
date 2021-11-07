@@ -5,6 +5,6 @@
 echo '-> Initializing...'
 
 git clone https://github.com/yusukeshibata/env.git $HOME/env >/dev/null 2>&1
-find $HOME/env  -not -path -type f -name '*' -exec ln -Fvs {} $HOME/ \;
+find $HOME/env -type f -name '*' -exec ln -Fvs {} $HOME/ \;
 
 echo '-> Done.'

@@ -1,0 +1,7 @@
+alias ls="exa -a"
+alias ll="exa -al"
+alias a="tmux attach -d -t"
+alias new="tmux new -s"
+alias vi="nvim"
+alias vim="nvim"
+alias f="find src -type f | xargs grep"

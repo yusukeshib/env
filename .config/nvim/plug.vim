@@ -34,8 +34,9 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'puremourning/vimspector'
 
 " rust
-" Plug 'rust-lang/rust.vim'
-" Plug 'cespare/vim-toml'
+Plug 'rust-lang/rust.vim'
+Plug 'racer-rust/vim-racer'
+Plug 'cespare/vim-toml'
 
 call plug#end()
 

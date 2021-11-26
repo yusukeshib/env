@@ -3,3 +3,4 @@ source $HOME/.config/nvim/plug.vim
 source $HOME/.config/nvim/color.vim
 source $HOME/.config/nvim/vimspector.vim
 source $HOME/.config/nvim/rust.vim
+source $HOME/.config/nvim/coc.vim

@@ -1,5 +1,3 @@
-let g:coc_global_extensions = ['coc-tsserver', 'coc-prettier', 'coc-eslint', 'coc-json','coc-git']
-
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -28,6 +26,7 @@ Plug 'peitalin/vim-jsx-typescript'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " nerdtree
 Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 " fzf
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 " debugger
@@ -58,15 +57,5 @@ nmap <silent> <leader>A <Plug>(coc-diagnostic-next)
 let NERDTreeQuitOnOpen=1
 let NERDTreeShowHidden=1
 
-" glsl
-autocmd! BufNewFile,BufRead *.vs,*.fs set ft=glsl
-
-""" coc.nvim
-
-" Use tab for trigger completion with characters ahead and navigate.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" Ctrl+P for FZF
 nnoremap <C-p> :FZF<Cr>

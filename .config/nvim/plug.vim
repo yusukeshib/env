@@ -8,8 +8,6 @@ call plug#begin('~/.vim/plugged')
 
 " styling
 Plug 'itchyny/lightline.vim'
-" ;; toggle files
-Plug 'Shougo/unite.vim'
 " Subvert
 Plug 'tpope/vim-abolish'
 " regex
@@ -20,17 +18,16 @@ Plug 'tpope/vim-fugitive'
 Plug 'editorconfig/editorconfig-vim'
 " git diff
 Plug 'airblade/vim-gitgutter'
-" typescript
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " nerdtree
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 " fzf
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 " debugger
 Plug 'puremourning/vimspector'
+" language server
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " rust
 Plug 'rust-lang/rust.vim'
@@ -44,12 +41,6 @@ call plug#end()
 " Plugin setting
 "
 
-" unite
-nnoremap <silent> ;; :<C-u>Unite buffer -direction=botright -auto-resize -toggle<CR>
-
-" vim-jsx-typescript
-autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
-
 " nerdtree
 map <C-a> :NERDTreeToggle %<CR>
 nmap <silent> <leader>a <Plug>(coc-diagnostic-next-error)
@@ -58,4 +49,5 @@ let NERDTreeQuitOnOpen=1
 let NERDTreeShowHidden=1
 
 " Ctrl+P for FZF
-nnoremap <C-p> :FZF<Cr>
+nnoremap <C-p> :Files<Cr>
+nnoremap <silent> ;; :Buffers<CR>

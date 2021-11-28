@@ -35,7 +35,6 @@ set backspace=indent,eol,start
 set clipboard=unnamed
 set ttimeout
 set ttimeoutlen=0
-"set listchars=tab:▹␣
 set list
 set lazyredraw          " Wait to redraw
 set scrolljump=8        " Scroll 8 lines at a time at bottom/top
@@ -49,10 +48,3 @@ set diffopt+=vertical
 set guifont=Menlo-Regular:h14
 set mouse=a
 set undodir=~/.undo
-
-"
-runtime! userautoload/*.vim
-autocmd BufEnter * set mouse=
-noremap <leader><TAB> :bnext<CR>
-noremap <leader><S-TAB> :bprev<CR>
-nnoremap <ESC><ESC> :noh<CR>

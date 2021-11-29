@@ -28,6 +28,9 @@ Plug 'junegunn/fzf.vim'
 Plug 'puremourning/vimspector'
 " language server
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" tree sitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
 
 " rust
 Plug 'rust-lang/rust.vim'

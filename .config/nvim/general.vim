@@ -31,3 +31,5 @@ set clipboard=unnamed
 set autoread
 set diffopt+=vertical
 set mouse=a
+set cursorline
+set signcolumn=yes " always show signcolumn for gitgutter

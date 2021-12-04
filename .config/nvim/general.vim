@@ -33,3 +33,7 @@ set diffopt+=vertical
 set mouse=a
 set cursorline
 set signcolumn=yes " always show signcolumn for gitgutter
+
+" doulbe ESC should clear search result highlight
+nnoremap <ESC><ESC> :noh<CR>
+

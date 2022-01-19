@@ -1,10 +1,10 @@
 [user]
-	email = yusukeshib@gmail.com
-	name = Yusuke Shibata
+  email = yusukeshib@gmail.com
+  name = Yusuke Shibata
   signingkey = DE78789F9B28DC95C1A99481E0C042B0A1F17C2A
 
 [core]
-	editor = nvim
+  editor = nvim
   # pager = less -x1,3
 
 [commit]
@@ -14,9 +14,9 @@
   default = current
 
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
   required = true
 
 [diff]

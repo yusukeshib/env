@@ -37,20 +37,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
 Plug 'cespare/vim-toml'
 
+"
+" Plug 'dracula/vim'
+
 call plug#end()
-
-
-"
-" Plugin setting
-"
-
-" nerdtree
-map <C-a> :NERDTreeToggle %<CR>
-nmap <silent> <leader>a <Plug>(coc-diagnostic-next-error)
-nmap <silent> <leader>A <Plug>(coc-diagnostic-next)
-let NERDTreeQuitOnOpen=1
-let NERDTreeShowHidden=1
-
-" Ctrl+P for FZF
-nnoremap <C-p> :Files<Cr>
-nnoremap <silent> ;; :Buffers<CR>

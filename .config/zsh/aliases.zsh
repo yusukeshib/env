@@ -1,8 +1,20 @@
-alias ls="exa -a"
-alias ll="exa -al"
-alias a="tmux attach -d -t"
-alias new="tmux new -s"
-alias vi="nvim"
-alias vim="nvim"
-alias f="find src -type f | xargs grep -s --colour -n"
-alias todo="f 'TODO(yusuke)'"
+if type "exa" > /dev/null; then
+  alias ls="exa -a"
+  alias ll="exa -al"
+fi
+
+if type "tmux" > /dev/null; then
+  alias a="tmux attach -d -t"
+  alias new="tmux new -s"
+fi
+
+if type "nvim" > /dev/null; then
+  alias vi="nvim"
+  alias vim="nvim"
+fi
+
+if type "batcat" > /dev/null; then
+  alias cat="batcat"
+elif type "bat" > /dev/null; then
+  alias cat="bat"
+fi

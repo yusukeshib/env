@@ -1,2 +1,5 @@
 .DS_Store
 /.config/gatsby/
+/.config/wslu/
+/.config/wezterm/
+/.config/kitty/

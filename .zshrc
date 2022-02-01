@@ -24,14 +24,3 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 export PATH="/opt/homebrew/opt/mysql@5.7/bin:$PATH"
 
-# direnv
-eval "$(direnv hook zsh)"
-
-# asdf
-# . /opt/homebrew/opt/asdf/libexec/asdf.sh
-
-# nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-

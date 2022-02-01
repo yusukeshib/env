@@ -11,21 +11,16 @@ export PATH="$HOME/.local/bin:$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 source "$HOME/.config/zsh/aliases.zsh"
-source "$HOME/.config/zsh/zinit.zsh"
+source "$HOME/.config/zsh/zim.zsh"
 source "$HOME/.config/zsh/`uname`.zsh"
 
 # fzf
-zicompinit; zicdreplay
 export FZF_DEFAULT_COMMAND='fd --type f -i'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
 
 # rust
 [ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
-
-# starship
-[ ! -s "/usr/local/bin/starship" ] && sh -c "$(curl -fsSL https://starship.rs/install.sh)"
-eval "$(starship init zsh)"
 
 export PATH="/opt/homebrew/opt/mysql@5.7/bin:$PATH"
 

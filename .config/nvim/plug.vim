@@ -39,5 +39,6 @@ Plug 'cespare/vim-toml'
 
 "
 " Plug 'dracula/vim'
+Plug 'airblade/vim-rooter'
 
 call plug#end()

@@ -7,3 +7,4 @@ source $HOME/.config/nvim/coc.vim
 source $HOME/.config/nvim/treesitter.vim
 source $HOME/.config/nvim/fzf.vim
 source $HOME/.config/nvim/nerdtree.vim
+source $HOME/.config/nvim/rooter.vim

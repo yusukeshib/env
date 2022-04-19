@@ -1,8 +1,3 @@
-if type "exa" > /dev/null; then
-  alias ls="exa -a"
-  alias ll="exa -al"
-fi
-
 if type "tmux" > /dev/null; then
   alias a="tmux attach -d -t"
   alias new="tmux new -s"

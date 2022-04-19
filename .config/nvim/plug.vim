@@ -25,7 +25,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 " debugger
-Plug 'puremourning/vimspector'
+" Plug 'puremourning/vimspector'
 " language server
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " tree sitter
@@ -34,11 +34,12 @@ Plug 'nvim-treesitter/playground'
 
 " rust
 Plug 'rust-lang/rust.vim'
-Plug 'racer-rust/vim-racer'
 Plug 'cespare/vim-toml'
 
 "
-" Plug 'dracula/vim'
 Plug 'airblade/vim-rooter'
+
+" For yarn PnP
+Plug 'lbrayner/vim-rzip'
 
 call plug#end()

@@ -40,4 +40,12 @@ zmodule zsh-users/zsh-autosuggestions
 # }}} End configuration added by Zim install
 
 # asdf
-zmodule asdf
+# zmodule asdf
+
+zmodule exa
+zmodule fzf
+zmodule ssh
+
+# fable
+# zmodule fablestudios/fable-zsh-plugin
+zmodule git@github.com:fablestudios/fable-zsh-plugin

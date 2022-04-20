@@ -11,7 +11,7 @@ export PATH="$HOME/.local/bin:$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # asdf
-source ${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc
+# source ${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc
 
 source "$HOME/.config/zsh/aliases.zsh"
 source "$HOME/.config/zsh/zim.zsh"

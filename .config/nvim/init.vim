@@ -88,10 +88,7 @@ Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/vim-vsnip'
-
-" typescript
-" Plug 'jose-elias-alvarez/null-ls.nvim'
-" Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
+Plug 'simrat39/rust-tools.nvim'
 
 call plug#end()
 

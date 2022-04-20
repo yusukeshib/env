@@ -1,5 +1,3 @@
-local lsp = require('lspconfig')
-
 local cmp = require('cmp')
 cmp.setup({
   snippet = {
@@ -36,6 +34,7 @@ vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', op
 vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 
+
 local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -53,12 +52,56 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
 
-local servers = { 'rust_analyzer', 'tsserver' }
-for _, lang in pairs(servers) do
-  lsp[lang].setup {
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
+local lsp = require('lspconfig')
+
+-- tsserver
+lsp.tsserver.setup {
+  on_attach = on_attach,
+  flags = {
+    debounce_text_changes = 150,
+  }
+}
+
+-- rust_analyzer
+lsp.rust_analyzer.setup({
+  on_attach=on_attach,
+  settings = {
+    ["rust-analyzer"] = {
+      assist = {
+        importGranularity = "module",
+        importPrefix = "self",
+      },
+      cargo = {
+        loadOutDirsFromCheck = true
+      },
+      procMacro = {
+        enable = true
+      },
     }
   }
-end
+})
+
+
+-- local opts = {
+--   tools = {
+--     autoSetHints = true,
+--     hover_with_actions = true,
+--     inlay_hints = {
+--       show_parameter_hints = false,
+--       parameter_hints_prefix = "",
+--       other_hints_prefix = "",
+--     },
+--   },
+--   
+--   server = {
+--     settings = {
+--       ["rust-analyzer"] = {
+--         checkOnSave = {
+--           command = "clippy"
+--         },
+--       }
+--     }
+--   },
+-- }
+-- 
+-- require('rust-tools').setup(opts)

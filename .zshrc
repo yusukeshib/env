@@ -11,7 +11,7 @@ export PATH="$HOME/.local/bin:$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # asdf
-# source ${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc
+source ${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc
 
 source "$HOME/.config/zsh/aliases.zsh"
 source "$HOME/.config/zsh/zim.zsh"
@@ -22,6 +22,3 @@ source "$HOME/.config/zsh/functions.zsh"
 export FZF_DEFAULT_COMMAND='fd --type f -i'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
-
-# rust
-[ -f $HOME/.cargo/env ] && source $HOME/.cargo/env

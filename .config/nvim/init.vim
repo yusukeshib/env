@@ -88,6 +88,7 @@ Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/vim-vsnip'
+Plug 'lukas-reineke/lsp-format.nvim'
 
 call plug#end()
 

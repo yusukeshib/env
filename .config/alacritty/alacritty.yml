@@ -118,8 +118,9 @@ font:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    # family: JetBrainsMono Nerd Font Mono
-    family: Hack
+    family: JetBrains Mono NL
+    # family: Hack
+    # family: Source Code Pro
 
     # The `style` can be specified to pick a specific face.
     style: Regular

@@ -5,7 +5,7 @@ hi Pmenu guibg=#282828 guifg=White
 hi CursorLine guibg=#666666
 hi Visual guifg=reset guibg=#666666 gui=none
 
-" colorscheme dracula
+colorscheme dracula
 
 augroup vimrc_todo
     au!

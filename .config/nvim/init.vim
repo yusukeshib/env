@@ -49,6 +49,8 @@ call plug#begin('~/.vim/plugged')
 
 " styling
 Plug 'itchyny/lightline.vim'
+Plug 'dracula/vim'
+
 " Subvert
 Plug 'tpope/vim-abolish'
 " regex

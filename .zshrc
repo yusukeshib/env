@@ -8,7 +8,7 @@ export AWS_VAULT_BACKEND=keychain
 export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 
 # brew
-[ -f /opt/homebrew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+[ -d /opt/homebrew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
 source "$HOME/.config/zsh/aliases.zsh"
 source "$HOME/.config/zsh/zim.zsh"

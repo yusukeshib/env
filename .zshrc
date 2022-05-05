@@ -8,7 +8,7 @@ export AWS_VAULT_BACKEND=keychain
 export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 
 # brew
-eval "$(/opt/homebrew/bin/brew shellenv)"
+[ -f /opt/homebrew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
 source "$HOME/.config/zsh/aliases.zsh"
 source "$HOME/.config/zsh/zim.zsh"
@@ -19,11 +19,12 @@ source "$HOME/.config/zsh/functions.zsh"
 export FZF_DEFAULT_COMMAND='fd --type f -i'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
-
-source $HOME/.cargo/env
+[ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-eval "$(direnv hook zsh)"
+if type direnv &> /dev/null; then
+  eval "$(direnv hook zsh)"
+fi

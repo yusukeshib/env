@@ -33,7 +33,7 @@ Plug 'nvim-treesitter/playground'
 Plug 'airblade/vim-rooter'
 
 " For yarn PnP
-Plug 'lbrayner/vim-rzip'
+" Plug 'lbrayner/vim-rzip'
 
 "
 " lsp

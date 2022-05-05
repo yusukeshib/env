@@ -48,4 +48,4 @@ zmodule ssh
 
 # fable
 # zmodule fablestudios/fable-zsh-plugin
-zmodule git@github.com:fablestudios/fable-zsh-plugin
+# zmodule git@github.com:fablestudios/fable-zsh-plugin

@@ -12,4 +12,8 @@ augroup vimrc_todo
     au Syntax * syn match MyTodo /\v<(FIXME|NOTE|TODO|OPTIMIZE|XXX):/
           \ containedin=.*Comment,vimCommentTitle
 augroup END
-hi def link MyTodo Todo
+
+hi MyTodo guibg=Red
+
+
+

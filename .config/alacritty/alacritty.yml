@@ -30,7 +30,7 @@ window:
   # must be at least `2`, while using a value of `0` for columns and lines will
   # fall back to the window manager's recommended size.
   dimensions:
-    columns: 200
+    columns: 230
     lines: 66
 
   # Window position (changes require restart)
@@ -159,7 +159,7 @@ font:
     #style: Bold Italic
 
   # Point size
-  size: 14
+  size: 15
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter

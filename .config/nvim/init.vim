@@ -57,3 +57,8 @@ source $HOME/.config/nvim/nerdtree.vim
 source $HOME/.config/nvim/rooter.vim
 luafile $HOME/.config/nvim/lua/treesitter.lua
 luafile $HOME/.config/nvim/lua/lsp.lua
+
+let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_diagnostics_float_cursor = 1
+let g:lsp_diagnostics_signs_enabled = 1
+let g:lsp_diagnostics_signs_priority = 11

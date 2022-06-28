@@ -23,8 +23,6 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 " fzf
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-" debugger
-" Plug 'puremourning/vimspector'
 " tree sitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
@@ -32,13 +30,11 @@ Plug 'nvim-treesitter/playground'
 "
 Plug 'airblade/vim-rooter'
 
-" For yarn PnP
-" Plug 'lbrayner/vim-rzip'
-
 "
 " lsp
 "
 
+Plug 'williamboman/nvim-lsp-installer'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -47,6 +43,10 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'lukas-reineke/lsp-format.nvim'
+
+Plug 'j-hui/fidget.nvim'
+Plug 'folke/trouble.nvim'
+Plug 'antoinemadec/FixCursorHold.nvim'
 
 call plug#end()
 

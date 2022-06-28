@@ -19,7 +19,6 @@ cmp.setup({
       select = true,
     })
   },
-
   sources = {
     { name = 'nvim_lsp' },
     { name = 'vsnip' },
@@ -34,12 +33,9 @@ vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev({ severity
 vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })<CR>', opts)
 vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 
-
-require("lsp-format").setup {}
-
 local on_attach = function(client, bufnr)
 
-  require "lsp-format".on_attach(client)
+  require('lsp-format').on_attach(client)
 
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -62,36 +58,24 @@ local lsp = require('lspconfig')
 -- tsserver
 lsp.tsserver.setup {
   on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  }
 }
 
 -- rust_analyzer
 lsp.rust_analyzer.setup({
-  on_attach=on_attach,
+  on_attach = on_attach,
   settings = {
     ["rust-analyzer"] = {
-      assist = {
-        importGranularity = "module",
-        importPrefix = "self",
-      },
-      cargo = {
-        loadOutDirsFromCheck = true
-      },
-      procMacro = {
-        enable = true
-      },
+      checkOnSave = { command = "clippy" },
+      cargo = { loadOutDirsFromCheck = true, },
+      procMacro = { enable = true, }
     },
-    settings = {
-      -- to enable rust-analyzer settings visit:
-      -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
-      ["rust-analyzer"] = {
-        -- enable clippy diagnostics on save
-        checkOnSave = {
-          command = "fmt"
-        },
-      }
-    }
   }
 })
+
+require('lsp-format').setup()
+require('fidget').setup()
+require('trouble').setup()
+require('nvim-lsp-installer').setup({
+  automatic_installation = true
+})
+

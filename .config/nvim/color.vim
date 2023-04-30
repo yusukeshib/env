@@ -5,8 +5,7 @@ hi Pmenu guibg=#282828 guifg=White
 hi CursorLine guibg=#666666
 hi Visual guifg=reset guibg=#666666 gui=none
 
-colorscheme dracula
-
+" todo color
 augroup vimrc_todo
     au!
     au Syntax * syn match MyTodo /\v<(FIXME|NOTE|TODO|OPTIMIZE|XXX):/
@@ -14,6 +13,3 @@ augroup vimrc_todo
 augroup END
 
 hi MyTodo guibg=Red
-
-
-

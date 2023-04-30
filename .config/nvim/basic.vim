@@ -35,6 +35,7 @@ set cursorline
 set signcolumn=yes " always show signcolumn for gitgutter
 set completeopt=menuone,noinsert,noselect
 set shortmess+=c
+set nospell
 
-" doulbe ESC should clear search result highlight
+" double ESC should clear search result highlight
 nnoremap <ESC><ESC> :noh<CR>

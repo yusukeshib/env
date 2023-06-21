@@ -12,9 +12,9 @@ if [[ -n "$SSH_CONNECTION" ]] ;then
 fi
 
 # direnv
-if type direnv &> /dev/null; then
-  eval "$(direnv hook zsh)"
-fi
+# if type direnv &> /dev/null; then
+#   eval "$(direnv hook zsh)"
+# fi
 
 # brew
 [ -d /opt/homebrew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -25,13 +25,13 @@ source "$HOME/.config/zsh/`uname`.zsh"
 source "$HOME/.config/zsh/functions.zsh"
 
 # rust
-[ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
+# [ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
 
 
 # nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+# [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # fzf
 # /opt/homebrew/opt/fzf/install
@@ -40,4 +40,8 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # pyenv
-eval "$(pyenv init -)"
+# eval "$(pyenv init -)"
+
+#asdf
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
+source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"

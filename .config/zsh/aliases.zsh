@@ -13,3 +13,19 @@ if type "batcat" > /dev/null; then
 elif type "bat" > /dev/null; then
   alias cat="bat"
 fi
+
+# yay!
+alias ok='aws-vault exec -d 8h "${AWS_PROFILE:-fable-hub}" --'
+alias okd='aws-vault exec -d 8h fable-development --'
+alias okm='aws-vault exec -d 8h fable-management --'
+alias okp='aws-vault exec -d 8h fable-production --'
+
+alias kd='okd kubectl --context=development'
+alias km='okm kubectl --context=management'
+alias kp='okp kubectl --context=production'
+
+alias tf='ok terragrunt'
+alias tfa='ok terragrunt apply'
+alias tfi='ok terragrunt init'
+alias tfiu='ok terragrunt init -upgrade'
+alias tfp='ok terragrunt plan'

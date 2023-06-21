@@ -20,12 +20,12 @@ cmp.setup({
     })
   },
   sources = {
-    { name = 'copilot' },
     { name = 'nvim_lsp' },
     { name = 'vsnip' },
     { name = 'path' },
     { name = 'buffer' },
-    { name = 'spell' }
+    { name = 'spell' },
+    { name = 'copilot' },
   },
 })
 

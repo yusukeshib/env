@@ -65,7 +65,7 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'lukas-reineke/lsp-format.nvim'
-Plug 'j-hui/fidget.nvim'
+Plug 'j-hui/fidget.nvim', { 'tag': 'legacy' }
 Plug 'folke/trouble.nvim'
 
 Plug 'simrat39/rust-tools.nvim'

@@ -25,7 +25,7 @@ cmp.setup({
     { name = 'path' },
     { name = 'buffer' },
     { name = 'spell' },
-    { name = 'copilot' },
+    -- { name = 'copilot' },
   },
 })
 

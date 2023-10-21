@@ -3,9 +3,9 @@ if type "tmux" > /dev/null; then
   alias new="tmux new -s"
 fi
 
-if type "nvim" > /dev/null; then
-  alias vi="nvim"
-  alias vim="nvim"
+if type "lvim" > /dev/null; then
+  alias vi="lvim"
+  alias vim="lvim"
 fi
 
 if type "batcat" > /dev/null; then

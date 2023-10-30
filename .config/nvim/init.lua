@@ -118,6 +118,23 @@ require('mason-lspconfig').setup({
     lsp_zero.default_setup,
   },
 })
+-- Completion configuration
+local cmp = require('cmp')
+local cmp_action = require('lsp-zero').cmp_action()
+cmp.setup({
+  -- presetlect first item
+  preselect = 'item',
+  completion = {
+    completeopt = 'menu,menuone,noinsert'
+  },
+  -- enter to confirm
+  mapping = cmp.mapping.preset.insert({
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<Tab>'] = cmp_action.luasnip_supertab(),
+    ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
+  })
+})
+
 require('rust-tools').setup({
   server = {
     settings = {
@@ -146,6 +163,7 @@ require('gitsigns').setup()
 require('nvim-dap-virtual-text').setup()
 require('symbols-outline').setup()
 
+-- Format on save
 vim.cmd([[autocmd BufWritePre * lua vim.lsp.buf.format()]])
 
 --

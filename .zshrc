@@ -46,3 +46,8 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
 source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+# lldb-vscode
+export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
+export PATH="$(brew --prefix)/opt/llvm/bin:$PATH"

@@ -7,3 +7,4 @@ Brewfile.lock.json
 /.config/gh/
 /.config/op/
 /.config/raycast/
+.luarc.json

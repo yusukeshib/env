@@ -48,6 +48,20 @@ require('lazy').setup({
   -- Todo
   { 'folke/todo-comments.nvim', },
 
+  -- ChatGPT
+  -- {
+  --   "jackMort/ChatGPT.nvim",
+  --   event = "VeryLazy",
+  --   config = function()
+  --     require("chatgpt").setup()
+  --   end,
+  --   dependencies = {
+  --     "MunifTanjim/nui.nvim",
+  --     "nvim-lua/plenary.nvim",
+  --     "nvim-telescope/telescope.nvim"
+  --   }
+  -- },
+
   -- Debug
   { 'simrat39/rust-tools.nvim' },
   { 'mfussenegger/nvim-dap' },
@@ -80,6 +94,9 @@ require('lazy').setup({
       })
     end
   },
+
+  --
+  { 'kosayoda/nvim-lightbulb' },
 
   -- undo
   { 'mbbill/undotree' },
@@ -162,9 +179,18 @@ require('todo-comments').setup()
 require('gitsigns').setup()
 require('nvim-dap-virtual-text').setup()
 require('symbols-outline').setup()
+require("nvim-lightbulb").setup({ autocmd = { enabled = true } })
+
+-- Telescope
+require('telescope').load_extension('fzf')
 
 -- Format on save
 vim.cmd([[autocmd BufWritePre * lua vim.lsp.buf.format()]])
+
+-- Open
+-- require("chatgpt").setup({
+--   api_key_cmd = "op read op://Personal/openai/apikey --no-newline"
+-- })
 
 --
 -- Keyboard shortcuts
@@ -187,7 +213,6 @@ vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle, {})
 -- NvimTree
 vim.keymap.set('n', '<C-a>', vim.cmd.NvimTreeFindFileToggle, {})
 -- Telescope
-require('telescope').load_extension('fzf')
 vim.keymap.set('n', '<C-p>', function()
   require('telescope.builtin').git_files(require('telescope.themes').get_ivy())
 end, {})
@@ -197,3 +222,5 @@ vim.keymap.set('n', ';;', function()
     ignore_current_buffer = true,
   });
 end, {})
+-- Code action
+vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, {})

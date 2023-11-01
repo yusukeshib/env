@@ -51,3 +51,4 @@ export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 export PATH="$(brew --prefix)/opt/llvm/bin:$PATH"
+source /Users/yusuke/.config/op/plugins.sh

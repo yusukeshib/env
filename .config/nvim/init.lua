@@ -9,14 +9,15 @@ vim.opt.backup = false
 vim.opt.undofile = true
 vim.opt.smartindent = true
 vim.opt.signcolumn = "yes"
--- For NvimTree
-vim.g.loaded_netrw = 1            -- disable netrw at the very start of your init.lua
-vim.g.loaded_netrwPlugin = 1
-vim.opt.termguicolors = true      -- set termguicolors to enable highlight groups
 vim.opt.clipboard = "unnamedplus" -- sync yank with mac's clipboard
 vim.opt.cursorline = true         -- highlight current line
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+
+-- For NvimTree
+vim.g.loaded_netrw = 1       -- disable netrw at the very start of your init.lua
+vim.g.loaded_netrwPlugin = 1
+vim.opt.termguicolors = true -- set termguicolors to enable highlight groups
 
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -33,7 +34,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
   -- Lsp
-  { 'williamboman/mason.nvim' },
+  { 'williamboman/mason.nvim',          config = true },
   { 'williamboman/mason-lspconfig.nvim' },
   { 'VonHeikemen/lsp-zero.nvim', },
   { 'neovim/nvim-lspconfig' },
@@ -44,34 +45,27 @@ require('lazy').setup({
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
-  { 'simrat39/symbols-outline.nvim' },
+  { 'simrat39/symbols-outline.nvim', config = true },
   -- Todo
-  { 'folke/todo-comments.nvim', },
-
-  -- ChatGPT
-  -- {
-  --   "jackMort/ChatGPT.nvim",
-  --   event = "VeryLazy",
-  --   config = function()
-  --     require("chatgpt").setup()
-  --   end,
-  --   dependencies = {
-  --     "MunifTanjim/nui.nvim",
-  --     "nvim-lua/plenary.nvim",
-  --     "nvim-telescope/telescope.nvim"
-  --   }
-  -- },
+  { 'folke/todo-comments.nvim',      config = true },
 
   -- Debug
-  { 'simrat39/rust-tools.nvim' },
+  { 'simrat39/rust-tools.nvim', },
   { 'mfussenegger/nvim-dap' },
-  { 'rcarriga/nvim-dap-ui' },
-  { 'folke/neodev.nvim', },
-  { 'theHamsta/nvim-dap-virtual-text' },
+  { 'rcarriga/nvim-dap-ui',          config = true },
+  {
+    'folke/neodev.nvim',
+    config = function()
+      require('neodev').setup({
+        library = { plugins = { 'nvim-dap-ui' }, types = true },
+      })
+    end
+  },
+  { 'theHamsta/nvim-dap-virtual-text', config = true },
 
   -- UI(status,tree,finder)
-  { 'nvim-lualine/lualine.nvim' },
-  { 'nvim-tree/nvim-tree.lua' },
+  { 'nvim-lualine/lualine.nvim',       config = true },
+  { 'nvim-tree/nvim-tree.lua',         config = true },
   {
     'nvim-telescope/telescope.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' }
@@ -95,8 +89,13 @@ require('lazy').setup({
     end
   },
 
-  --
-  { 'kosayoda/nvim-lightbulb' },
+  -- Light bulb
+  {
+    'kosayoda/nvim-lightbulb',
+    config = function()
+      require("nvim-lightbulb").setup({ autocmd = { enabled = true } })
+    end
+  },
 
   -- undo
   { 'mbbill/undotree' },
@@ -108,8 +107,8 @@ require('lazy').setup({
   { 'othree/eregex.vim' },
   -- git
   { 'tpope/vim-fugitive' },
-  -- { 'f-person/git-blame.nvim' },
-  { 'lewis6991/gitsigns.nvim', },
+  { 'f-person/git-blame.nvim', config = true },
+  { 'lewis6991/gitsigns.nvim', config = true },
   -- LSP progress indicator
   {
     'j-hui/fidget.nvim',
@@ -128,7 +127,6 @@ lsp_zero.on_attach(function(client, bufnr)
   lsp_zero.default_keymaps({ buffer = bufnr })
 end)
 require('lspconfig').lua_ls.setup({})
-require('mason').setup({})
 require('mason-lspconfig').setup({
   ensure_installed = {},
   handlers = {
@@ -169,28 +167,12 @@ require('rust-tools').setup({
     standalone = false
   }
 })
-require('dapui').setup()
-require('neodev').setup({
-  library = { plugins = { 'nvim-dap-ui' }, types = true },
-})
-require('nvim-tree').setup()
-require('lualine').setup()
-require('todo-comments').setup()
-require('gitsigns').setup()
-require('nvim-dap-virtual-text').setup()
-require('symbols-outline').setup()
-require("nvim-lightbulb").setup({ autocmd = { enabled = true } })
 
 -- Telescope
 require('telescope').load_extension('fzf')
 
 -- Format on save
 vim.cmd([[autocmd BufWritePre * lua vim.lsp.buf.format()]])
-
--- Open
--- require("chatgpt").setup({
---   api_key_cmd = "op read op://Personal/openai/apikey --no-newline"
--- })
 
 --
 -- Keyboard shortcuts

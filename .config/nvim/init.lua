@@ -66,6 +66,7 @@ require('lazy').setup({
   -- UI(status,tree,finder)
   { 'nvim-lualine/lualine.nvim',       config = true },
   { 'nvim-tree/nvim-tree.lua',         config = true },
+  { 'akinsho/bufferline.nvim',         version = "*", dependencies = 'nvim-tree/nvim-web-devicons', config = true },
   {
     'nvim-telescope/telescope.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' }

@@ -117,6 +117,20 @@ require('lazy').setup({
     event = 'LspAttach',
     opts = {},
   },
+  {
+    "jackMort/ChatGPT.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("chatgpt").setup({
+        api_key_cmd = "op read op://Personal/openai/key --no-newline"
+      })
+    end,
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim"
+    }
+  }
 })
 
 -- ColorScheme
@@ -175,7 +189,6 @@ require('telescope').load_extension('fzf')
 -- Format on save
 vim.cmd([[autocmd BufWritePre * lua vim.lsp.buf.format()]])
 
---
 -- Keyboard shortcuts
 --
 

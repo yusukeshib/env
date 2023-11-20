@@ -2,6 +2,10 @@ if type "tmux" > /dev/null; then
   alias a="tmux attach -d -t"
   alias new="tmux new -s"
 fi
+# if type "zellij" > /dev/null; then
+#   alias z="zellij"
+#   alias a="z attach"
+# fi
 
 if type "nvim" > /dev/null; then
   alias vi="nvim"

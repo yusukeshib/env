@@ -82,7 +82,7 @@ require('lazy').setup({
     config = function()
       local configs = require("nvim-treesitter.configs")
       configs.setup({
-        ensure_installed = { "c", "lua", "javascript", "typescript", "html", "rust" },
+        ensure_installed = { "c", "lua", "javascript", "typescript", "tsx", "html", "rust", "glsl" },
         sync_install = false,
         highlight = { enable = true },
         indent = { enable = true },
@@ -117,20 +117,20 @@ require('lazy').setup({
     event = 'LspAttach',
     opts = {},
   },
-  {
-    "jackMort/ChatGPT.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("chatgpt").setup({
-        api_key_cmd = "op read op://Personal/openai/key --no-newline"
-      })
-    end,
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim"
-    }
-  }
+  -- {
+  --   "jackMort/ChatGPT.nvim",
+  --   event = "VeryLazy",
+  --   config = function()
+  --     require("chatgpt").setup({
+  --       api_key_cmd = "op read op://Personal/openai/key --no-newline"
+  --     })
+  --   end,
+  --   dependencies = {
+  --     "MunifTanjim/nui.nvim",
+  --     "nvim-lua/plenary.nvim",
+  --     "nvim-telescope/telescope.nvim"
+  --   }
+  -- }
 })
 
 -- ColorScheme

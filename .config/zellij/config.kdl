@@ -233,8 +233,8 @@ pane_frames false
 // Options:
 //   - true (default)
 //   - false
-//
-// session_serialization false
+
+session_serialization false
 
 // Whether pane viewports are serialized along with the session, default is false
 // Options:
@@ -245,8 +245,8 @@ pane_frames false
 // Scrollback lines to serialize along with the pane viewport when serializing sessions, 0
 // defaults to the scrollback size. If this number is higher than the scrollback size, it will
 // also default to the scrollback size. This does nothing if `serialize_pane_viewport` is not true.
-//
-// scrollback_lines_to_serialize 10000
+
+scrollback_lines_to_serialize 10000
 
 // Define color themes for Zellij
 // For more examples, see: https://github.com/zellij-org/zellij/tree/main/example/themes

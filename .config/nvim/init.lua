@@ -131,6 +131,9 @@ require('lazy').setup({
   --     "nvim-telescope/telescope.nvim"
   --   }
   -- }
+
+  -- kdl format
+  { 'imsnif/kdl.vim' },
 })
 
 -- ColorScheme

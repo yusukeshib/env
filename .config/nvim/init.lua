@@ -82,7 +82,7 @@ require('lazy').setup({
     config = function()
       local configs = require("nvim-treesitter.configs")
       configs.setup({
-        ensure_installed = { "c", "lua", "javascript", "typescript", "tsx", "html", "rust", "glsl" },
+        ensure_installed = { "python", "lua", "typescript", "tsx", "html", "rust", "glsl" },
         sync_install = false,
         highlight = { enable = true },
         indent = { enable = true },
@@ -130,7 +130,7 @@ require('lazy').setup({
   --     "nvim-lua/plenary.nvim",
   --     "nvim-telescope/telescope.nvim"
   --   }
-  -- }
+  -- },
 
   -- kdl format
   { 'imsnif/kdl.vim' },
@@ -144,13 +144,13 @@ local lsp_zero = require('lsp-zero')
 lsp_zero.on_attach(function(client, bufnr)
   lsp_zero.default_keymaps({ buffer = bufnr })
 end)
-require('lspconfig').lua_ls.setup({})
 require('mason-lspconfig').setup({
-  ensure_installed = {},
+  ensure_installed = { "tsserver" },
   handlers = {
     lsp_zero.default_setup,
   },
 })
+
 -- Completion configuration
 local cmp = require('cmp')
 local cmp_action = require('lsp-zero').cmp_action()
@@ -167,6 +167,10 @@ cmp.setup({
     ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
   })
 })
+
+require('lspconfig').lua_ls.setup({})
+
+require('lspconfig').tsserver.setup({})
 
 require('rust-tools').setup({
   server = {

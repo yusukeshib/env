@@ -1,7 +1,8 @@
-# if type "tmux" > /dev/null; then
-#   alias a="tmux attach -d -t"
-#   alias new="tmux new -s"
-# fi
+if type "tmux" > /dev/null; then
+  alias a="tmux attach -d -t"
+  alias new="tmux new -s"
+fi
+
 if type "zellij" > /dev/null; then
   alias z="zellij"
 fi
@@ -15,6 +16,10 @@ if type "batcat" > /dev/null; then
   alias cat="batcat"
 elif type "bat" > /dev/null; then
   alias cat="bat"
+fi
+
+if type "rg" > /dev/null; then
+  alias rg="rg --hidden"
 fi
 
 # yay!

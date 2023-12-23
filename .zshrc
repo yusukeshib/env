@@ -53,3 +53,4 @@ export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 export PATH="$(brew --prefix)/opt/llvm/bin:$PATH"
 source "$HOME/.config/op/plugins.sh"
 
+export PKG_CONFIG_PATH="/opt/homebrew/opt/libarchive/lib/pkgconfig"

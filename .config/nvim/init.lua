@@ -32,27 +32,71 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+vim.g.coq_settings = { auto_start = true }
+
 require('lazy').setup({
   -- Lsp
-  { 'williamboman/mason.nvim',          config = true },
-  { 'williamboman/mason-lspconfig.nvim' },
-  { 'VonHeikemen/lsp-zero.nvim', },
+  { 'williamboman/mason.nvim',           config = true },
+  { 'williamboman/mason-lspconfig.nvim', config = true },
   { 'neovim/nvim-lspconfig' },
-  { 'hrsh7th/cmp-nvim-lsp' },
-  { 'hrsh7th/nvim-cmp' },
   { 'L3MON4D3/LuaSnip' },
   {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   { 'simrat39/symbols-outline.nvim', config = true },
+
+  {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    opts = {},
+  },
+
+  -- Auto complete
+  { 'hrsh7th/cmp-nvim-lsp' },
+  { 'hrsh7th/cmp-buffer' },
+  { 'hrsh7th/cmp-path' },
+  { 'hrsh7th/cmp-cmdline' },
+  { 'hrsh7th/nvim-cmp' },
+  { 'L3MON4D3/LuaSnip' },
+  { 'saadparwaiz1/cmp_luasnip' },
+  {
+    'github/copilot.vim',
+    config = function()
+      require("copilot").setup({
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      })
+    end
+  },
+  { "zbirenbaum/copilot.lua", config = true },
+  {
+    "zbirenbaum/copilot-cmp",
+    config = function()
+      require("copilot_cmp").setup()
+    end
+  },
+  {
+    "petertriho/cmp-git",
+    dependencies = { "nvim-lua/plenary.nvim" }
+  },
+  { 'lukas-reineke/cmp-rg' },
+  {
+    'saecki/crates.nvim',
+    tag = 'stable',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      require('crates').setup()
+    end
+  },
+
   -- Todo
-  { 'folke/todo-comments.nvim',      config = true },
+  { 'folke/todo-comments.nvim', config = true },
 
   -- Debug
   { 'simrat39/rust-tools.nvim', },
   { 'mfussenegger/nvim-dap' },
-  { 'rcarriga/nvim-dap-ui',          config = true },
+  { 'rcarriga/nvim-dap-ui',     config = true },
   {
     'folke/neodev.nvim',
     config = function()
@@ -66,7 +110,12 @@ require('lazy').setup({
   -- UI(status,tree,finder)
   { 'nvim-lualine/lualine.nvim',       config = true },
   { 'nvim-tree/nvim-tree.lua',         config = true },
-  { 'akinsho/bufferline.nvim',         version = "*", dependencies = 'nvim-tree/nvim-web-devicons', config = true },
+  {
+    'akinsho/bufferline.nvim',
+    version = "*",
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    config = true
+  },
   {
     'nvim-telescope/telescope.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' }
@@ -117,6 +166,7 @@ require('lazy').setup({
     event = 'LspAttach',
     opts = {},
   },
+
   -- {
   --   "jackMort/ChatGPT.nvim",
   --   event = "VeryLazy",
@@ -131,49 +181,109 @@ require('lazy').setup({
   --     "nvim-telescope/telescope.nvim"
   --   }
   -- },
-
-  -- kdl format
-  { 'imsnif/kdl.vim' },
 })
+
+
+-- Set up nvim-cmp.
+local luasnip = require("luasnip")
+local cmp = require('cmp')
+
+local has_words_before = function()
+  unpack = unpack or table.unpack
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end,
+  },
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+        -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
+        -- that way you will only jump inside the snippet region
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      elseif has_words_before() then
+        cmp.complete()
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
+  }),
+  sources = cmp.config.sources({
+    { name = "git" },
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+    { name = "rg" },
+    { name = "crates" },
+    { name = "copilot", group_index = 2 },
+  }, {
+    { name = 'buffer' },
+  })
+})
+
+-- Set configuration for specific filetype.
+cmp.setup.filetype('gitcommit', {
+  sources = cmp.config.sources({
+    { name = 'git' },
+  }, {
+    { name = 'buffer' },
+  })
+})
+-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline({ '/', '?' }, {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  })
+})
+
+require("cmp_git").setup()
 
 -- ColorScheme
 vim.cmd('colorscheme dracula')
 
--- LSP
-local lsp_zero = require('lsp-zero')
-lsp_zero.on_attach(function(client, bufnr)
-  lsp_zero.default_keymaps({ buffer = bufnr })
-end)
-require('mason-lspconfig').setup({
-  ensure_installed = { "tsserver" },
-  handlers = {
-    lsp_zero.default_setup,
-  },
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+require('lspconfig').lua_ls.setup({
+  capabilities = capabilities
 })
-
--- Completion configuration
-local cmp = require('cmp')
-local cmp_action = require('lsp-zero').cmp_action()
-cmp.setup({
-  -- presetlect first item
-  preselect = 'item',
-  completion = {
-    completeopt = 'menu,menuone,noinsert'
-  },
-  -- enter to confirm
-  mapping = cmp.mapping.preset.insert({
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    ['<Tab>'] = cmp_action.luasnip_supertab(),
-    ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
-  })
-})
-
-require('lspconfig').lua_ls.setup({})
-
-require('lspconfig').tsserver.setup({})
 
 require('rust-tools').setup({
   server = {
+    capabilities = capabilities,
     settings = {
       ['rust-analyzer'] = {
         checkOnSave = {
@@ -188,6 +298,53 @@ require('rust-tools').setup({
     },
     standalone = false
   }
+})
+
+require("typescript-tools").setup({
+  settings = {
+    capabilities = capabilities,
+    -- spawn additional tsserver instance to calculate diagnostics on it
+    separate_diagnostic_server = true,
+    -- "change"|"insert_leave" determine when the client asks the server about diagnostic
+    publish_diagnostic_on = "insert_leave",
+    -- array of strings("fix_all"|"add_missing_imports"|"remove_unused"|
+    -- "remove_unused_imports"|"organize_imports") -- or string "all"
+    -- to include all supported code actions
+    -- specify commands exposed as code_actions
+    expose_as_code_action = {},
+    -- string|nil - specify a custom path to `tsserver.js` file, if this is nil or file under path
+    -- not exists then standard path resolution strategy is applied
+    tsserver_path = nil,
+    -- specify a list of plugins to load by tsserver, e.g., for support `styled-components`
+    -- (see 💅 `styled-components` support section)
+    tsserver_plugins = {},
+    -- this value is passed to: https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-megabytes
+    -- memory limit in megabytes or "auto"(basically no limit)
+    tsserver_max_memory = "auto",
+    -- described below
+    tsserver_format_options = {},
+    tsserver_file_preferences = {},
+    -- locale of all tsserver messages, supported locales you can find here:
+    -- https://github.com/microsoft/TypeScript/blob/3c221fc086be52b19801f6e8d82596d04607ede6/src/compiler/utilitiesPublic.ts#L620
+    tsserver_locale = "en",
+    -- mirror of VSCode's `typescript.suggest.completeFunctionCalls`
+    complete_function_calls = false,
+    include_completions_with_insert_text = true,
+    -- CodeLens
+    -- WARNING: Experimental feature also in VSCode, because it might hit performance of server.
+    -- possible values: ("off"|"all"|"implementations_only"|"references_only")
+    code_lens = "off",
+    -- by default code lenses are displayed on all referencable values and for some of you it can
+    -- be too much this option reduce count of them by removing member references from lenses
+    disable_member_code_lens = true,
+    -- JSXCloseTag
+    -- WARNING: it is disabled by default (maybe you configuration or distro already uses nvim-auto-tag,
+    -- that maybe have a conflict if enable this feature. )
+    jsx_close_tag = {
+      enable = false,
+      filetypes = { "javascriptreact", "typescriptreact" },
+    }
+  },
 })
 
 -- Telescope

@@ -1,10 +1,3 @@
 .DS_Store
 Brewfile.lock.json
-/.config/gatsby/
-/.config/wslu/
-/.config/wezterm/
-/.config/kitty/
-/.config/gh/
-/.config/op/
-/.config/raycast/
 .luarc.json

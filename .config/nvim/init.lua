@@ -19,6 +19,10 @@ vim.g.loaded_netrw = 1       -- disable netrw at the very start of your init.lua
 vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true -- set termguicolors to enable highlight groups
 
+-- For eregex
+vim.g.eregex_default_enable = 0
+vim.g.eregex_force_case = 1
+
 local home = vim.fn.expand("$HOME")
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -61,6 +65,7 @@ require('lazy').setup({
   { 'hrsh7th/nvim-cmp' },
   { 'L3MON4D3/LuaSnip' },
   { 'saadparwaiz1/cmp_luasnip' },
+  { 'uga-rosa/cmp-dictionary',       config = true },
   {
     'github/copilot.vim',
     config = function()
@@ -80,6 +85,15 @@ require('lazy').setup({
   {
     "petertriho/cmp-git",
     dependencies = { "nvim-lua/plenary.nvim" }
+  },
+  {
+    "Dynge/gitmoji.nvim",
+    dependencies = {
+      "hrsh7th/nvim-cmp",
+    },
+    opts = {},
+    ft = "gitcommit",
+    config = true
   },
   { 'lukas-reineke/cmp-rg' },
   {
@@ -154,8 +168,10 @@ require('lazy').setup({
   { 'dracula/vim' },
   -- subvert
   { 'tpope/vim-abolish' },
+
   -- regex
   { 'othree/eregex.vim' },
+
   -- git
   { 'tpope/vim-fugitive' },
   { 'f-person/git-blame.nvim', config = true },
@@ -238,6 +254,10 @@ cmp.setup({
     { name = "git" },
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    {
+      name = "dictionary",
+      keyword_length = 2,
+    },
     { name = "rg" },
     { name = "crates" },
     { name = "copilot", group_index = 2 },
@@ -250,6 +270,11 @@ cmp.setup({
 cmp.setup.filetype('gitcommit', {
   sources = cmp.config.sources({
     { name = 'git' },
+    { name = 'gitmoji' },
+    {
+      name = "dictionary",
+      keyword_length = 2,
+    },
   }, {
     { name = 'buffer' },
   })

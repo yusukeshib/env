@@ -19,6 +19,7 @@ vim.g.loaded_netrw = 1       -- disable netrw at the very start of your init.lua
 vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true -- set termguicolors to enable highlight groups
 
+local home = vim.fn.expand("$HOME")
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -167,20 +168,20 @@ require('lazy').setup({
     opts = {},
   },
 
-  -- {
-  --   "jackMort/ChatGPT.nvim",
-  --   event = "VeryLazy",
-  --   config = function()
-  --     require("chatgpt").setup({
-  --       api_key_cmd = "op read op://Personal/openai/key --no-newline"
-  --     })
-  --   end,
-  --   dependencies = {
-  --     "MunifTanjim/nui.nvim",
-  --     "nvim-lua/plenary.nvim",
-  --     "nvim-telescope/telescope.nvim"
-  --   }
-  -- },
+  {
+    "jackMort/ChatGPT.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("chatgpt").setup({
+        api_key_cmd = "cat " .. home .. "/.chatgpt.key"
+      })
+    end,
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim"
+    }
+  },
 })
 
 

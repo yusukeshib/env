@@ -43,6 +43,26 @@ require('lazy').setup({
   -- Lsp
   { 'williamboman/mason.nvim',           config = true },
   { 'williamboman/mason-lspconfig.nvim', config = true },
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim"
+    },
+    config = function()
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
+      require('mason').setup()
+      local mason_lspconfig = require 'mason-lspconfig'
+      mason_lspconfig.setup({
+        ensure_installed = { "pylsp" }
+      })
+      require("lspconfig").pylsp.setup({
+        capabilities = capabilities,
+      })
+    end
+  },
   { 'neovim/nvim-lspconfig' },
   { 'L3MON4D3/LuaSnip' },
   {
@@ -184,20 +204,20 @@ require('lazy').setup({
     opts = {},
   },
 
-  {
-    "jackMort/ChatGPT.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("chatgpt").setup({
-        api_key_cmd = "cat " .. home .. "/.chatgpt.key"
-      })
-    end,
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim"
-    }
-  },
+  -- {
+  --   "jackMort/ChatGPT.nvim",
+  --   event = "VeryLazy",
+  --   config = function()
+  --     require("chatgpt").setup({
+  --       api_key_cmd = "cat " .. home .. "/.chatgpt.key"
+  --     })
+  --   end,
+  --   dependencies = {
+  --     "MunifTanjim/nui.nvim",
+  --     "nvim-lua/plenary.nvim",
+  --     "nvim-telescope/telescope.nvim"
+  --   }
+  -- },
 })
 
 

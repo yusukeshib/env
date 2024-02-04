@@ -24,6 +24,9 @@ source "$HOME/.config/zsh/zim.zsh"
 source "$HOME/.config/zsh/`uname`.zsh"
 source "$HOME/.config/zsh/functions.zsh"
 
+# Use graphite
+unalias gt
+
 # rust
 # [ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
 

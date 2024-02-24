@@ -41,27 +41,14 @@ vim.g.coq_settings = { auto_start = true }
 
 require('lazy').setup({
   -- Lsp
-  { 'williamboman/mason.nvim',           config = true },
-  { 'williamboman/mason-lspconfig.nvim', config = true },
+  { 'williamboman/mason.nvim',          config = true },
+  { 'williamboman/mason-lspconfig.nvim' },
   {
     "neovim/nvim-lspconfig",
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim"
     },
-    config = function()
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
-      require('mason').setup()
-      local mason_lspconfig = require 'mason-lspconfig'
-      mason_lspconfig.setup({
-        ensure_installed = { "pylsp" }
-      })
-      require("lspconfig").pylsp.setup({
-        capabilities = capabilities,
-      })
-    end
   },
   { 'neovim/nvim-lspconfig' },
   { 'L3MON4D3/LuaSnip' },
@@ -144,7 +131,23 @@ require('lazy').setup({
 
   -- UI(status,tree,finder)
   { 'nvim-lualine/lualine.nvim',       config = true },
-  { 'nvim-tree/nvim-tree.lua',         config = true },
+  {
+    'nvim-tree/nvim-tree.lua',
+    config = function()
+      require("nvim-tree").setup({
+        sync_root_with_cwd = true,
+        respect_buf_cwd = true,
+        update_focused_file = {
+          enable = true,
+          update_root = true,
+        },
+        filters = {
+          git_ignored = false,
+          dotfiles = false,
+        },
+      })
+    end
+  },
   {
     'akinsho/bufferline.nvim',
     version = "*",
@@ -182,6 +185,8 @@ require('lazy').setup({
     end
   },
 
+  -- rooter
+  { 'notjedi/nvim-rooter.lua', config = true },
   -- undo
   { 'mbbill/undotree' },
   -- theme
@@ -324,9 +329,41 @@ require("cmp_git").setup()
 -- ColorScheme
 vim.cmd('colorscheme dracula')
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
+local mason_lspconfig = require('mason-lspconfig')
+mason_lspconfig.setup({
+  ensure_installed = { "pylsp" }
+})
+
 require('lspconfig').lua_ls.setup({
   capabilities = capabilities
+})
+
+require('lspconfig').pylsp.setup({
+  capabilities = capabilities,
+  settings = {
+    pylsp = {
+      formatCommand = { "black" },
+      plugins = {
+        -- formatter
+        black = { enabled = true },
+        autopep8 = { enabled = false },
+        yapf = { enabled = false },
+        -- linter options
+        pylint = { enabled = false, executable = "pylint" },
+        pyflakes = { enabled = false },
+        pycodestyle = { enabled = false },
+        -- type checker
+        pylsp_mypy = { enabled = true },
+        -- auto-completion options
+        jedi_completion = { fuzzy = true },
+        -- import sorting
+        pyls_isort = { enabled = false },
+      }
+    }
+  }
 })
 
 require('rust-tools').setup({

@@ -156,7 +156,16 @@ require('lazy').setup({
   },
   {
     'nvim-telescope/telescope.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' }
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      require("telescope").setup({
+        pickers = {
+          find_files = {
+            find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+          },
+        },
+      })
+    end
   },
   {
     'nvim-telescope/telescope-fzf-native.nvim',
@@ -352,7 +361,7 @@ require('lspconfig').pylsp.setup({
         autopep8 = { enabled = false },
         yapf = { enabled = false },
         -- linter options
-        pylint = { enabled = false, executable = "pylint" },
+        pylint = { enabled = true, executable = "pylint" },
         pyflakes = { enabled = false },
         pycodestyle = { enabled = false },
         -- type checker
@@ -388,6 +397,8 @@ require('rust-tools').setup({
 require("typescript-tools").setup({
   settings = {
     capabilities = capabilities,
+    -- code_lens = "all",
+    publish_diagnostic_on = "fix_all",
   },
 })
 
@@ -418,7 +429,7 @@ vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle, {})
 vim.keymap.set('n', '<C-a>', vim.cmd.NvimTreeFindFileToggle, {})
 -- Telescope
 vim.keymap.set('n', '<C-p>', function()
-  require('telescope.builtin').git_files(require('telescope.themes').get_ivy())
+  require('telescope.builtin').find_files(require('telescope.themes').get_ivy())
 end, {})
 vim.keymap.set('n', ';;', function()
   require('telescope.builtin').buffers({

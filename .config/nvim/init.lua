@@ -137,6 +137,9 @@ require('lazy').setup({
       require("nvim-tree").setup({
         sync_root_with_cwd = true,
         respect_buf_cwd = true,
+        view = {
+          width = 40,
+        },
         update_focused_file = {
           enable = true,
           update_root = true,
@@ -386,6 +389,7 @@ require('rust-tools').setup({
         files = {
           excludeDirs = {
             "apps/content/node_modules",
+            "crates/mercury_web/node_modules",
           },
         },
       }

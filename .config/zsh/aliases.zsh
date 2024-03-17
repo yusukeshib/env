@@ -19,7 +19,7 @@ elif type "bat" > /dev/null; then
 fi
 
 if type "rg" > /dev/null; then
-  alias rg="rg --hidden"
+  alias rg="rg --hidden -g '!.git/'"
 fi
 
 # yay!

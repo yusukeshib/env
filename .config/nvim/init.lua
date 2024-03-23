@@ -294,6 +294,7 @@ cmp.setup({
     end, { "i", "s" }),
   }),
   sources = cmp.config.sources({
+    { name = "copilot" },
     { name = "git" },
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
@@ -303,7 +304,6 @@ cmp.setup({
     },
     { name = "rg" },
     { name = "crates" },
-    { name = "copilot" },
   }, {
     { name = 'buffer' },
   })

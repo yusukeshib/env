@@ -51,7 +51,6 @@ require('lazy').setup({
     },
   },
   { 'neovim/nvim-lspconfig' },
-  { 'L3MON4D3/LuaSnip' },
   {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -72,7 +71,7 @@ require('lazy').setup({
   { 'hrsh7th/nvim-cmp' },
   { 'L3MON4D3/LuaSnip' },
   { 'saadparwaiz1/cmp_luasnip' },
-  { 'uga-rosa/cmp-dictionary',       config = true },
+  { 'uga-rosa/cmp-dictionary', config = true },
   {
     'github/copilot.vim',
     config = function()
@@ -113,24 +112,24 @@ require('lazy').setup({
   },
 
   -- Todo
-  { 'folke/todo-comments.nvim', config = true },
+  { 'folke/todo-comments.nvim',  config = true },
 
   -- Debug
   { 'simrat39/rust-tools.nvim', },
-  { 'mfussenegger/nvim-dap' },
-  { 'rcarriga/nvim-dap-ui',     config = true },
-  {
-    'folke/neodev.nvim',
-    config = function()
-      require('neodev').setup({
-        library = { plugins = { 'nvim-dap-ui' }, types = true },
-      })
-    end
-  },
-  { 'theHamsta/nvim-dap-virtual-text', config = true },
+  -- { 'mfussenegger/nvim-dap' },
+  -- { 'rcarriga/nvim-dap-ui',     config = true },
+  -- {
+  --   'folke/neodev.nvim',
+  --   config = function()
+  --     require('neodev').setup({
+  --       library = { plugins = { 'nvim-dap-ui' }, types = true },
+  --     })
+  --   end
+  -- },
+  -- { 'theHamsta/nvim-dap-virtual-text', config = true },
 
   -- UI(status,tree,finder)
-  { 'nvim-lualine/lualine.nvim',       config = true },
+  { 'nvim-lualine/lualine.nvim', config = true },
   {
     'nvim-tree/nvim-tree.lua',
     config = function()
@@ -424,13 +423,13 @@ vim.cmd([[autocmd BufWritePre * lua vim.lsp.buf.format()]])
 -- Symbol outline
 vim.keymap.set('n', '<leader>s', vim.cmd.SymbolsOutline, {})
 -- Dap UI
-vim.keymap.set('n', '<leader>d', require('dapui').toggle, {})
-vim.keymap.set('n', '<F4>', vim.cmd.RustDebuggables, {})
-vim.keymap.set('n', '<F5>', require('dap').continue, {})
-vim.keymap.set('n', '<F9>', require('dap').toggle_breakpoint, {})
-vim.keymap.set('n', '<F10>', require('dap').step_over, {})
-vim.keymap.set('n', '<F11>', require('dap').step_into, {})
-vim.keymap.set('n', '<F12>', require('dap').step_out, {})
+-- vim.keymap.set('n', '<leader>d', require('dapui').toggle, {})
+-- vim.keymap.set('n', '<F4>', vim.cmd.RustDebuggables, {})
+-- vim.keymap.set('n', '<F5>', require('dap').continue, {})
+-- vim.keymap.set('n', '<F9>', require('dap').toggle_breakpoint, {})
+-- vim.keymap.set('n', '<F10>', require('dap').step_over, {})
+-- vim.keymap.set('n', '<F11>', require('dap').step_into, {})
+-- vim.keymap.set('n', '<F12>', require('dap').step_out, {})
 -- Trouble
 vim.keymap.set('n', '<leader>t', vim.cmd.TroubleToggle, {})
 -- Undo tree

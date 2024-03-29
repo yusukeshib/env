@@ -51,18 +51,19 @@ require('lazy').setup({
     },
   },
   { 'neovim/nvim-lspconfig' },
-  { 'L3MON4D3/LuaSnip' },
   {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   { 'simrat39/symbols-outline.nvim', config = true },
+  { 'onsails/lspkind.nvim' },
 
   {
     "pmizio/typescript-tools.nvim",
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
     opts = {},
   },
+  { 'simrat39/rust-tools.nvim', },
 
   -- Auto complete
   { 'hrsh7th/cmp-nvim-lsp' },
@@ -72,17 +73,8 @@ require('lazy').setup({
   { 'hrsh7th/nvim-cmp' },
   { 'L3MON4D3/LuaSnip' },
   { 'saadparwaiz1/cmp_luasnip' },
-  { 'uga-rosa/cmp-dictionary',       config = true },
-  {
-    'github/copilot.vim',
-    config = function()
-      require("copilot").setup({
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-      })
-    end
-  },
-  { "zbirenbaum/copilot.lua", config = true },
+  { 'uga-rosa/cmp-dictionary',  config = true },
+  { "zbirenbaum/copilot.lua",   config = true },
   {
     "zbirenbaum/copilot-cmp",
     config = function()
@@ -113,24 +105,11 @@ require('lazy').setup({
   },
 
   -- Todo
-  { 'folke/todo-comments.nvim', config = true },
+  -- { 'folke/todo-comments.nvim',  config = true },
 
-  -- Debug
-  { 'simrat39/rust-tools.nvim', },
-  { 'mfussenegger/nvim-dap' },
-  { 'rcarriga/nvim-dap-ui',     config = true },
-  {
-    'folke/neodev.nvim',
-    config = function()
-      require('neodev').setup({
-        library = { plugins = { 'nvim-dap-ui' }, types = true },
-      })
-    end
-  },
-  { 'theHamsta/nvim-dap-virtual-text', config = true },
 
   -- UI(status,tree,finder)
-  { 'nvim-lualine/lualine.nvim',       config = true },
+  { 'nvim-lualine/lualine.nvim', config = true },
   {
     'nvim-tree/nvim-tree.lua',
     config = function()
@@ -261,8 +240,8 @@ cmp.setup({
     end,
   },
   window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
+    -- completion = cmp.config.window.bordered(),
+    -- documentation = cmp.config.window.bordered(),
   },
   mapping = cmp.mapping.preset.insert({
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -294,6 +273,7 @@ cmp.setup({
     end, { "i", "s" }),
   }),
   sources = cmp.config.sources({
+    { name = "copilot" },
     { name = "git" },
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
@@ -303,10 +283,22 @@ cmp.setup({
     },
     { name = "rg" },
     { name = "crates" },
-    { name = "copilot" },
   }, {
     { name = 'buffer' },
-  })
+  }),
+  formatting = {
+    format = function(entry, vim_item)
+      if vim.tbl_contains({ 'path' }, entry.source.name) then
+        local icon, hl_group = require('nvim-web-devicons').get_icon(entry:get_completion_item().label)
+        if icon then
+          vim_item.kind = icon
+          vim_item.kind_hl_group = hl_group
+          return vim_item
+        end
+      end
+      return require('lspkind').cmp_format({ with_text = false, maxwidth = 50, })(entry, vim_item)
+    end
+  }
 })
 
 -- Set configuration for specific filetype.
@@ -423,14 +415,6 @@ vim.cmd([[autocmd BufWritePre * lua vim.lsp.buf.format()]])
 
 -- Symbol outline
 vim.keymap.set('n', '<leader>s', vim.cmd.SymbolsOutline, {})
--- Dap UI
-vim.keymap.set('n', '<leader>d', require('dapui').toggle, {})
-vim.keymap.set('n', '<F4>', vim.cmd.RustDebuggables, {})
-vim.keymap.set('n', '<F5>', require('dap').continue, {})
-vim.keymap.set('n', '<F9>', require('dap').toggle_breakpoint, {})
-vim.keymap.set('n', '<F10>', require('dap').step_over, {})
-vim.keymap.set('n', '<F11>', require('dap').step_into, {})
-vim.keymap.set('n', '<F12>', require('dap').step_out, {})
 -- Trouble
 vim.keymap.set('n', '<leader>t', vim.cmd.TroubleToggle, {})
 -- Undo tree

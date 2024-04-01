@@ -7,6 +7,10 @@ if type "zellij" > /dev/null; then
   alias z="zellij"
 fi
 
+if type "eza" > /dev/null; then
+  alias ls="eza"
+fi
+
 if type "nvim" > /dev/null; then
   alias vi="nvim"
   alias vim="nvim"

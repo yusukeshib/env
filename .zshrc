@@ -24,8 +24,8 @@ source "$HOME/.config/zsh/zim.zsh"
 source "$HOME/.config/zsh/`uname`.zsh"
 source "$HOME/.config/zsh/functions.zsh"
 
-# Use graphite
-unalias gt
+# Use gh command
+unalias gh
 
 # rust
 # [ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
@@ -56,7 +56,14 @@ export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 export PATH="$(brew --prefix)/opt/llvm/bin:$PATH"
 source "$HOME/.config/op/plugins.sh"
 
+# postgres
+export PATH="/opt/homebrew/opt/postgresql@13/bin:$PATH"
+
 export PKG_CONFIG_PATH="/opt/homebrew/opt/libarchive/lib/pkgconfig"
 
 # Too many open files
 ulimit -n 10240
+
+export WASMTIME_HOME="$HOME/.wasmtime"
+
+export PATH="$WASMTIME_HOME/bin:$PATH"

@@ -1,5 +1,6 @@
 [user]
   name = Yusuke Shibata
+  email = yusukeshib@gmail.com
   signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFHU+tFJRax7dVnTEiFM2+kwasijxiQ/GxXm0UqOXTTE
 
 [core]

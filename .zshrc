@@ -4,7 +4,6 @@ unsetopt BEEP
 export LANG=en_US.UTF-8
 export EDITOR="vi"
 export GPG_TTY=$(tty)
-export AWS_VAULT_BACKEND=keychain
 export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 
 if [[ -n "$SSH_CONNECTION" ]] ;then

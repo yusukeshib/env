@@ -57,11 +57,6 @@ require('lazy').setup({
   },
   { 'simrat39/symbols-outline.nvim', config = true },
 
-  {
-    "pmizio/typescript-tools.nvim",
-    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-    opts = {},
-  },
   { 'simrat39/rust-tools.nvim', },
 
   -- Auto complete
@@ -72,8 +67,8 @@ require('lazy').setup({
   { 'hrsh7th/nvim-cmp' },
   { 'L3MON4D3/LuaSnip' },
   { 'saadparwaiz1/cmp_luasnip' },
-  { 'uga-rosa/cmp-dictionary',  config = true },
-  { "zbirenbaum/copilot.lua",   config = true },
+  { 'uga-rosa/cmp-dictionary',       config = true },
+  { "zbirenbaum/copilot.lua",        config = true },
   {
     "zbirenbaum/copilot-cmp",
     config = function()
@@ -326,7 +321,11 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 local mason_lspconfig = require('mason-lspconfig')
 mason_lspconfig.setup({
-  ensure_installed = { "pylsp" }
+  ensure_installed = { "pylsp", "tsserver" }
+})
+
+require('lspconfig').tsserver.setup({
+  capabilities = capabilities
 })
 
 require('lspconfig').lua_ls.setup({
@@ -376,14 +375,6 @@ require('rust-tools').setup({
     },
     standalone = false
   }
-})
-
-require("typescript-tools").setup({
-  settings = {
-    capabilities = capabilities,
-    -- code_lens = "all",
-    publish_diagnostic_on = "fix_all",
-  },
 })
 
 -- Telescope

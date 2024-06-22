@@ -27,17 +27,18 @@ if type "rg" > /dev/null; then
 fi
 
 # yay!
-alias ok='aws-vault exec -d 8h "${AWS_PROFILE:-fable-hub}" --'
-alias okd='aws-vault exec -d 8h fable-development --'
-alias okm='aws-vault exec -d 8h fable-management --'
-alias okp='aws-vault exec -d 8h fable-production --'
+alias kdv='kubectl --context=dev-view'
+alias kde='kubectl --context=dev-edit'
+alias kda='kubectl --context=dev-admin'
+alias kmv='kubectl --context=mgmt-view'
+alias kme='kubectl --context=mgmt-edit'
+alias kma='kubectl --context=mgmt-admin'
+alias kpv='kubectl --context=prod-view'
+alias kpe='kubectl --context=prod-edit'
+alias kpa='kubectl --context=prod-admin'
 
-alias kd='okd kubectl --context=development'
-alias km='okm kubectl --context=management'
-alias kp='okp kubectl --context=production'
-
-alias tf='ok terragrunt'
-alias tfa='ok terragrunt apply'
-alias tfi='ok terragrunt init'
-alias tfiu='ok terragrunt init -upgrade'
-alias tfp='ok terragrunt plan'
+alias tf='terragrunt'
+alias tfa='terragrunt apply'
+alias tfi='terragrunt init'
+alias tfiu='terragrunt init -upgrade'
+alias tfp='terragrunt plan'

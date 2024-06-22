@@ -54,6 +54,7 @@ require('lazy').setup({
   {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = true
   },
   { 'simrat39/symbols-outline.nvim', config = true },
 
@@ -98,6 +99,18 @@ require('lazy').setup({
     end
   },
 
+  -- Git interface
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",         -- required
+      "sindrets/diffview.nvim",        -- optional - Diff integration
+      "nvim-telescope/telescope.nvim", -- optional
+      "ibhagwan/fzf-lua",              -- optional
+    },
+    config = true
+  },
+
   -- Todo
   { 'folke/todo-comments.nvim',  config = true },
 
@@ -140,16 +153,11 @@ require('lazy').setup({
   },
   {
     'nvim-telescope/telescope.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim', "folke/trouble.nvim" },
+    dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
-      local trouble = require("trouble.providers.telescope")
       require("telescope").setup({
         defaults = {
           preview = false,
-          mappings = {
-            i = { ["<c-t>"] = trouble.open_with_trouble },
-            n = { ["<c-t>"] = trouble.open_with_trouble },
-          },
         },
         pickers = {
           buffers = {
@@ -321,7 +329,7 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 local mason_lspconfig = require('mason-lspconfig')
 mason_lspconfig.setup({
-  ensure_installed = { "pylsp", "tsserver" }
+  ensure_installed = { "lua_ls", "pylsp", "tsserver" }
 })
 
 require('lspconfig').tsserver.setup({
@@ -389,7 +397,9 @@ vim.cmd([[autocmd BufWritePre * lua vim.lsp.buf.format()]])
 -- Symbol outline
 vim.keymap.set('n', '<leader>s', vim.cmd.SymbolsOutline, {})
 -- Trouble
-vim.keymap.set('n', '<leader>t', vim.cmd.TroubleToggle, {})
+-- vim.keymap.set('n', "''", function()
+--   require('trouble.sources.telescope').open()
+-- end, {})
 -- Undo tree
 vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle, {})
 -- NvimTree

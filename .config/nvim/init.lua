@@ -69,13 +69,13 @@ require('lazy').setup({
   { 'L3MON4D3/LuaSnip' },
   { 'saadparwaiz1/cmp_luasnip' },
   { 'uga-rosa/cmp-dictionary',       config = true },
-  { "zbirenbaum/copilot.lua",        config = true },
-  {
-    "zbirenbaum/copilot-cmp",
-    config = function()
-      require("copilot_cmp").setup()
-    end
-  },
+  -- { "zbirenbaum/copilot.lua",        config = true },
+  -- {
+  --   "zbirenbaum/copilot-cmp",
+  --   config = function()
+  --     require("copilot_cmp").setup()
+  --   end
+  -- },
   {
     "petertriho/cmp-git",
     dependencies = { "nvim-lua/plenary.nvim" }
@@ -271,7 +271,6 @@ cmp.setup({
     end, { "i", "s" }),
   }),
   sources = cmp.config.sources({
-    { name = "copilot" },
     { name = "git" },
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
@@ -281,6 +280,7 @@ cmp.setup({
     },
     { name = "rg" },
     { name = "crates" },
+    -- { name = "copilot" },
   }, {
     { name = 'buffer' },
   }),

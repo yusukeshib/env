@@ -26,7 +26,6 @@
   navigate = true  # use n and N to move between diff sections
   line-numbers = true
   side-by-side = false
-  syntax-theme = base16
 
 [merge]
   conflictstyle = diff3

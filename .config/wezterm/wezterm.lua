@@ -2,8 +2,8 @@ local wezterm = require 'wezterm'
 
 local config = wezterm.config_builder()
 
--- config.color_scheme = 'Deep'
-config.font = wezterm.font('Hack Nerd Font Mono')
+-- config.color_scheme = 'Dracula'
+-- config.font = wezterm.font('Hack Nerd Font Mono')
 config.font_size = 14.0
 config.initial_rows = 68
 config.initial_cols = 210

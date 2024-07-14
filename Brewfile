@@ -1,5 +1,4 @@
 brew "asdf"
-brew "tmux"
 brew "neovim"
 brew "fzf"
 brew "eza"

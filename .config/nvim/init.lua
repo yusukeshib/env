@@ -405,7 +405,7 @@ vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle, {})
 -- NvimTree
 vim.keymap.set('n', '<C-a>', vim.cmd.NvimTreeFindFileToggle, {})
 -- Telescope
-vim.keymap.set('n', '<C-p>', function()
+vim.keymap.set('n', '<C-k>', function()
   require('telescope.builtin').find_files(require('telescope.themes').get_ivy())
 end, {})
 vim.keymap.set('n', ';;', function()

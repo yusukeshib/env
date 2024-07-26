@@ -112,8 +112,32 @@ require('lazy').setup({
   },
 
   -- Todo
-  { 'folke/todo-comments.nvim',  config = true },
+  { 'folke/todo-comments.nvim', config = true },
 
+  -- Debugger
+  {
+    "rcarriga/nvim-dap-ui",
+    dependencies = { 'mfussenegger/nvim-dap', },
+    config = true
+  },
+  {
+    "theHamsta/nvim-dap-virtual-text",
+    dependencies = {
+      'mfussenegger/nvim-dap',
+      "nvim-neotest/nvim-nio",
+    },
+    config = true
+  },
+  {
+    'ldelossa/nvim-dap-projects',
+    dependencies = {
+      'mfussenegger/nvim-dap',
+    },
+    config = function()
+      require('nvim-dap-projects').search_project_config()
+    end
+  },
+  { 'mfussenegger/nvim-dap', },
 
   -- UI(status,tree,finder)
   { 'nvim-lualine/lualine.nvim', config = true },
@@ -186,14 +210,6 @@ require('lazy').setup({
         highlight = { enable = true },
         indent = { enable = true },
       })
-    end
-  },
-
-  -- Light bulb
-  {
-    'kosayoda/nvim-lightbulb',
-    config = function()
-      require("nvim-lightbulb").setup({ autocmd = { enabled = true } })
     end
   },
 
@@ -391,8 +407,45 @@ require('telescope').load_extension('fzf')
 -- Format on save
 vim.cmd([[autocmd BufWritePre * lua vim.lsp.buf.format()]])
 
+--
 -- Keyboard shortcuts
 --
+
+-- Debugger
+local dap = require('dap')
+local ui = require('dapui');
+
+dap.adapters.lldb = {
+  type = "executable",
+  attach = {
+    pidProperty = "pid",
+    pidSelect = "ask"
+  },
+  command = "/opt/homebrew/opt/llvm/bin/lldb-dap",
+  env = {
+    LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES"
+  },
+  name = "lldb",
+}
+
+vim.keymap.set('n', '<F5>', dap.continue);
+vim.keymap.set('n', '<s-F5>', dap.stop);
+vim.keymap.set('n', '<F9>', dap.toggle_breakpoint);
+vim.keymap.set('n', '<F10>', dap.step_over);  -- step over
+vim.keymap.set('n', '<F11>', dap.step_into);  -- step into
+vim.keymap.set('n', '<s-F11>', dap.step_out); -- step out
+dap.listeners.before.attach.dapui_config = function()
+  ui.open()
+end
+dap.listeners.before.launch.dapui_config = function()
+  ui.open()
+end
+dap.listeners.before.event_terminated.dapui_config = function()
+  ui.close()
+end
+dap.listeners.before.event_exited.dapui_config = function()
+  ui.close()
+end
 
 -- Symbol outline
 vim.keymap.set('n', '<leader>s', vim.cmd.SymbolsOutline, {})

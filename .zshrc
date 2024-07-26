@@ -2,7 +2,7 @@ bindkey -e
 unsetopt BEEP
 
 export LANG=en_US.UTF-8
-export EDITOR="vi"
+export EDITOR="nvim"
 export GPG_TTY=$(tty)
 export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 

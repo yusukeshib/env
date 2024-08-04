@@ -40,3 +40,8 @@ alias tfa='terragrunt apply'
 alias tfi='terragrunt init'
 alias tfiu='terragrunt init -upgrade'
 alias tfp='terragrunt plan'
+
+# Use gh command
+if alias gh; then
+  unalias gh
+fi

@@ -148,7 +148,7 @@ require('lazy').setup({
         sync_root_with_cwd = true,
         respect_buf_cwd = true,
         view = {
-          width = 40,
+          width = 64,
         },
         update_focused_file = {
           enable = true,
@@ -236,6 +236,28 @@ require('lazy').setup({
     event = 'LspAttach',
     opts = {},
   },
+
+  -- KDL config file format
+  { 'imsnif/kdl.vim' },
+
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    },
+    keys = {
+      {
+        "<leader>?",
+        function()
+          require("which-key").show({ global = false })
+        end,
+        desc = "Buffer Local Keymaps (which-key)",
+      },
+    },
+  }
 })
 
 

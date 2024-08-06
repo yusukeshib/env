@@ -41,3 +41,6 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/libarchive/lib/pkgconfig"
 
 # Too many open files
 ulimit -n 10240
+
+# cd replacement
+eval "$(zoxide init zsh)"

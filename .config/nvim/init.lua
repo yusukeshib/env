@@ -437,46 +437,18 @@ vim.cmd([[autocmd BufWritePre * lua vim.lsp.buf.format()]])
 local dap = require('dap')
 local ui = require('dapui');
 
-dap.adapters.lldb = {
-  type = "executable",
-  attach = {
-    pidProperty = "pid",
-    pidSelect = "ask"
-  },
-  command = "/opt/homebrew/opt/llvm/bin/lldb-dap",
-  env = {
-    LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES"
-  },
-  name = "lldb",
-}
-
 vim.keymap.set('n', '<F5>', dap.continue);
 vim.keymap.set('n', '<s-F5>', dap.stop);
 vim.keymap.set('n', '<F9>', dap.toggle_breakpoint);
 vim.keymap.set('n', '<F10>', dap.step_over);  -- step over
 vim.keymap.set('n', '<F11>', dap.step_into);  -- step into
 vim.keymap.set('n', '<s-F11>', dap.step_out); -- step out
-dap.listeners.before.attach.dapui_config = function()
-  ui.open()
-end
+vim.keymap.set('n', '<F12>', ui.toggle);      -- step out
+
 dap.listeners.before.launch.dapui_config = function()
   ui.open()
 end
-dap.listeners.before.event_terminated.dapui_config = function()
-  ui.close()
-end
-dap.listeners.before.event_exited.dapui_config = function()
-  ui.close()
-end
 
--- Symbol outline
-vim.keymap.set('n', '<leader>s', vim.cmd.SymbolsOutline, {})
--- Trouble
--- vim.keymap.set('n', "''", function()
---   require('trouble.sources.telescope').open()
--- end, {})
--- Undo tree
-vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle, {})
 -- NvimTree
 vim.keymap.set('n', '<C-a>', vim.cmd.NvimTreeFindFileToggle, {})
 -- Telescope
@@ -489,5 +461,12 @@ vim.keymap.set('n', ';;', function()
     ignore_current_buffer = true,
   });
 end, {})
--- Code action
-vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, {})
+
+-- Keymap
+local wk = require('which-key')
+
+wk.add({
+  { "<leader>a", function() vim.lsp.buf.code_action() end, desc = "Code action" },
+  { "<leader>u", function() vim.cmd.UndotreeToggle() end,  desc = "Undo tree" },
+  { "<leader>s", function() vim.cmd.SymbolsOutline() end,  desc = "Symbol outline" },
+})

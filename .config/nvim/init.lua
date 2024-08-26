@@ -111,6 +111,9 @@ require('lazy').setup({
     config = true
   },
 
+  -- Diff
+  { 'sindrets/diffview.nvim' },
+
   -- Todo
   { 'folke/todo-comments.nvim', config = true },
 
@@ -140,6 +143,11 @@ require('lazy').setup({
   { 'mfussenegger/nvim-dap', },
 
   -- UI(status,tree,finder)
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    config = true,
+  },
   { 'nvim-lualine/lualine.nvim', config = true },
   {
     'nvim-tree/nvim-tree.lua',
@@ -148,7 +156,7 @@ require('lazy').setup({
         sync_root_with_cwd = true,
         respect_buf_cwd = true,
         view = {
-          width = 64,
+          width = 54
         },
         update_focused_file = {
           enable = true,
@@ -205,7 +213,7 @@ require('lazy').setup({
     config = function()
       local configs = require("nvim-treesitter.configs")
       configs.setup({
-        ensure_installed = { "python", "lua", "typescript", "tsx", "html", "rust", "glsl" },
+        ensure_installed = { "svelte", "python", "lua", "typescript", "tsx", "html", "rust", "glsl" },
         sync_install = false,
         highlight = { enable = true },
         indent = { enable = true },

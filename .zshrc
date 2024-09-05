@@ -12,35 +12,43 @@ fi
 
 # brew
 [ -d /opt/homebrew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
-
-source "$HOME/.config/zsh/aliases.zsh"
-source "$HOME/.config/zsh/zim.zsh"
-source "$HOME/.config/zsh/`uname`.zsh"
-source "$HOME/.config/zsh/functions.zsh"
+[ -d /home/linuxbrew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # fzf
 export FZF_DEFAULT_COMMAND='fd --type f -i'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-#asdf
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
-source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
-export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+source "$HOME/.config/zsh/aliases.zsh"
+source "$HOME/.config/zsh/`uname`.zsh"
+source "$HOME/.config/zsh/functions.zsh"
+source "$HOME/.config/zsh/zim.zsh"
 
-# lldb-vscode
-export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
-export PATH="$(brew --prefix)/opt/llvm/bin:$PATH"
-source "$HOME/.config/op/plugins.sh"
+if type "brew" > /dev/null; then
+  #asdf
+  if [ -d $(brew --prefix)/opt/asdf ]; then
+    . $(brew --prefix)/opt/asdf/libexec/asdf.sh
+    source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+  fi
 
-# postgres
-export PATH="/opt/homebrew/opt/postgresql@13/bin:$PATH"
+  # lldb-vscode
+  export LDFLAGS="-L$(brew --prefix)/opt/llvm/lib"
+  export CPPFLAGS="-I$(brew --prefix)/opt/llvm/include"
+  export PATH="$(brew --prefix)/opt/llvm/bin:$PATH"
 
-export PKG_CONFIG_PATH="/opt/homebrew/opt/libarchive/lib/pkgconfig"
+  # postgres
+  export PATH="$(brew --prefix)/opt/postgresql@13/bin:$PATH"
 
-# Too many open files
-ulimit -n 10240
+  # ?
+  export PATH="$(brew --prefix)/opt/libpq/bin:$PATH"
+  export PKG_CONFIG_PATH="$(brew --prefix)/opt/libarchive/lib/pkgconfig"
+fi
+
+if [ -d "$HOME/.config/op/" ]; then
+  source "$HOME/.config/op/plugins.sh"
+fi
 
 # cd replacement
-eval "$(zoxide init zsh)"
+if type "zoxide" > /dev/null; then
+  eval "$(zoxide init zsh)"
+fi

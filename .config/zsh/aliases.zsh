@@ -2,6 +2,12 @@ if type "zoxide" > /dev/null; then
   alias cd="z"
 fi
 
+if type "zellij" > /dev/null; then
+  alias zls="zellij ls"
+  alias za="zellij attach"
+  alias zn="zellij -s"
+fi
+
 if type "eza" > /dev/null; then
   alias ls="eza"
 fi

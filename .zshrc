@@ -53,4 +53,6 @@ if type "zoxide" > /dev/null; then
   eval "$(zoxide init zsh)"
 fi
 
-export ANTHROPIC_API_KEY=$(op read "op://Personal/avante-anthropic-key/credential")
+if [[ ! -n $ANTHROPIC_API_KEY ]]; then
+  export ANTHROPIC_API_KEY=$(op read "op://Personal/avante-anthropic-key/credential")
+fi

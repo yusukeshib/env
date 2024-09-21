@@ -1,7 +1,9 @@
 if type "zellij" > /dev/null; then
-  alias a="zellij attach"
-  alias n="zellij -s"
+  alias attach="zellij attach"
+  alias new="zellij -s"
   alias zls="zellij ls"
+  alias a="attach"
+  alias n="new"
 fi
 
 if type "zoxide" > /dev/null; then

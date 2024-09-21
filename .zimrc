@@ -50,3 +50,6 @@ zmodule ssh
 # zmodule fablestudios/fable-zsh-plugin
 # zmodule git@github.com:fablestudios/fable-zsh-plugin
 zmodule Aloxaf/fzf-tab
+
+# atuin
+zmodule atuinsh/atuin

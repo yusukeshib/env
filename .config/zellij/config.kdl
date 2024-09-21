@@ -200,7 +200,7 @@ keybinds {
         bind "Ctrl z" { SwitchToMode "Tmux"; }
     }
 
-    unbind "Ctrl t" "Ctrl p"
+    unbind "Ctrl t" "Ctrl p" " Ctrl s"
 }
 
 plugins {

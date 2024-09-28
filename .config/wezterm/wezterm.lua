@@ -3,8 +3,8 @@ local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
 -- config.color_scheme = 'Dracula'
-config.font = wezterm.font('MonoLisa Nerd Font Mono')
-config.font_size = 14.4
+config.font = wezterm.font('Hack Nerd Font Mono')
+config.font_size = 14
 config.initial_rows = 78
 config.initial_cols = 200
 config.enable_tab_bar = false

@@ -69,13 +69,6 @@ require('lazy').setup({
   { 'L3MON4D3/LuaSnip' },
   { 'saadparwaiz1/cmp_luasnip' },
   { 'uga-rosa/cmp-dictionary',       config = true },
-  -- { "zbirenbaum/copilot.lua",        config = true },
-  -- {
-  --   "zbirenbaum/copilot-cmp",
-  --   config = function()
-  --     require("copilot_cmp").setup()
-  --   end
-  -- },
   {
     "petertriho/cmp-git",
     dependencies = { "nvim-lua/plenary.nvim" }
@@ -155,9 +148,6 @@ require('lazy').setup({
       require("nvim-tree").setup({
         sync_root_with_cwd = true,
         respect_buf_cwd = true,
-        view = {
-          width = 54
-        },
         update_focused_file = {
           enable = true,
           update_root = true,
@@ -225,13 +215,16 @@ require('lazy').setup({
   -- undo
   { 'mbbill/undotree' },
   -- theme
-  { 'dracula/vim' },
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
   -- subvert
   { 'tpope/vim-abolish' },
-
   -- regex
   { 'othree/eregex.vim' },
-
   -- git
   { 'tpope/vim-fugitive' },
   { 'f-person/git-blame.nvim', config = true },
@@ -243,18 +236,10 @@ require('lazy').setup({
     event = 'LspAttach',
     opts = {},
   },
-
-  -- KDL config file format
-  { 'imsnif/kdl.vim' },
-
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
-    opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-    },
+    opts = {},
     keys = {
       {
         "<leader>?",
@@ -265,7 +250,7 @@ require('lazy').setup({
       },
     },
   },
-
+  -- LLM
   {
     "yetone/avante.nvim",
     event = "VeryLazy",
@@ -312,7 +297,6 @@ require('lazy').setup({
     },
   }
 })
-
 
 -- Set up nvim-cmp.
 local luasnip = require("luasnip")
@@ -413,7 +397,7 @@ cmp.setup.cmdline(':', {
 require("cmp_git").setup()
 
 -- ColorScheme
-vim.cmd('colorscheme dracula')
+vim.cmd('colorscheme tokyonight-night')
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)

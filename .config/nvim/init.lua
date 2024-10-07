@@ -456,12 +456,6 @@ require('rust-tools').setup({
         checkOnSave = {
           command = "clippy",
         },
-        files = {
-          excludeDirs = {
-            "apps/content/node_modules",
-            "crates/mercury_web/node_modules",
-          },
-        },
       }
     },
     standalone = false

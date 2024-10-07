@@ -412,8 +412,16 @@ require('lspconfig').ts_ls.setup({
 })
 
 require('lspconfig').lua_ls.setup({
-  capabilities = capabilities
+  capabilities = capabilities,
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { 'vim' },
+      },
+    }
+  }
 })
+
 
 require('lspconfig').pylsp.setup({
   capabilities = capabilities,

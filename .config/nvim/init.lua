@@ -58,7 +58,11 @@ require('lazy').setup({
   },
   { 'simrat39/symbols-outline.nvim', config = true },
 
-  { 'simrat39/rust-tools.nvim', },
+  {
+    'mrcjkb/rustaceanvim',
+    version = '^5', -- Recommended
+    lazy = false,   -- This plugin is already lazy
+  },
 
   -- Auto complete
   { 'hrsh7th/cmp-nvim-lsp' },
@@ -68,7 +72,7 @@ require('lazy').setup({
   { 'hrsh7th/nvim-cmp' },
   { 'L3MON4D3/LuaSnip' },
   { 'saadparwaiz1/cmp_luasnip' },
-  { 'uga-rosa/cmp-dictionary',       config = true },
+  { 'uga-rosa/cmp-dictionary', config = true },
   {
     "petertriho/cmp-git",
     dependencies = { "nvim-lua/plenary.nvim" }
@@ -455,20 +459,6 @@ require('lspconfig').pylsp.setup({
         pyls_isort = { enabled = false },
       }
     }
-  }
-})
-
-require('rust-tools').setup({
-  server = {
-    capabilities = capabilities,
-    settings = {
-      ['rust-analyzer'] = {
-        checkOnSave = {
-          command = "clippy",
-        },
-      }
-    },
-    standalone = false
   }
 })
 

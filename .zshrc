@@ -63,3 +63,7 @@ if [[ ! -f "$HOME/.atuin/bin/atuin" ]]; then
 fi
 . "$HOME/.atuin/bin/env"
 eval "$(atuin init zsh --disable-up-arrow)"
+
+# Wasmer
+export WASMER_DIR="/Users/yusuke/.wasmer"
+[ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"

@@ -134,6 +134,14 @@ require('lazy').setup({
     end
   },
   { 'mfussenegger/nvim-dap', },
+  {
+    'Weissle/persistent-breakpoints.nvim',
+    config = function()
+      require('persistent-breakpoints').setup({
+        load_breakpoints_event = { "BufReadPost" }
+      })
+    end
+  },
 
   -- UI(status,tree,finder)
   {
@@ -159,14 +167,15 @@ require('lazy').setup({
       })
     end
   },
-  {
-    'nvimdev/lspsaga.nvim',
-    config = true,
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter',
-      'nvim-tree/nvim-web-devicons',
-    }
-  },
+  -- LSP experience improvement
+  -- {
+  --   'nvimdev/lspsaga.nvim',
+  --   config = true,
+  --   dependencies = {
+  --     'nvim-treesitter/nvim-treesitter',
+  --     'nvim-tree/nvim-web-devicons',
+  --   }
+  -- },
   {
     'akinsho/bufferline.nvim',
     version = "*",
@@ -466,7 +475,9 @@ require('rust-tools').setup({
 require('telescope').load_extension('fzf')
 
 -- Format on save
-vim.cmd([[autocmd BufWritePre * lua vim.lsp.buf.format()]])
+vim.cmd('autocmd BufWritePre * lua vim.lsp.buf.format()')
+-- Set filetype of vert and frag to be GLSL type
+vim.cmd('au! BufRead,BufNewFile *.vert,*.frag set filetype=glsl')
 
 --
 -- Keyboard shortcuts
@@ -476,16 +487,32 @@ vim.cmd([[autocmd BufWritePre * lua vim.lsp.buf.format()]])
 local dap = require('dap')
 local ui = require('dapui');
 
-vim.keymap.set('n', '<F5>', dap.continue);
-vim.keymap.set('n', '<s-F5>', dap.stop);
-vim.keymap.set('n', '<F9>', dap.toggle_breakpoint);
-vim.keymap.set('n', '<F10>', dap.step_over);  -- step over
-vim.keymap.set('n', '<F11>', dap.step_into);  -- step into
-vim.keymap.set('n', '<s-F11>', dap.step_out); -- step out
-vim.keymap.set('n', '<F12>', ui.toggle);      -- step out
+vim.keymap.set('n', '<f5>', dap.continue);
+vim.keymap.set('n', '<s-f5>', dap.stop);
+-- vim.keymap.set('n', '<f9>', dap.toggle_breakpoint);
+vim.keymap.set('n', '<f9>', require('persistent-breakpoints.api').toggle_breakpoint);
+vim.keymap.set('n', '<f10>', dap.step_over);  -- step over
+vim.keymap.set('n', '<f11>', dap.step_into);  -- step into
+vim.keymap.set('n', '<s-f11>', dap.step_out); -- step out
+vim.keymap.set('n', '<f12>', ui.toggle);      -- step out
+
+-- Customize icons
+vim.fn.sign_define('DapBreakpoint',
+  { text = '●', texthl = 'DiagnosticWarn', linehl = '', numhl = 'DiagnosticWarn' })
+vim.fn.sign_define('DapStopped',
+  { text = '▶️', texthl = 'DiagnosticSignError', linehl = '', numhl = 'DiagnosticSignError' })
 
 dap.listeners.before.launch.dapui_config = function()
   ui.open()
+end
+dap.listeners.before.attach.dapui_config = function()
+  ui.open()
+end
+dap.listeners.before.event_terminated.dapui_config = function()
+  ui.close()
+end
+dap.listeners.before.event_exited.dapui_config = function()
+  ui.close()
 end
 
 -- NvimTree

@@ -224,12 +224,13 @@ require('lazy').setup({
   -- undo
   { 'mbbill/undotree' },
   -- theme
-  {
-    "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {},
-  },
+  { 'Mofiqul/dracula.nvim' },
+  -- {
+  --   "folke/tokyonight.nvim",
+  --   lazy = false,
+  --   priority = 1000,
+  --   opts = {},
+  -- },
   -- subvert
   { 'tpope/vim-abolish' },
   -- regex
@@ -406,7 +407,8 @@ cmp.setup.cmdline(':', {
 require("cmp_git").setup()
 
 -- ColorScheme
-vim.cmd('colorscheme tokyonight-night')
+-- vim.cmd('colorscheme tokyonight-night')
+vim.cmd('colorscheme dracula')
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
@@ -430,7 +432,6 @@ require('lspconfig').lua_ls.setup({
     }
   }
 })
-
 
 require('lspconfig').pylsp.setup({
   capabilities = capabilities,
@@ -498,9 +499,9 @@ vim.keymap.set('n', '<f12>', ui.toggle);      -- step out
 
 -- Customize icons
 vim.fn.sign_define('DapBreakpoint',
-  { text = '●', texthl = 'DiagnosticWarn', linehl = '', numhl = 'DiagnosticWarn' })
+  { text = '●', texthl = 'DiagnosticSignError', linehl = '', numhl = 'DiagnosticSignError' })
 vim.fn.sign_define('DapStopped',
-  { text = '▶️', texthl = 'DiagnosticSignError', linehl = '', numhl = 'DiagnosticSignError' })
+  { text = '▶️', texthl = 'DiagnosticWarn', linehl = '', numhl = 'DiagnosticWarn' })
 
 dap.listeners.before.launch.dapui_config = function()
   ui.open()

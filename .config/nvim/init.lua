@@ -223,6 +223,10 @@ require('lazy').setup({
     end
   },
 
+  -- UI
+  { 'MunifTanjim/nui.nvim' },
+  { 'stevearc/dressing.nvim',  opts = {}, },
+
   -- rooter
   { 'notjedi/nvim-rooter.lua', config = true },
   -- undo

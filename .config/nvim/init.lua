@@ -114,6 +114,9 @@ require('lazy').setup({
   -- Todo
   { 'folke/todo-comments.nvim', config = true },
 
+  -- Lint
+  { 'mfussenegger/nvim-lint' },
+
   -- Debugger
   {
     "rcarriga/nvim-dap-ui",
@@ -148,6 +151,7 @@ require('lazy').setup({
   },
 
   -- UI(status,tree,finder)
+  { 'norcalli/nvim-colorizer.lua', config = true },
   {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
@@ -171,15 +175,6 @@ require('lazy').setup({
       })
     end
   },
-  -- LSP experience improvement
-  -- {
-  --   'nvimdev/lspsaga.nvim',
-  --   config = true,
-  --   dependencies = {
-  --     'nvim-treesitter/nvim-treesitter',
-  --     'nvim-tree/nvim-web-devicons',
-  --   }
-  -- },
   {
     'akinsho/bufferline.nvim',
     version = "*",
@@ -225,20 +220,19 @@ require('lazy').setup({
 
   -- UI
   { 'MunifTanjim/nui.nvim' },
-  { 'stevearc/dressing.nvim',  opts = {}, },
+  { 'stevearc/dressing.nvim',    opts = {}, },
 
   -- rooter
-  { 'notjedi/nvim-rooter.lua', config = true },
+  { 'notjedi/nvim-rooter.lua',   config = true },
   -- undo
   { 'mbbill/undotree' },
   -- theme
-  { 'Mofiqul/dracula.nvim' },
-  -- {
-  --   "folke/tokyonight.nvim",
-  --   lazy = false,
-  --   priority = 1000,
-  --   opts = {},
-  -- },
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
   -- subvert
   { 'tpope/vim-abolish' },
   -- regex
@@ -269,51 +263,51 @@ require('lazy').setup({
     },
   },
   -- LLM
-  {
-    "yetone/avante.nvim",
-    event = "VeryLazy",
-    lazy = false,
-    version = false, -- set this if you want to always pull the latest change
-    opts = {
-      -- add any opts here
-    },
-    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-    build = "make",
-    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
-    dependencies = {
-      "stevearc/dressing.nvim",
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-      --- The below dependencies are optional,
-      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-      "zbirenbaum/copilot.lua",      -- for providers='copilot'
-      {
-        -- support for image pasting
-        "HakonHarnes/img-clip.nvim",
-        event = "VeryLazy",
-        opts = {
-          -- recommended settings
-          default = {
-            embed_image_as_base64 = false,
-            prompt_for_file_name = false,
-            drag_and_drop = {
-              insert_mode = true,
-            },
-            -- required for Windows users
-            use_absolute_path = true,
-          },
-        },
-      },
-      {
-        -- Make sure to set this up properly if you have lazy=true
-        'MeanderingProgrammer/render-markdown.nvim',
-        opts = {
-          file_types = { "markdown", "Avante" },
-        },
-        ft = { "markdown", "Avante" },
-      },
-    },
-  }
+  -- {
+  --   "yetone/avante.nvim",
+  --   event = "VeryLazy",
+  --   lazy = false,
+  --   version = false, -- set this if you want to always pull the latest change
+  --   opts = {
+  --     -- add any opts here
+  --   },
+  --   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+  --   build = "make",
+  --   -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+  --   dependencies = {
+  --     "stevearc/dressing.nvim",
+  --     "nvim-lua/plenary.nvim",
+  --     "MunifTanjim/nui.nvim",
+  --     --- The below dependencies are optional,
+  --     "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+  --     "zbirenbaum/copilot.lua",      -- for providers='copilot'
+  --     {
+  --       -- support for image pasting
+  --       "HakonHarnes/img-clip.nvim",
+  --       event = "VeryLazy",
+  --       opts = {
+  --         -- recommended settings
+  --         default = {
+  --           embed_image_as_base64 = false,
+  --           prompt_for_file_name = false,
+  --           drag_and_drop = {
+  --             insert_mode = true,
+  --           },
+  --           -- required for Windows users
+  --           use_absolute_path = true,
+  --         },
+  --       },
+  --     },
+  --     {
+  --       -- Make sure to set this up properly if you have lazy=true
+  --       'MeanderingProgrammer/render-markdown.nvim',
+  --       opts = {
+  --         file_types = { "markdown", "Avante" },
+  --       },
+  --       ft = { "markdown", "Avante" },
+  --     },
+  --   },
+  -- }
 })
 
 -- Set up nvim-cmp.
@@ -415,15 +409,18 @@ cmp.setup.cmdline(':', {
 require("cmp_git").setup()
 
 -- ColorScheme
--- vim.cmd('colorscheme tokyonight-night')
-vim.cmd('colorscheme dracula')
+vim.cmd('colorscheme tokyonight-night')
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 local mason_lspconfig = require('mason-lspconfig')
 mason_lspconfig.setup({
-  ensure_installed = { "lua_ls", "pylsp", "ts_ls" }
+  ensure_installed = { "rust_analyzer", "glsl_analyzer", "svelte", "lua_ls", "pyright", "ts_ls" }
+})
+
+require('lspconfig').glsl_analyzer.setup({
+  capabilities = capabilities
 })
 
 require('lspconfig').ts_ls.setup({
@@ -441,29 +438,8 @@ require('lspconfig').lua_ls.setup({
   }
 })
 
-require('lspconfig').pylsp.setup({
+require('lspconfig').pyright.setup({
   capabilities = capabilities,
-  settings = {
-    pylsp = {
-      formatCommand = { "black" },
-      plugins = {
-        -- formatter
-        black = { enabled = true },
-        autopep8 = { enabled = false },
-        yapf = { enabled = false },
-        -- linter options
-        pylint = { enabled = true, executable = "pylint" },
-        pyflakes = { enabled = false },
-        pycodestyle = { enabled = false },
-        -- type checker
-        pylsp_mypy = { enabled = true },
-        -- auto-completion options
-        jedi_completion = { fuzzy = true },
-        -- import sorting
-        pyls_isort = { enabled = false },
-      }
-    }
-  }
 })
 
 -- Telescope

@@ -108,6 +108,35 @@ require('lazy').setup({
     config = true
   },
 
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    opts = {
+      bigfile = { enabled = true },
+      bufdelete = { enabled = true },
+      dashboard = { enabled = true },
+      debug = { enabled = true },
+      dim = { enabled = true },
+      git = { enabled = true },
+      gitbrowse = { enabled = true },
+      indent = { enabled = true },
+      input = { enabled = true },
+      notifier = { enabled = true },
+      notify = { enabled = true },
+      profiler = { enabled = true },
+      quickfile = { enabled = true },
+      rename = { enabled = true },
+      scope = { enabled = true },
+      scratch = { enabled = true },
+      statuscolumn = { enabled = true },
+      util = { enabled = true },
+      win = { enabled = true },
+      words = { enabled = true },
+    },
+    config = true
+  },
+
   -- Diff
   { 'sindrets/diffview.nvim' },
 

@@ -28,7 +28,7 @@ if type "brew" > /dev/null; then
   #asdf
   if [ -d $(brew --prefix)/opt/asdf ]; then
     . $(brew --prefix)/opt/asdf/libexec/asdf.sh
-    source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+    source "$HOME/.config/asdf-direnv/zshrc"
   fi
 
   # lldb-vscode
@@ -42,10 +42,6 @@ if type "brew" > /dev/null; then
   # ?
   export PATH="$(brew --prefix)/opt/libpq/bin:$PATH"
   export PKG_CONFIG_PATH="$(brew --prefix)/opt/libarchive/lib/pkgconfig"
-fi
-
-if [ -d "$HOME/.config/op/" ]; then
-  source "$HOME/.config/op/plugins.sh"
 fi
 
 # cd replacement
@@ -68,10 +64,7 @@ eval "$(atuin init zsh --disable-up-arrow)"
 export WASMER_DIR="/Users/yusuke/.wasmer"
 [ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
 
-if [ -d "$HOME/.cargo/" ]; then
-  source "$HOME/.cargo/env"
-fi
-if [ -d "$HOME/.deno/" ]; then
-  source "$HOME/.deno/env"
-fi
+[ -d "$HOME/.config/op/" ] && source "$HOME/.config/op/plugins.sh"
+[ -d "$HOME/.cargo/" ] && source "$HOME/.cargo/env"
+[ -d "$HOME/.deno/" ] && source "$HOME/.deno/env"
 

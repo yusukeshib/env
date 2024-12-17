@@ -67,3 +67,4 @@ export WASMER_DIR="/Users/yusuke/.wasmer"
 [ -d "$HOME/.cargo/" ] && source "$HOME/.cargo/env"
 [ -d "$HOME/.deno/" ] && source "$HOME/.deno/env"
 
+source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"

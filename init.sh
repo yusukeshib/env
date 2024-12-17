@@ -14,10 +14,10 @@ if [ ! -d "$HOME/.config" ]; then
   echo '-> Created .config dir.' 
 fi
 # Symlink all entries in the root
-cd $HOME/env
-find . -maxdepth 1 -name '.*' -not -path '.' -not -path './.git' -not -path "./.config" -exec ln -s $HOME/env/{} $HOME/{} \;
+cd $HOME/env/root
+find . -maxdepth 1 -not -path '.' -not -path "./.config" -exec ln -s $HOME/env/root/{} $HOME/{} \;
 # Symlink all entries in .config
-cd $HOME/env/.config
-find . -maxdepth 1 -not -path '.' -exec ln -s $HOME/env/.config/{} $HOME/.config/{} \;
+cd $HOME/env/root/.config
+find . -maxdepth 1 -not -path '.' -exec ln -s $HOME/env/root/.config/{} $HOME/.config/{} \;
 
 echo '-> Done.'

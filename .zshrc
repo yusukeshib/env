@@ -64,7 +64,6 @@ eval "$(atuin init zsh --disable-up-arrow)"
 export WASMER_DIR="/Users/yusuke/.wasmer"
 [ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
 
-[ -d "$HOME/.config/op/" ] && source "$HOME/.config/op/plugins.sh"
 [ -d "$HOME/.cargo/" ] && source "$HOME/.cargo/env"
 [ -d "$HOME/.deno/" ] && source "$HOME/.deno/env"
 

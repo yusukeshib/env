@@ -77,6 +77,8 @@ require('lazy').setup({
     "petertriho/cmp-git",
     dependencies = { "nvim-lua/plenary.nvim" }
   },
+  { "zbirenbaum/copilot.lua", config = true },
+  { "zbirenbaum/copilot-cmp", config = true },
   {
     "Dynge/gitmoji.nvim",
     dependencies = {
@@ -172,6 +174,9 @@ require('lazy').setup({
           git_ignored = false,
           dotfiles = false,
         },
+        view = {
+          width = 50
+        }
       })
     end
   },
@@ -358,6 +363,7 @@ cmp.setup({
     end, { "i", "s" }),
   }),
   sources = cmp.config.sources({
+    { name = "copilot" },
     { name = "git" },
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
@@ -367,7 +373,6 @@ cmp.setup({
     },
     { name = "rg" },
     { name = "crates" },
-    -- { name = "copilot" },
   }, {
     { name = 'buffer' },
   }),

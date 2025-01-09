@@ -97,18 +97,23 @@ require('lazy').setup({
       require('crates').setup()
     end
   },
-
-  -- Git interface
-  -- {
-  --   "NeogitOrg/neogit",
-  --   dependencies = {
-  --     "nvim-lua/plenary.nvim",         -- required
-  --     "sindrets/diffview.nvim",        -- optional - Diff integration
-  --     "nvim-telescope/telescope.nvim", -- optional
-  --     "ibhagwan/fzf-lua",              -- optional
-  --   },
-  --   config = true
-  -- },
+  { -- Autoformat
+    'stevearc/conform.nvim',
+    config = function()
+      require('conform').setup({
+        formatters_by_ft = {
+          javascript = { 'eslint_d', 'prettier', stop_after_first = true },
+          typescript = { 'eslint_d', 'prettier', stop_after_first = true },
+          typescriptreact = { 'eslint_d', 'prettier', stop_after_first = true },
+        },
+        format_on_save = {
+          timeout_ms = 3000,
+          async = false,
+          lsp_format = "fallback",
+        },
+      });
+    end
+  },
 
   -- Diff
   { 'sindrets/diffview.nvim' },
@@ -421,7 +426,7 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 local mason_lspconfig = require('mason-lspconfig')
 mason_lspconfig.setup({
-  ensure_installed = { "rust_analyzer", "glsl_analyzer", "svelte", "lua_ls", "pyright", "ts_ls" }
+  ensure_installed = { "rust_analyzer", "lua_ls", "ts_ls" }
 })
 
 require('lspconfig').glsl_analyzer.setup({
@@ -450,8 +455,6 @@ require('lspconfig').pyright.setup({
 -- Telescope
 require('telescope').load_extension('fzf')
 
--- Format on save
-vim.cmd('autocmd BufWritePre * lua vim.lsp.buf.format()')
 -- Set filetype of vert and frag to be GLSL type
 vim.cmd('au! BufRead,BufNewFile *.vert,*.frag set filetype=glsl')
 

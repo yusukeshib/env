@@ -426,11 +426,7 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 local mason_lspconfig = require('mason-lspconfig')
 mason_lspconfig.setup({
-  ensure_installed = { "rust_analyzer", "lua_ls", "ts_ls" }
-})
-
-require('lspconfig').glsl_analyzer.setup({
-  capabilities = capabilities
+  ensure_installed = { "rust_analyzer", "lua_ls", "ts_ls", "cssmodules_ls" }
 })
 
 require('lspconfig').ts_ls.setup({
@@ -447,8 +443,7 @@ require('lspconfig').lua_ls.setup({
     }
   }
 })
-
-require('lspconfig').pyright.setup({
+require('lspconfig').cssmodules_ls.setup({
   capabilities = capabilities,
 })
 

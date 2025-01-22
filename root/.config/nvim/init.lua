@@ -986,6 +986,9 @@ require('lazy').setup({
   -- Diff view
   { 'sindrets/diffview.nvim' },
 
+  -- Git blame
+  { 'f-person/git-blame.nvim', opts = {} },
+
   -- Tab UI
   {
     'akinsho/bufferline.nvim',

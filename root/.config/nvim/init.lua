@@ -989,6 +989,9 @@ require('lazy').setup({
   -- Git blame
   { 'f-person/git-blame.nvim', opts = {} },
 
+  -- rooter (Look for the workspace project root, and move cwd)
+  { 'notjedi/nvim-rooter.lua', opts = {} },
+
   -- Tab UI
   {
     'akinsho/bufferline.nvim',

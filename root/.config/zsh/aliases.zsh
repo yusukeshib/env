@@ -1,19 +1,10 @@
-if type "zellij" > /dev/null; then
-  alias attach="zellij attach"
-  alias new="zellij -s"
-  alias zls="zellij ls"
-  alias a="attach"
-  alias n="new"
+if type "tmux" > /dev/null; then
+  alias a="tmux attach -d -t"
+  alias new="tmux new -s"
 fi
 
 if type "zoxide" > /dev/null; then
   alias cd="z"
-fi
-
-if type "zellij" > /dev/null; then
-  alias zls="zellij ls"
-  alias za="zellij attach"
-  alias zn="zellij -s"
 fi
 
 if type "eza" > /dev/null; then

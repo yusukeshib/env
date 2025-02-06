@@ -717,7 +717,7 @@ require('lazy').setup({
       },
     },
     opts = {
-      notify_on_error = false,
+      notify_on_error = true,
       format_on_save = function(bufnr)
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
@@ -747,6 +747,13 @@ require('lazy').setup({
         javascriptreact = { 'eslint_d', 'prettier', stop_after_first = true },
       },
     },
+  },
+
+  {
+    'zbirenbaum/copilot.lua',
+    config = function()
+      require('copilot').setup()
+    end,
   },
 
   { -- Autocompletion
@@ -780,6 +787,9 @@ require('lazy').setup({
       {
         'zbirenbaum/copilot-cmp',
         dependencies = { 'zbirenbaum/copilot.lua' },
+        config = function()
+          require('copilot_cmp').setup()
+        end,
       },
       { 'saadparwaiz1/cmp_luasnip' },
 
@@ -882,6 +892,7 @@ require('lazy').setup({
           end, { 'i', 's' }),
         },
         sources = {
+          { name = 'copilot' },
           {
             name = 'lazydev',
             -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
@@ -889,7 +900,6 @@ require('lazy').setup({
           },
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
-          { name = 'copilot' },
           { name = 'path' },
         },
       }

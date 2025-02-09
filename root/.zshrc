@@ -25,23 +25,10 @@ source "$HOME/.config/zsh/functions.zsh"
 source "$HOME/.config/zsh/zim.zsh"
 
 if type "brew" > /dev/null; then
-  #asdf
-  if [ -d $(brew --prefix)/opt/asdf ]; then
-    . $(brew --prefix)/opt/asdf/libexec/asdf.sh
-    source "$HOME/.config/asdf-direnv/zshrc"
-  fi
-
   # lldb-vscode
   export LDFLAGS="-L$(brew --prefix)/opt/llvm/lib"
   export CPPFLAGS="-I$(brew --prefix)/opt/llvm/include"
   export PATH="$(brew --prefix)/opt/llvm/bin:$PATH"
-
-  # postgres
-  export PATH="$(brew --prefix)/opt/postgresql@13/bin:$PATH"
-
-  # ?
-  export PATH="$(brew --prefix)/opt/libpq/bin:$PATH"
-  export PKG_CONFIG_PATH="$(brew --prefix)/opt/libarchive/lib/pkgconfig"
 fi
 
 # cd replacement
@@ -60,11 +47,7 @@ fi
 . "$HOME/.atuin/bin/env"
 eval "$(atuin init zsh --disable-up-arrow)"
 
-# Wasmer
-export WASMER_DIR="/Users/yusuke/.wasmer"
-[ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
-
 [ -d "$HOME/.cargo/" ] && source "$HOME/.cargo/env"
 [ -d "$HOME/.deno/" ] && source "$HOME/.deno/env"
 
-source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+export ASDF_DATA_DIR="$HOME/.asdf"

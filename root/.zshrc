@@ -50,4 +50,5 @@ eval "$(atuin init zsh --disable-up-arrow)"
 [ -d "$HOME/.cargo/" ] && source "$HOME/.cargo/env"
 [ -d "$HOME/.deno/" ] && source "$HOME/.deno/env"
 
-export ASDF_DATA_DIR="$HOME/.asdf"
+# asdf
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"

@@ -40,13 +40,6 @@ if [[ ! -n $ANTHROPIC_API_KEY ]]; then
   export ANTHROPIC_API_KEY=$(op read "op://Personal/avante-anthropic-key/credential")
 fi
 
-# atuin setup
-if [[ ! -f "$HOME/.atuin/bin/atuin" ]]; then
-  curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
-fi
-. "$HOME/.atuin/bin/env"
-eval "$(atuin init zsh --disable-up-arrow)"
-
 [ -d "$HOME/.cargo/" ] && source "$HOME/.cargo/env"
 [ -d "$HOME/.deno/" ] && source "$HOME/.deno/env"
 

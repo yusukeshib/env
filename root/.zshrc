@@ -17,7 +17,7 @@ fi
 # fzf
 export FZF_DEFAULT_COMMAND='fd --type f -i'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(fzf --zsh)
 
 source "$HOME/.config/zsh/aliases.zsh"
 source "$HOME/.config/zsh/`uname`.zsh"

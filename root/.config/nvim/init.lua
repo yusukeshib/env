@@ -416,7 +416,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-      vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
+      -- vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
@@ -893,7 +893,7 @@ require('lazy').setup({
           end, { 'i', 's' }),
         },
         sources = {
-          { name = 'copilot' },
+          -- { name = 'copilot' },
           {
             name = 'lazydev',
             -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
@@ -1002,6 +1002,41 @@ require('lazy').setup({
 
   -- rooter (Look for the workspace project root, and move cwd)
   { 'notjedi/nvim-rooter.lua', opts = {} },
+
+  -- namu
+  {
+    'bassamsdata/namu.nvim',
+    config = function()
+      require('namu').setup {
+        -- Enable the modules you want
+        namu_symbols = {
+          enable = true,
+          options = {}, -- here you can configure namu
+        },
+        -- Optional: Enable other modules if needed
+        colorscheme = {
+          enable = false,
+          options = {
+            -- NOTE: if you activate persist, then please remove any vim.cmd("colorscheme ...") in your config, no needed anymore
+            persist = true, -- very efficient mechanism to Remember selected colorscheme
+            write_shada = false, -- If you open multiple nvim instances, then probably you need to enable this
+          },
+        },
+        ui_select = { enable = false }, -- vim.ui.select() wrapper
+      }
+      -- === Suggested Keymaps: ===
+      local namu = require 'namu.namu_symbols'
+      local colorscheme = require 'namu.colorscheme'
+      vim.keymap.set('n', '<leader>ss', ':Namu symbols<cr>', {
+        desc = 'Jump to LSP symbol',
+        silent = true,
+      })
+      vim.keymap.set('n', '<leader>th', ':Namu colorscheme<cr>', {
+        desc = 'Colorscheme Picker',
+        silent = true,
+      })
+    end,
+  },
 
   -- Tab UI
   {

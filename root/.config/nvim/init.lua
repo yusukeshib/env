@@ -1038,6 +1038,51 @@ require('lazy').setup({
 
   -- LLM
   {
+    'yetone/avante.nvim',
+    event = 'VeryLazy',
+    lazy = false,
+    version = false, -- set this if you want to always pull the latest change
+    opts = {
+      -- add any opts here
+    },
+    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+    build = 'make',
+    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+    dependencies = {
+      'stevearc/dressing.nvim',
+      'nvim-lua/plenary.nvim',
+      'MunifTanjim/nui.nvim',
+      --- The below dependencies are optional,
+      'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
+      'zbirenbaum/copilot.lua', -- for providers='copilot'
+      {
+        -- support for image pasting
+        'HakonHarnes/img-clip.nvim',
+        event = 'VeryLazy',
+        opts = {
+          -- recommended settings
+          default = {
+            embed_image_as_base64 = false,
+            prompt_for_file_name = false,
+            drag_and_drop = {
+              insert_mode = true,
+            },
+            -- required for Windows users
+            use_absolute_path = true,
+          },
+        },
+      },
+      {
+        -- Make sure to set this up properly if you have lazy=true
+        'MeanderingProgrammer/render-markdown.nvim',
+        opts = {
+          file_types = { 'markdown', 'Avante' },
+        },
+        ft = { 'markdown', 'Avante' },
+      },
+    },
+  },
+  {
     'CopilotC-Nvim/CopilotChat.nvim',
     dependencies = {
       { 'github/copilot.vim' },
@@ -1146,7 +1191,7 @@ require('lazy').setup({
     keys = {
       -- Show prompts actions with telescope
       {
-        '<leader>ap',
+        '<leader>ccp',
         function()
           local actions = require 'CopilotChat.actions'
           require('CopilotChat.integrations.telescope').pick(actions.prompt_actions())
@@ -1154,33 +1199,33 @@ require('lazy').setup({
         desc = 'CopilotChat - Prompt actions',
       },
       {
-        '<leader>ap',
+        '<leader>ccp',
         ":lua require('CopilotChat.integrations.telescope').pick(require('CopilotChat.actions').prompt_actions({selection = require('CopilotChat.select').visual}))<CR>",
         mode = 'x',
         desc = 'CopilotChat - Prompt actions',
       },
       -- Code related commands
-      { '<leader>ae', '<cmd>CopilotChatExplain<cr>', desc = 'CopilotChat - Explain code' },
-      { '<leader>at', '<cmd>CopilotChatTests<cr>', desc = 'CopilotChat - Generate tests' },
-      { '<leader>ar', '<cmd>CopilotChatReview<cr>', desc = 'CopilotChat - Review code' },
-      { '<leader>aR', '<cmd>CopilotChatRefactor<cr>', desc = 'CopilotChat - Refactor code' },
-      { '<leader>an', '<cmd>CopilotChatBetterNamings<cr>', desc = 'CopilotChat - Better Naming' },
+      { '<leader>cce', '<cmd>CopilotChatExplain<cr>', desc = 'CopilotChat - Explain code' },
+      { '<leader>cct', '<cmd>CopilotChatTests<cr>', desc = 'CopilotChat - Generate tests' },
+      { '<leader>ccr', '<cmd>CopilotChatReview<cr>', desc = 'CopilotChat - Review code' },
+      { '<leader>ccR', '<cmd>CopilotChatRefactor<cr>', desc = 'CopilotChat - Refactor code' },
+      { '<leader>ccn', '<cmd>CopilotChatBetterNamings<cr>', desc = 'CopilotChat - Better Naming' },
       -- Chat with Copilot in visual mode
       {
-        '<leader>av',
+        '<leader>ccv',
         ':CopilotChatVisual',
         mode = 'x',
         desc = 'CopilotChat - Open in vertical split',
       },
       {
-        '<leader>ax',
+        '<leader>ccx',
         ':CopilotChatInline<cr>',
         mode = 'x',
         desc = 'CopilotChat - Inline chat',
       },
       -- Custom input for CopilotChat
       {
-        '<leader>ai',
+        '<leader>cci',
         function()
           local input = vim.fn.input 'Ask Copilot: '
           if input ~= '' then
@@ -1191,13 +1236,13 @@ require('lazy').setup({
       },
       -- Generate commit message based on the git diff
       {
-        '<leader>am',
+        '<leader>ccm',
         '<cmd>CopilotChatCommit<cr>',
         desc = 'CopilotChat - Generate commit message for all changes',
       },
       -- Quick chat with Copilot
       {
-        '<leader>aq',
+        '<leader>ccq',
         function()
           local input = vim.fn.input 'Quick Chat: '
           if input ~= '' then
@@ -1207,17 +1252,17 @@ require('lazy').setup({
         desc = 'CopilotChat - Quick chat',
       },
       -- Debug
-      { '<leader>ad', '<cmd>CopilotChatDebugInfo<cr>', desc = 'CopilotChat - Debug Info' },
+      { '<leader>ccd', '<cmd>CopilotChatDebugInfo<cr>', desc = 'CopilotChat - Debug Info' },
       -- Fix the issue with diagnostic
-      { '<leader>af', '<cmd>CopilotChatFixDiagnostic<cr>', desc = 'CopilotChat - Fix Diagnostic' },
+      { '<leader>ccf', '<cmd>CopilotChatFixDiagnostic<cr>', desc = 'CopilotChat - Fix Diagnostic' },
       -- Clear buffer and chat history
-      { '<leader>al', '<cmd>CopilotChatReset<cr>', desc = 'CopilotChat - Clear buffer and chat history' },
+      { '<leader>ccl', '<cmd>CopilotChatReset<cr>', desc = 'CopilotChat - Clear buffer and chat history' },
       -- Toggle Copilot Chat Vsplit
-      { '<leader>av', '<cmd>CopilotChatToggle<cr>', desc = 'CopilotChat - Toggle' },
+      { '<leader>ccv', '<cmd>CopilotChatToggle<cr>', desc = 'CopilotChat - Toggle' },
       -- Copilot Chat Models
-      { '<leader>a?', '<cmd>CopilotChatModels<cr>', desc = 'CopilotChat - Select Models' },
+      { '<leader>cc?', '<cmd>CopilotChatModels<cr>', desc = 'CopilotChat - Select Models' },
       -- Copilot Chat Agents
-      { '<leader>aa', '<cmd>CopilotChatAgents<cr>', desc = 'CopilotChat - Select Agents' },
+      { '<leader>cca', '<cmd>CopilotChatAgents<cr>', desc = 'CopilotChat - Select Agents' },
     },
   },
 

@@ -763,6 +763,10 @@ require('lazy').setup({
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
+      enabled = function()
+        return vim.bo.buftype ~= 'nofile' and vim.bo.buftype ~= 'prompt' and vim.b.completion ~= false
+      end,
+
       signature = { enabled = true },
       -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept, C-n/C-p for up/down)
       -- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys for up/down)

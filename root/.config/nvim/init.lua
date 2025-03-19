@@ -719,7 +719,7 @@ require('lazy').setup({
           lsp_format_opt = 'fallback'
         end
         return {
-          timeout_ms = 500,
+          timeout_ms = 2000,
           lsp_format = lsp_format_opt,
         }
       end,
@@ -942,7 +942,13 @@ require('lazy').setup({
   { 'othree/eregex.vim' },
 
   -- Git diff
-  { 'tpope/vim-fugitive' },
+  {
+    'tpope/vim-fugitive',
+    config = function()
+      vim.keymap.set('n', '<leader>gd', '<cmd>Gvdiffsplit<CR>', { desc = '[G]it [D]iff' })
+      vim.keymap.set('n', '<leader>gb', '<cmd>Git blame<CR>', { desc = '[G]it [B]lame' })
+    end,
+  },
 
   -- Git blame
   { 'f-person/git-blame.nvim', opts = {} },

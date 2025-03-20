@@ -767,6 +767,13 @@ require('lazy').setup({
         return vim.bo.buftype ~= 'nofile' and vim.bo.buftype ~= 'prompt' and vim.b.completion ~= false
       end,
 
+      completion = {
+        documentation = {
+          auto_show = true,
+          auto_show_delay_ms = 100,
+        },
+      },
+
       signature = { enabled = true },
       -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept, C-n/C-p for up/down)
       -- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys for up/down)

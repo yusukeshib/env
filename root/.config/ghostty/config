@@ -1,5 +1,5 @@
 font-family = Menlo
-theme = Dracula
+theme = deep
 font-feature = -dlig
 font-size = 13
 confirm-close-surface = false

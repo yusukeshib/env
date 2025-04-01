@@ -402,9 +402,15 @@ require('lazy').setup({
           },
           find_files = {
             theme = 'ivy',
+            layout_config = {
+              height = 15,
+            },
           },
           buffers = {
             theme = 'ivy',
+            layout_config = {
+              height = 10,
+            },
           },
         },
         extensions = {

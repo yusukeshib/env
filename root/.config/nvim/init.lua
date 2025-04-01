@@ -393,6 +393,13 @@ require('lazy').setup({
           --   },
         },
         pickers = {
+          colorscheme = {
+            enable_preview = true,
+            theme = 'ivy',
+            layout_config = {
+              height = 10,
+            },
+          },
           find_files = {
             theme = 'ivy',
           },
@@ -848,8 +855,11 @@ require('lazy').setup({
   {
     'folke/tokyonight.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
+  },
+  {
+    'EdenEast/nightfox.nvim',
     init = function()
-      vim.cmd.colorscheme 'tokyonight'
+      vim.cmd.colorscheme 'carbonfox'
     end,
   },
 

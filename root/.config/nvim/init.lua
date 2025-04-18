@@ -657,6 +657,37 @@ require('lazy').setup({
             },
           },
         },
+
+        harper_ls = {
+          settings = {
+            ['harper-ls'] = {
+              userDictPath = '',
+              fileDictPath = '',
+              linters = {
+                SpellCheck = true,
+                SpelledNumbers = false,
+                AnA = true,
+                SentenceCapitalization = true,
+                UnclosedQuotes = true,
+                WrongQuotes = false,
+                LongSentences = true,
+                RepeatedWords = true,
+                Spaces = true,
+                Matcher = true,
+                CorrectNumberSuffix = true,
+              },
+              codeActions = {
+                ForceStable = false,
+              },
+              markdown = {
+                IgnoreLinkTitle = false,
+              },
+              diagnosticSeverity = 'hint',
+              isolateEnglish = false,
+              dialect = 'American',
+            },
+          },
+        },
       }
 
       -- Ensure the servers and tools above are installed
@@ -677,6 +708,7 @@ require('lazy').setup({
         'stylua', -- Used to format Lua code
         'prettier',
         'eslint_d',
+        'harper_ls',
         'ts_ls',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }

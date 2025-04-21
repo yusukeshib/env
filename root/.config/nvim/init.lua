@@ -667,7 +667,7 @@ require('lazy').setup({
                 SpellCheck = true,
                 SpelledNumbers = false,
                 AnA = true,
-                SentenceCapitalization = true,
+                SentenceCapitalization = false,
                 UnclosedQuotes = true,
                 WrongQuotes = false,
                 LongSentences = true,

@@ -643,6 +643,15 @@ require('lazy').setup({
         -- ts_ls = {},
         --
 
+        pylsp = {
+          capabilities = capabilities,
+          settings = {
+            plugins = {
+              autopep8 = { enabled = false },
+            },
+          },
+        },
+
         lua_ls = {
           -- cmd = { ... },
           -- filetypes = { ... },
@@ -678,6 +687,7 @@ require('lazy').setup({
         'prettier',
         'eslint_d',
         'ts_ls',
+        'pylsp',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

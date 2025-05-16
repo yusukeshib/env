@@ -791,10 +791,10 @@ require('lazy').setup({
         },
       },
 
-      cmdline = {
-        keymap = { preset = 'inherit' },
-        completion = { menu = { auto_show = true } },
-      },
+      -- cmdline = {
+      --   keymap = { preset = 'inherit' },
+      --   completion = { menu = { auto_show = true } },
+      -- },
 
       signature = { enabled = true },
       -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept, C-n/C-p for up/down)

@@ -3,3 +3,4 @@ theme = deep
 font-feature = -dlig
 font-size = 13
 confirm-close-surface = false
+auto-update-channel = tip

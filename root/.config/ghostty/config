@@ -3,4 +3,5 @@ theme = deep
 font-feature = -dlig
 font-size = 13
 confirm-close-surface = false
-auto-update-channel = tip
+background-blur = true
+background-opacity = 0.9

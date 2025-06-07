@@ -893,6 +893,9 @@ require('lazy').setup({
       -- elsewhere in your config, without redefining it, due to `opts_extend`
       sources = {
         default = { 'lsp', 'path', 'snippets', 'buffer' },
+        per_filetype = {
+          codecompanion = { 'codecompanion' },
+        },
       },
 
       -- Blink.cmp uses a Rust fuzzy matcher by default for typo resistance and significantly better performance
@@ -1075,6 +1078,19 @@ require('lazy').setup({
             adapter = 'anthropic',
           },
         },
+      }
+      local cc = require 'codecompanion'
+      vim.keymap.set('n', '<leader>cc', '<cmd>CodeCompanionChat Toggle<CR>', { desc = '[C]odecompanion [C]hat' })
+      vim.keymap.set('n', '<C-s>', '<cmd>CodeCompanionAction<CR>', { desc = '' })
+    end,
+  },
+  {
+    'echasnovski/mini.diff',
+    config = function()
+      local diff = require 'mini.diff'
+      diff.setup {
+        -- Disabled by default
+        source = diff.gen_source.none(),
       }
     end,
   },

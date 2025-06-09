@@ -36,10 +36,6 @@ if type "zoxide" > /dev/null; then
   eval "$(zoxide init zsh)"
 fi
 
-if [[ ! -n $ANTHROPIC_API_KEY ]]; then
-  export ANTHROPIC_API_KEY=$(op read "op://Personal/avante-anthropic-key/credential")
-fi
-
 [ -d "$HOME/.cargo/" ] && source "$HOME/.cargo/env"
 [ -d "$HOME/.deno/" ] && source "$HOME/.deno/env"
 

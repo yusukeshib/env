@@ -1078,10 +1078,17 @@ require('lazy').setup({
             adapter = 'anthropic',
           },
         },
+        adapters = {
+          anthropic = function()
+            return require('codecompanion.adapters').extend('anthropic', {
+              env = {
+                api_key = 'cmd:op read op://Personal/avante-anthropic-key/credential --no-newline',
+              },
+            })
+          end,
+        },
       }
-      local cc = require 'codecompanion'
-      vim.keymap.set('n', '<leader>cc', '<cmd>CodeCompanionChat Toggle<CR>', { desc = '[C]odecompanion [C]hat' })
-      vim.keymap.set('n', '<C-s>', '<cmd>CodeCompanionAction<CR>', { desc = '' })
+      vim.keymap.set('n', '<C-s>', '<cmd>CodeCompanionChat Toggle<CR>', { desc = '' })
     end,
   },
   {

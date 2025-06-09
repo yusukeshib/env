@@ -5,3 +5,5 @@ font-size = 13
 confirm-close-surface = false
 background-blur = true
 background-opacity = 0.9
+window-width = 220
+window-height = 72

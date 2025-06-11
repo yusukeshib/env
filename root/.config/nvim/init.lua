@@ -1126,7 +1126,7 @@ require('lazy').setup({
           end,
         },
       }
-      vim.keymap.set('n', '<C-s>', '<cmd>CodeCompanionChat Toggle<CR>', { desc = '' })
+      vim.keymap.set('n', '<C-c>', '<cmd>CodeCompanionChat Toggle<CR>', { desc = '' })
     end,
   },
   {

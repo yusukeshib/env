@@ -858,7 +858,7 @@ require('lazy').setup({
     ---@type blink.cmp.Config
     opts = {
       enabled = function()
-        return vim.bo.buftype ~= 'nofile' and vim.bo.buftype ~= 'prompt' and vim.b.completion ~= false
+        return vim.b.completion ~= false
       end,
 
       completion = {

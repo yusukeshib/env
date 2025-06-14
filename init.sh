@@ -14,14 +14,16 @@ fi
 
 # Symlink all entries in the root
 cd $HOME/env/root
+shopt -s dotglob
 for item in *; do
-  if [[ "$item" != ".config" && ! -e "$HOME/$item" ]]; then
+  if [[ ! -e "$HOME/$item" && -f "$HOME/env/root/$item" ]]; then
     ln -s "$HOME/env/root/$item" "$HOME/$item" && echo "Linked: $HOME/$item"
   fi
 done
 
 # Symlink all entries in .config
 cd $HOME/env/root/.config
+shopt -s dotglob
 for item in *; do
   if [[ ! -e "$HOME/.config/$item" ]]; then
     ln -s "$HOME/env/root/.config/$item" "$HOME/.config/$item" && echo "Linked: $HOME/.config/$item"
@@ -30,8 +32,9 @@ done
 
 # Symlink all entries in .local/bin
 cd $HOME/env/root/.local/bin
+shopt -s dotglob
 for item in *; do
-  if [[ ! -e "$HOME/.local/bin/$item" ]]; then
+  if [[ ! -e "$HOME/.local/bin/$item" && -f "$HOME/env/root/.local/bin/$item" ]]; then
     ln -s "$HOME/env/root/.local/bin/$item" "$HOME/.local/bin/$item" && echo "Linked: $HOME/.local/bin/$item"
   fi
 done

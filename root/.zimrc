@@ -44,3 +44,5 @@ zmodule fzf
 zmodule ssh
 
 zmodule Aloxaf/fzf-tab
+
+zmodule direnv

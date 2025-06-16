@@ -41,3 +41,6 @@ fi
 
 # asdf
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+
+# direnv
+eval "$(direnv hook zsh)"

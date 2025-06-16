@@ -672,7 +672,6 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        -- pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -683,13 +682,8 @@ require('lazy').setup({
         -- ts_ls = {},
         --
 
-        pylsp = {
+        pyright = {
           capabilities = capabilities,
-          settings = {
-            plugins = {
-              autopep8 = { enabled = false },
-            },
-          },
         },
 
         lua_ls = {
@@ -727,7 +721,7 @@ require('lazy').setup({
         'prettier',
         'eslint_d',
         'ts_ls',
-        'pylsp',
+        'pyright',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

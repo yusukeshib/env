@@ -826,16 +826,6 @@ require('lazy').setup({
   },
 
   {
-    'zbirenbaum/copilot.lua',
-    config = function()
-      require('copilot').setup {
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-      }
-    end,
-  },
-
-  {
     'saghen/blink.cmp',
     -- optional: provides snippets for the snippet source
     dependencies = {

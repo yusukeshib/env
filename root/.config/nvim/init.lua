@@ -915,9 +915,9 @@ require('lazy').setup({
       -- elsewhere in your config, without redefining it, due to `opts_extend`
       sources = {
         default = { 'lsp', 'path', 'snippets', 'buffer' },
-        per_filetype = {
-          codecompanion = { 'codecompanion' },
-        },
+        -- per_filetype = {
+        --   codecompanion = { 'codecompanion' },
+        -- },
       },
 
       -- Blink.cmp uses a Rust fuzzy matcher by default for typo resistance and significantly better performance
@@ -1096,41 +1096,41 @@ require('lazy').setup({
   },
 
   -- LLM
-  {
-    'olimorris/codecompanion.nvim',
-    opts = {},
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-treesitter/nvim-treesitter',
-    },
-    config = function()
-      require('codecompanion').setup {
-        strategies = {
-          chat = {
-            adapter = 'anthropic',
-          },
-          inline = {
-            adapter = 'anthropic',
-          },
-        },
-        adapters = {
-          anthropic = function()
-            return require('codecompanion.adapters').extend('anthropic', {
-              env = {
-                api_key = 'cmd:op read op://Personal/avante-anthropic-key/credential --no-newline',
-              },
-            })
-          end,
-        },
-      }
-      vim.keymap.set('n', '<C-c>', '<cmd>CodeCompanionChat Toggle<CR>', { desc = '' })
-      vim.keymap.set({ 'n', 'v' }, '<C-s>', '<cmd>CodeCompanionActions<cr>', { noremap = true, silent = true })
-      vim.keymap.set({ 'n', 'v' }, '<LocalLeader>a', '<cmd>CodeCompanionChat Toggle<cr>', { noremap = true, silent = true })
-      vim.keymap.set('v', 'ga', '<cmd>CodeCompanionChat Add<cr>', { noremap = true, silent = true })
-      -- Expand 'cc' into 'CodeCompanion' in the command line
-      vim.cmd [[cab cc CodeCompanion]]
-    end,
-  },
+  -- {
+  --   'olimorris/codecompanion.nvim',
+  --   opts = {},
+  --   dependencies = {
+  --     'nvim-lua/plenary.nvim',
+  --     'nvim-treesitter/nvim-treesitter',
+  --   },
+  --   config = function()
+  --     require('codecompanion').setup {
+  --       strategies = {
+  --         chat = {
+  --           adapter = 'anthropic',
+  --         },
+  --         inline = {
+  --           adapter = 'anthropic',
+  --         },
+  --       },
+  --       adapters = {
+  --         anthropic = function()
+  --           return require('codecompanion.adapters').extend('anthropic', {
+  --             env = {
+  --               api_key = 'cmd:op read op://Personal/avante-anthropic-key/credential --no-newline',
+  --             },
+  --           })
+  --         end,
+  --       },
+  --     }
+  --     vim.keymap.set('n', '<C-c>', '<cmd>CodeCompanionChat Toggle<CR>', { desc = '' })
+  --     vim.keymap.set({ 'n', 'v' }, '<C-s>', '<cmd>CodeCompanionActions<cr>', { noremap = true, silent = true })
+  --     vim.keymap.set({ 'n', 'v' }, '<LocalLeader>a', '<cmd>CodeCompanionChat Toggle<cr>', { noremap = true, silent = true })
+  --     vim.keymap.set('v', 'ga', '<cmd>CodeCompanionChat Add<cr>', { noremap = true, silent = true })
+  --     -- Expand 'cc' into 'CodeCompanion' in the command line
+  --     vim.cmd [[cab cc CodeCompanion]]
+  --   end,
+  -- },
   {
     'echasnovski/mini.diff',
     config = function()

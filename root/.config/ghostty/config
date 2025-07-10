@@ -7,3 +7,4 @@ background-blur = true
 background-opacity = 0.9
 window-width = 220
 window-height = 72
+auto-update-channel = tip

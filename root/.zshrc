@@ -44,3 +44,6 @@ export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 # direnv
 eval "$(direnv hook zsh)"
+
+# bun completions
+[ -s "/Users/yusuke/.bun/_bun" ] && source "/Users/yusuke/.bun/_bun"

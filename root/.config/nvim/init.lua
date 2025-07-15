@@ -826,10 +826,24 @@ require('lazy').setup({
   },
 
   {
+    'zbirenbaum/copilot.lua',
+    cmd = 'Copilot',
+    event = 'InsertEnter',
+    opts = {
+      suggestion = { enabled = false },
+      panel = { enabled = false },
+      filetypes = {
+        markdown = true,
+        help = true,
+      },
+    },
+  },
+  {
     'saghen/blink.cmp',
-    -- optional: provides snippets for the snippet source
+    optional = true,
     dependencies = {
       'rafamadriz/friendly-snippets',
+      'giuxtaposition/blink-cmp-copilot',
     },
     -- use a release tag to download pre-built binaries
     version = '*',
@@ -846,27 +860,21 @@ require('lazy').setup({
       end,
 
       completion = {
+        keyword = { range = 'full' },
+        -- Show documentation when selecting a completion item
         documentation = {
           auto_show = true,
           auto_show_delay_ms = 100,
         },
+        -- Display a preview of the selected item on the current line
+        ghost_text = {
+          enabled = true,
+          show_without_selection = true,
+        },
       },
 
-      -- cmdline = {
-      --   keymap = { preset = 'inherit' },
-      --   completion = { menu = { auto_show = true } },
-      -- },
-
       signature = { enabled = true },
-      -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept, C-n/C-p for up/down)
-      -- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys for up/down)
-      -- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
-      --
-      -- All presets have the following mappings:
-      -- C-space: Open menu or open docs if already open
-      -- C-e: Hide menu
-      -- C-k: Toggle signature help
-      --
+
       -- See the full "keymap" documentation for information on defining your own keymap.
       keymap = {
         -- set to 'none' to disable the 'default' preset
@@ -878,27 +886,6 @@ require('lazy').setup({
         ['<Tab>'] = { 'select_next', 'fallback' },
         ['<Enter>'] = { 'select_and_accept', 'fallback' },
         ['C-space'] = { 'show', 'show_documentation', 'hide_documentation' },
-
-        -- disable a keymap from the preset
-        -- ['<C-e>'] = {},
-
-        -- show with a list of providers
-        -- ['<C-space>'] = {
-        --   function(cmp)
-        --     cmp.show { providers = { 'snippets' } }
-        --   end,
-        -- },
-
-        -- control whether the next command will be run when using a function
-        -- ['<C-n>'] = {
-        --   function(cmp)
-        --     if some_condition then
-        --       return
-        --     end -- runs the next command
-        --     return true -- doesn't run the next command
-        --   end,
-        --   'select_next',
-        -- },
       },
 
       appearance = {
@@ -914,10 +901,15 @@ require('lazy').setup({
       -- Default list of enabled providers defined so that you can extend it
       -- elsewhere in your config, without redefining it, due to `opts_extend`
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer' },
-        -- per_filetype = {
-        --   codecompanion = { 'codecompanion' },
-        -- },
+        default = { 'copilot', 'lsp', 'path', 'snippets', 'buffer' },
+        providers = {
+          copilot = {
+            name = 'copilot',
+            module = 'blink-cmp-copilot',
+            score_offset = 100,
+            async = true,
+          },
+        },
       },
 
       -- Blink.cmp uses a Rust fuzzy matcher by default for typo resistance and significantly better performance

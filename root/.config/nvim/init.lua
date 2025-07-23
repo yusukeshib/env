@@ -722,6 +722,8 @@ require('lazy').setup({
         'eslint_d',
         'ts_ls',
         'pyright',
+        'helm_ls',
+        'yamlls',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -738,6 +740,14 @@ require('lazy').setup({
         },
       }
     end,
+  },
+
+  {
+    'qvalentin/helm-ls.nvim',
+    ft = 'helm',
+    opts = {
+      -- leave empty or see below
+    },
   },
 
   {

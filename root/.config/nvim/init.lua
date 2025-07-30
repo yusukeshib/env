@@ -403,6 +403,7 @@ require('lazy').setup({
         return string.format('%s ~ %s', filename, stripped_path)
       end
 
+      local actions = require 'telescope.actions'
       require('telescope').setup {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
@@ -413,6 +414,12 @@ require('lazy').setup({
           --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
           --   },
           path_display = path_display,
+          mappings = {
+            i = {
+              ['<Down>'] = actions.cycle_history_next,
+              ['<Up>'] = actions.cycle_history_prev,
+            },
+          },
         },
         pickers = {
           colorscheme = {
@@ -455,6 +462,7 @@ require('lazy').setup({
 
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'ui-select')
+      pcall(require('telescope').load_extension, 'smart_history')
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'

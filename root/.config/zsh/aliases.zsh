@@ -30,14 +30,6 @@ if type "kubectl" > /dev/null; then
   alias k="kubectl"
 fi
 
-if type "kubectx" > /dev/null; then
-  alias kx="kubectx"
-fi
-
-if type "kubens" > /dev/null; then
-  alias kn="kubens"
-fi
-
 # Use gh command
 if alias gh; then
   unalias gh

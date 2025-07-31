@@ -414,12 +414,12 @@ require('lazy').setup({
           --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
           --   },
           path_display = path_display,
-          mappings = {
-            i = {
-              ['<Down>'] = actions.cycle_history_next,
-              ['<Up>'] = actions.cycle_history_prev,
-            },
-          },
+          -- mappings = {
+          --   i = {
+          --     ['<C-[>'] = actions.cycle_history_prev,
+          --     ['<C-]>'] = actions.cycle_history_next,
+          --   },
+          -- },
         },
         pickers = {
           colorscheme = {

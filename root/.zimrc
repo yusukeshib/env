@@ -46,3 +46,5 @@ zmodule ssh
 zmodule Aloxaf/fzf-tab
 
 zmodule direnv
+
+zmodule jonmosco/kube-ps1

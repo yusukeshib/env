@@ -15,18 +15,18 @@ vim.opt.list = true
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 vim.opt.inccommand = "split"
 vim.opt.cursorline = true
-vim.opt.scrolloff = 10
+vim.opt.scrolloff = 3
 vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
 vim.opt.termguicolors = true
 
 --
--- Plugins 
+-- Plugins
 --
 
 vim.pack.add({
   { src = "https://github.com/tpope/vim-sleuth" },
-  { src = "https://github.com/EdenEast/nightfox.nvim", },
+  { src = "https://github.com/dracula/vim" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter", },
   { src = "https://github.com/j-hui/fidget.nvim" },
   { src = "https://github.com/tpope/vim-abolish" },
@@ -39,15 +39,21 @@ vim.pack.add({
   { src = "https://github.com/nvim-lua/plenary.nvim" },
   { src = "https://github.com/nvim-telescope/telescope.nvim" },
   { src = "https://github.com/nvim-tree/nvim-tree.lua" },
-  { src = 'https://github.com/echasnovski/mini.statusline' },
-  { src = 'https://github.com/williamboman/mason.nvim' },
+  { src = 'https://github.com/nvim-lualine/lualine.nvim' },
+  { src = 'https://github.com/rcarriga/nvim-notify' },
+  -- Provide default config for lsp.vim.config(...)
+  { src = 'https://github.com/neovim/nvim-lspconfig' },
+  -- Install lua-language-server, pyright-langserver automatically
+  { src = 'https://github.com/mason-org/mason.nvim' },
+  -- Automatically install using mason
+  { src = 'https://github.com/mason-org/mason-lspconfig.nvim' },
 })
 
 --
 -- Theme
 --
 
-vim.cmd.colorscheme("carbonfox")
+vim.cmd.colorscheme("dracula")
 
 --
 -- Keyboard shortcuts
@@ -60,14 +66,14 @@ local list_buffers = function()
   })
 end
 
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Unhighlight search word" })
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
-vim.keymap.set("n", "<C-a>", vim.cmd.NvimTreeFindFileToggle, {})
+vim.keymap.set("n", "<C-a>", vim.cmd.NvimTreeFindFileToggle, { desc = "Toggle NvimTree" })
 vim.keymap.set("n", "<leader>rg", require("telescope.builtin").live_grep, { desc = "[R]ip[G]rep" })
-vim.keymap.set("n", "<C-p>", require("telescope.builtin").find_files, { desc = "" })
+vim.keymap.set("n", "<C-p>", require("telescope.builtin").find_files, { desc = "Cmd+P" })
 vim.keymap.set("n", ";;", list_buffers, { desc = "List buffers" })
 
 --
@@ -128,60 +134,19 @@ require("nvim-tree").setup({
   },
 })
 
+require("notify").setup({ render = "minimal" })
 require("bufferline").setup()
-require('mini.statusline').setup()
-require('mason').setup()
+require('lualine').setup()
 require("fidget").setup()
 
-vim.lsp.config('lua_ls', {
-  on_init = function(client)
-    if client.workspace_folders then
-      local path = client.workspace_folders[1].name
-      if
-        path ~= vim.fn.stdpath('config')
-        and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
-      then
-        return
-      end
-    end
+--
+-- LSP
+--
 
-    client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most
-        -- likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-        -- Tell the language server how to find Lua modules same way as Neovim
-        -- (see `:h lua-module-load`)
-        path = {
-          'lua/?.lua',
-          'lua/?/init.lua',
-        },
-      },
-      -- Make the server aware of Neovim runtime files
-      workspace = {
-        checkThirdParty = false,
-        library = {
-          vim.env.VIMRUNTIME
-          -- Depending on the usage, you might want to add additional paths
-          -- here.
-          -- '${3rd}/luv/library'
-          -- '${3rd}/busted/library'
-        }
-        -- Or pull in all of 'runtimepath'.
-        -- NOTE: this is a lot slower and will cause issues when working on
-        -- your own configuration.
-        -- See https://github.com/neovim/nvim-lspconfig/issues/3189
-        -- library = {
-        --   vim.api.nvim_get_runtime_file('', true),
-        -- }
-      }
-    })
-  end,
-  settings = {
-    Lua = {}
-  }
+require("mason").setup()
+require("mason-lspconfig").setup({
+   ensure_installed = { "lua_ls", "pyright" },
+   -- vim.lsp.enable
+   automatic_enable = true,
 })
-vim.lsp.enable('lua_ls')
 
-vim.lsp.config('pyright', {})
-vim.lsp.enable('pyright')

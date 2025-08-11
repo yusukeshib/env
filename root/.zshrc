@@ -4,7 +4,6 @@ unsetopt BEEP
 export LANG=en_US.UTF-8
 export EDITOR="nvim"
 export GPG_TTY=$(tty)
-export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 
 if [[ -n "$SSH_CONNECTION" ]] ;then
   export PINENTRY_USER_DATA="USE_CURSES=1"
@@ -42,3 +41,4 @@ fi
 # kube
 PROMPT='$(kube_ps1)'$PROMPT
 
+export PATH="$HOME/.local/bin:$PATH"

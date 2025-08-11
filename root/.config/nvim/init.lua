@@ -40,6 +40,7 @@ vim.pack.add({
   { src = "https://github.com/nvim-telescope/telescope.nvim" },
   { src = "https://github.com/nvim-tree/nvim-tree.lua" },
   { src = 'https://github.com/echasnovski/mini.statusline' },
+  { src = 'https://github.com/neovim/nvim-lspconfig' },
   { src = 'https://github.com/williamboman/mason.nvim' },
   { src = 'https://github.com/williamboman/mason-lspconfig.nvim' },
   { src = 'https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim' },
@@ -131,107 +132,7 @@ require("nvim-tree").setup({
 })
 
 require("bufferline").setup()
-require("fidget").setup()
 require('mini.statusline').setup()
 require('mason').setup()
 require('mason-lspconfig').setup()
-require('mason-tool-installer').setup({
-	ensure_installed = {
-		"lua_ls",
-	}
-})
-
---
--- LSP
---
-
-vim.lsp.enable('lua_ls')
-
-
---   {
---     "saghen/blink.cmp",
---     optional = true,
---     dependencies = {
---       "rafamadriz/friendly-snippets",
---       "giuxtaposition/blink-cmp-copilot",
---     },
---     -- use a release tag to download pre-built binaries
---     version = "*",
---     -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
---     -- build = 'cargo build --release',
---     -- If you use nix, you can build from source using latest nightly rust with:
---     -- build = 'nix run .#build-plugin',
--- 
---     ---@module 'blink.cmp'
---     ---@type blink.cmp.Config
---     opts = {
---       enabled = function()
---         return vim.b.completion ~= false
---       end,
--- 
---       completion = {
---         keyword = { range = "full" },
---         -- Show documentation when selecting a completion item
---         documentation = {
---           auto_show = true,
---           auto_show_delay_ms = 100,
---         },
---         -- Display a preview of the selected item on the current line
---         ghost_text = {
---           enabled = true,
---           show_without_selection = true,
---         },
---       },
--- 
---       signature = { enabled = true },
--- 
---       -- See the full "keymap" documentation for information on defining your own keymap.
---       keymap = {
---         -- set to 'none' to disable the 'default' preset
---         preset = "default",
--- 
---         ["<Up>"] = { "select_prev", "fallback" },
---         ["<Down>"] = { "select_next", "fallback" },
---         ["<S-Tab>"] = { "select_prev", "fallback" },
---         ["<Tab>"] = { "select_next", "fallback" },
---         ["<Enter>"] = { "select_and_accept", "fallback" },
---         ["C-space"] = { "show", "show_documentation", "hide_documentation" },
---       },
--- 
---       appearance = {
---         -- Sets the fallback highlight groups to nvim-cmp's highlight groups
---         -- Useful for when your theme doesn't support blink.cmp
---         -- Will be removed in a future release
---         use_nvim_cmp_as_default = true,
---         -- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
---         -- Adjusts spacing to ensure icons are aligned
---         nerd_font_variant = "mono",
---       },
--- 
---       -- Default list of enabled providers defined so that you can extend it
---       -- elsewhere in your config, without redefining it, due to `opts_extend`
---       sources = {
---         default = { "lsp", "path", "snippets", "buffer" },
---         providers = {
---           copilot = {
---             name = "copilot",
---             module = "blink-cmp-copilot",
---             score_offset = 100,
---             async = true,
---           },
---         },
---       },
--- 
---       -- Blink.cmp uses a Rust fuzzy matcher by default for typo resistance and significantly better performance
---       -- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
---       -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
---       --
---       -- See the fuzzy documentation for more information
---       fuzzy = { implementation = "prefer_rust_with_warning" },
---     },
---     opts_extend = { "sources.default" },
---   },
--- 
--- 
--- })
-
+require("fidget").setup()

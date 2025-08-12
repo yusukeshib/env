@@ -3,11 +3,6 @@ unsetopt BEEP
 
 export LANG=en_US.UTF-8
 export EDITOR="nvim"
-export GPG_TTY=$(tty)
-
-if [[ -n "$SSH_CONNECTION" ]] ;then
-  export PINENTRY_USER_DATA="USE_CURSES=1"
-fi
 
 # brew
 [ -d /opt/homebrew ] && eval "$(/opt/homebrew/bin/brew shellenv)"

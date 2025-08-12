@@ -30,7 +30,7 @@ vim.pack.add({
   -- Respect editorconfig
   { src = "https://github.com/tpope/vim-sleuth" },
   -- Theme
-  { src = "https://github.com/dracula/vim" },
+  { src = "https://github.com/EdenEast/nightfox.nvim" },
   -- Syntax highlighting
   { src = "https://github.com/nvim-treesitter/nvim-treesitter", },
   -- Lsp status
@@ -74,7 +74,7 @@ vim.pack.add({
 -- Theme
 --
 
-vim.cmd.colorscheme("dracula")
+vim.cmd.colorscheme("carbonfox")
 
 --
 -- Keyboard shortcuts

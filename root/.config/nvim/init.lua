@@ -20,6 +20,10 @@ vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
 vim.opt.termguicolors = true
 
+-- prevent the built-in vim.lsp.completion autotrigger from selecting the first item
+vim.opt.completeopt = { "menuone", "noselect", "popup" }
+
+
 --
 -- Plugins
 --
@@ -145,8 +149,47 @@ require("fidget").setup()
 
 require("mason").setup()
 require("mason-lspconfig").setup({
-   ensure_installed = { "lua_ls", "pyright" },
-   -- vim.lsp.enable
-   automatic_enable = true,
+  ensure_installed = { "lua_ls", "pyright" },
+  -- vim.lsp.enable
+  automatic_enable = true,
 })
 
+
+--
+-- Auto complete
+--
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(event)
+    local id = vim.tbl_get(event, 'data', 'client_id')
+    local client = vim.lsp.get_client_by_id(id)
+    vim.lsp.completion.enable(true, client.id, event.buf, {
+      autotrigger = true,
+      convert = function(item)
+        return { abbr = item.label:gsub("%b()", "") }
+      end,
+    })
+  end
+})
+
+--
+-- Format on save
+--
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(event)
+    local fmt_group = vim.api.nvim_create_augroup('autoformat_cmds', { clear = true })
+    vim.api.nvim_create_autocmd('BufWritePre', {
+      buffer = event.buf,
+      group = fmt_group,
+      desc = 'Format current buffer',
+      callback = function(e)
+        vim.lsp.buf.format({
+          bufnr = e.buf,
+          async = false,
+          timeout_ms = 10000,
+        })
+      end
+    })
+  end
+})

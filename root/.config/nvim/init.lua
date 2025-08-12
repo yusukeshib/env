@@ -51,6 +51,10 @@ vim.pack.add({
   { src = 'https://github.com/mason-org/mason.nvim' },
   -- Automatically install using mason
   { src = 'https://github.com/mason-org/mason-lspconfig.nvim' },
+  -- cmp
+  { src = 'https://github.com/zbirenbaum/copilot.lua' },
+  { src = 'https://github.com/giuxtaposition/blink-cmp-copilot' },
+  { src = 'https://github.com/Saghen/blink.cmp' },
 })
 
 --
@@ -142,6 +146,10 @@ require("notify").setup({ render = "minimal" })
 require("bufferline").setup()
 require('lualine').setup()
 require("fidget").setup()
+require("copilot").setup({
+  suggestion = { enabled = false },
+  panel = { enabled = false },
+})
 
 --
 -- LSP
@@ -159,18 +167,34 @@ require("mason-lspconfig").setup({
 -- Auto complete
 --
 
-vim.api.nvim_create_autocmd('LspAttach', {
-  callback = function(event)
-    local id = vim.tbl_get(event, 'data', 'client_id')
-    local client = vim.lsp.get_client_by_id(id)
-    vim.lsp.completion.enable(true, client.id, event.buf, {
-      autotrigger = true,
-      convert = function(item)
-        return { abbr = item.label:gsub("%b()", "") }
-      end,
-    })
-  end
+require('blink.cmp').setup({
+  accept = { auto_brackets = { enabled = false }, },
+  sources = {
+    default = { "copilot", "lsp", "path", "snippets", "buffer" },
+    providers = {
+      copilot = {
+        name = "copilot",
+        module = "blink-cmp-copilot",
+        score_offset = 100,
+        async = true,
+      },
+    },
+  },
+  completion = {
+    ghost_text = {
+      enabled = true,
+      show_with_selection = true,
+    },
+  },
+  keymap = {
+    preset = 'default',
+    ['<S-Tab>'] = { 'select_prev', 'fallback' },
+    ['<Tab>'] = { 'select_next', 'fallback' },
+    ['<CR>'] = { 'accept', 'fallback' },
+  },
+  fuzzy = { implementation = "lua" }
 })
+
 
 --
 -- Format on save

@@ -53,7 +53,6 @@ vim.pack.add({
   { src = 'https://github.com/mason-org/mason-lspconfig.nvim' },
   -- cmp
   { src = 'https://github.com/zbirenbaum/copilot.lua' },
-  { src = 'https://github.com/giuxtaposition/blink-cmp-copilot' },
   { src = 'https://github.com/Saghen/blink.cmp' },
 })
 
@@ -146,10 +145,33 @@ require("notify").setup({ render = "minimal" })
 require("bufferline").setup()
 require('lualine').setup()
 require("fidget").setup()
+
+--
+-- Copilot
+--
+
 require("copilot").setup({
-  suggestion = { enabled = false },
-  panel = { enabled = false },
+  suggestion = {
+    enabled = true,
+    auto_trigger = true,
+    accept = false,
+  },
+  panel = {
+    enabled = false
+  },
+  filetypes = {
+    markdown = true,
+    help = true,
+    html = true,
+    javascript = true,
+    typescript = true,
+    ["*"] = true
+  },
 })
+
+vim.keymap.set("i", '<C-\\>', function()
+  require("copilot.suggestion").accept()
+end)
 
 --
 -- LSP
@@ -169,23 +191,6 @@ require("mason-lspconfig").setup({
 
 require('blink.cmp').setup({
   accept = { auto_brackets = { enabled = false }, },
-  sources = {
-    default = { "copilot", "lsp", "path", "snippets", "buffer" },
-    providers = {
-      copilot = {
-        name = "copilot",
-        module = "blink-cmp-copilot",
-        score_offset = 100,
-        async = true,
-      },
-    },
-  },
-  completion = {
-    ghost_text = {
-      enabled = true,
-      show_with_selection = true,
-    },
-  },
   keymap = {
     preset = 'default',
     ['<S-Tab>'] = { 'select_prev', 'fallback' },
@@ -194,7 +199,6 @@ require('blink.cmp').setup({
   },
   fuzzy = { implementation = "lua" }
 })
-
 
 --
 -- Format on save

@@ -29,21 +29,37 @@ vim.opt.completeopt = { "menuone", "noselect", "popup" }
 --
 
 vim.pack.add({
+  -- Respect editorconfig
   { src = "https://github.com/tpope/vim-sleuth" },
+  -- Theme
   { src = "https://github.com/dracula/vim" },
+  -- Syntax highlighting
   { src = "https://github.com/nvim-treesitter/nvim-treesitter", },
+  -- Lsp status
   { src = "https://github.com/j-hui/fidget.nvim" },
+  -- Subvert
   { src = "https://github.com/tpope/vim-abolish" },
+  -- POSIX regexp
   { src = "https://github.com/othree/eregex.vim" },
+  --  Git
   { src = "https://github.com/tpope/vim-fugitive" },
+  -- Blame ghost
   { src = "https://github.com/f-person/git-blame.nvim" },
+  -- Respect workspace root
   { src = "https://github.com/notjedi/nvim-rooter.lua" },
+  -- Git sign column
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
+  -- Tab UI
   { src = "https://github.com/akinsho/bufferline.nvim" },
+  -- UI lib
   { src = "https://github.com/nvim-lua/plenary.nvim" },
+  -- Telescope
   { src = "https://github.com/nvim-telescope/telescope.nvim" },
+  -- Explorer
   { src = "https://github.com/nvim-tree/nvim-tree.lua" },
+  -- Status line UI
   { src = 'https://github.com/nvim-lualine/lualine.nvim' },
+  -- Notification
   { src = 'https://github.com/rcarriga/nvim-notify' },
   -- Provide default config for lsp.vim.config(...)
   { src = 'https://github.com/neovim/nvim-lspconfig' },
@@ -51,8 +67,9 @@ vim.pack.add({
   { src = 'https://github.com/mason-org/mason.nvim' },
   -- Automatically install using mason
   { src = 'https://github.com/mason-org/mason-lspconfig.nvim' },
-  -- cmp
+  -- Copilot ghost
   { src = 'https://github.com/zbirenbaum/copilot.lua' },
+  -- Autocomplete
   { src = 'https://github.com/Saghen/blink.cmp' },
 })
 

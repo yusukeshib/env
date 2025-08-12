@@ -190,7 +190,9 @@ require("mason-lspconfig").setup({
 --
 
 require('blink.cmp').setup({
-  accept = { auto_brackets = { enabled = false }, },
+  completion = {
+    accept = { auto_brackets = { enabled = false }, },
+  },
   keymap = {
     preset = 'default',
     ['<S-Tab>'] = { 'select_prev', 'fallback' },

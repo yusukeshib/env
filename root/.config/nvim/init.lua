@@ -1,8 +1,6 @@
 vim.g.mapleader = " "
-vim.g.maplocalleader = " "
 vim.opt.number = true
 vim.opt.mouse = "a"
-vim.opt.showmode = false
 vim.opt.clipboard = "unnamedplus"
 vim.opt.breakindent = true
 vim.opt.undofile = true
@@ -59,8 +57,6 @@ vim.pack.add({
   { src = "https://github.com/nvim-tree/nvim-tree.lua" },
   -- Status line UI
   { src = 'https://github.com/nvim-lualine/lualine.nvim' },
-  -- Notification
-  { src = 'https://github.com/rcarriga/nvim-notify' },
   -- Provide default config for lsp.vim.config(...)
   { src = 'https://github.com/neovim/nvim-lspconfig' },
   -- Install lua-language-server, pyright-langserver automatically
@@ -158,10 +154,19 @@ require("nvim-tree").setup({
   },
 })
 
-require("notify").setup({ render = "minimal" })
 require("bufferline").setup()
 require('lualine').setup()
-require("fidget").setup()
+require("fidget").setup({
+  notification = {
+    poll_rate = 1,
+    filter = vim.log.levels.TRACE,
+  },
+  integration = {
+    ["nvim-tree"] = {
+      enable = true,
+    },
+  },
+})
 
 --
 -- Copilot
@@ -193,6 +198,16 @@ end)
 --
 -- LSP
 --
+
+vim.lsp.config('lua_ls', {
+  settings = {
+    Lua = {
+      workspace = {
+        library = vim.api.nvim_get_runtime_file("", true),
+      }
+    }
+  }
+})
 
 require("mason").setup()
 require("mason-lspconfig").setup({

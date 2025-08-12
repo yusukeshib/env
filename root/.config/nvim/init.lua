@@ -87,6 +87,12 @@ local list_buffers = function()
   })
 end
 
+local reload_configuration = function()
+  local vim_rc = os.getenv('MYVIMRC')
+  print("Reloading configuration from: " .. vim_rc)
+  vim.cmd.luafile(vim_rc)
+end
+
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Unhighlight search word" })
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
@@ -96,6 +102,7 @@ vim.keymap.set("n", "<C-a>", vim.cmd.NvimTreeFindFileToggle, { desc = "Toggle Nv
 vim.keymap.set("n", "<leader>rg", require("telescope.builtin").live_grep, { desc = "[R]ip[G]rep" })
 vim.keymap.set("n", "<C-p>", require("telescope.builtin").find_files, { desc = "Cmd+P" })
 vim.keymap.set("n", ";;", list_buffers, { desc = "List buffers" })
+vim.keymap.set("n", "<F5>", reload_configuration, { desc = "Reload configuration" })
 
 --
 -- Plugin setup

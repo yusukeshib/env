@@ -77,34 +77,6 @@ vim.pack.add({
 vim.cmd.colorscheme("carbonfox")
 
 --
--- Keyboard shortcuts
---
-
-local list_buffers = function()
-  require("telescope.builtin").buffers({
-    sort_lastused = true,
-    ignore_current_buffer = true,
-  })
-end
-
-local reload_configuration = function()
-  local vim_rc = os.getenv('MYVIMRC')
-  print("Reloading configuration from: " .. vim_rc)
-  vim.cmd.luafile(vim_rc)
-end
-
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Unhighlight search word" })
-vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
-vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
-vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
-vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
-vim.keymap.set("n", "<C-a>", vim.cmd.NvimTreeFindFileToggle, { desc = "Toggle NvimTree" })
-vim.keymap.set("n", "<leader>rg", require("telescope.builtin").live_grep, { desc = "[R]ip[G]rep" })
-vim.keymap.set("n", "<C-p>", require("telescope.builtin").find_files, { desc = "Cmd+P" })
-vim.keymap.set("n", ";;", list_buffers, { desc = "List buffers" })
-vim.keymap.set("n", "<F5>", reload_configuration, { desc = "Reload configuration" })
-
---
 -- Plugin setup
 --
 
@@ -199,10 +171,6 @@ require("copilot").setup({
   },
 })
 
-vim.keymap.set("i", "<C-\\>", function()
-  require("copilot.suggestion").accept()
-end)
-
 --
 -- LSP
 --
@@ -263,3 +231,32 @@ vim.api.nvim_create_autocmd("LspAttach", {
     })
   end
 })
+
+--
+-- Keyboard shortcuts
+--
+
+local list_buffers = function()
+  require("telescope.builtin").buffers({
+    sort_lastused = true,
+    ignore_current_buffer = true,
+  })
+end
+
+local reload_configuration = function()
+  local vim_rc = os.getenv('MYVIMRC')
+  print("Reloading configuration from: " .. vim_rc)
+  vim.cmd.luafile(vim_rc)
+end
+
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Unhighlight search word" })
+vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
+vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
+vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
+vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+vim.keymap.set("n", "<C-a>", vim.cmd.NvimTreeFindFileToggle, { desc = "Toggle NvimTree" })
+vim.keymap.set("n", "<leader>rg", require("telescope.builtin").live_grep, { desc = "[R]ip[G]rep" })
+vim.keymap.set("n", "<C-p>", require("telescope.builtin").find_files, { desc = "Cmd+P" })
+vim.keymap.set("n", ";;", list_buffers, { desc = "List buffers" })
+vim.keymap.set("n", "<F5>", reload_configuration, { desc = "Reload configuration" })
+vim.keymap.set("i", "<C-]>", require("copilot.suggestion").accept, { desc = "Accept Copilot suggestion" })

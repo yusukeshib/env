@@ -57,17 +57,17 @@ vim.pack.add({
   -- Explorer
   { src = "https://github.com/nvim-tree/nvim-tree.lua" },
   -- Status line UI
-  { src = 'https://github.com/nvim-lualine/lualine.nvim' },
+  { src = "https://github.com/nvim-lualine/lualine.nvim" },
   -- Provide default config for lsp.vim.config(...)
-  { src = 'https://github.com/neovim/nvim-lspconfig' },
+  { src = "https://github.com/neovim/nvim-lspconfig" },
   -- Install lua-language-server, pyright-langserver automatically
-  { src = 'https://github.com/mason-org/mason.nvim' },
+  { src = "https://github.com/mason-org/mason.nvim" },
   -- Automatically install using mason
-  { src = 'https://github.com/mason-org/mason-lspconfig.nvim' },
+  { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
   -- Copilot ghost
-  { src = 'https://github.com/zbirenbaum/copilot.lua' },
+  { src = "https://github.com/zbirenbaum/copilot.lua" },
   -- Autocomplete
-  { src = 'https://github.com/Saghen/blink.cmp' },
+  { src = "https://github.com/Saghen/blink.cmp" },
 })
 
 --
@@ -163,7 +163,7 @@ require("nvim-tree").setup({
 })
 
 require("bufferline").setup()
-require('lualine').setup()
+require("lualine").setup()
 require("fidget").setup({
   notification = {
     poll_rate = 1,
@@ -199,7 +199,7 @@ require("copilot").setup({
   },
 })
 
-vim.keymap.set("i", '<C-\\>', function()
+vim.keymap.set("i", "<C-\\>", function()
   require("copilot.suggestion").accept()
 end)
 
@@ -207,7 +207,7 @@ end)
 -- LSP
 --
 
-vim.lsp.config('lua_ls', {
+vim.lsp.config("lua_ls", {
   settings = {
     Lua = {
       workspace = {
@@ -229,15 +229,15 @@ require("mason-lspconfig").setup({
 -- Auto complete
 --
 
-require('blink.cmp').setup({
+require("blink.cmp").setup({
   completion = {
     accept = { auto_brackets = { enabled = false }, },
   },
   keymap = {
-    preset = 'default',
-    ['<S-Tab>'] = { 'select_prev', 'fallback' },
-    ['<Tab>'] = { 'select_next', 'fallback' },
-    ['<CR>'] = { 'accept', 'fallback' },
+    preset = "default",
+    ["<S-Tab>"] = { "select_prev", "fallback" },
+    ["<Tab>"] = { "select_next", "fallback" },
+    ["<CR>"] = { "accept", "fallback" },
   },
   fuzzy = { implementation = "lua" }
 })
@@ -246,13 +246,13 @@ require('blink.cmp').setup({
 -- Format on save
 --
 
-vim.api.nvim_create_autocmd('LspAttach', {
+vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(event)
-    local fmt_group = vim.api.nvim_create_augroup('autoformat_cmds', { clear = true })
-    vim.api.nvim_create_autocmd('BufWritePre', {
+    local fmt_group = vim.api.nvim_create_augroup("autoformat_cmds", { clear = true })
+    vim.api.nvim_create_autocmd("BufWritePre", {
       buffer = event.buf,
       group = fmt_group,
-      desc = 'Format current buffer',
+      desc = "Format current buffer",
       callback = function(e)
         vim.lsp.buf.format({
           bufnr = e.buf,

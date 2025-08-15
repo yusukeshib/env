@@ -135,7 +135,7 @@ require("nvim-tree").setup({
 })
 
 require("bufferline").setup()
-require("lualine").setup()
+require("lualine").setup({})
 require("fidget").setup({
   notification = {
     poll_rate = 1,

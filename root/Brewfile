@@ -20,4 +20,4 @@ brew "yq"
 brew "zoxide"
 brew "withgraphite/tap/graphite"
 brew "opencode-ai/tap/opencode"
-
+brew "zplug"

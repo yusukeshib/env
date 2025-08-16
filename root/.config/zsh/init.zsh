@@ -12,6 +12,12 @@ export EDITOR="nvim"
 [ -d /home/linuxbrew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 #
+# prompt
+#
+
+eval "$(starship init zsh)"
+
+#
 # fzf
 #
 
@@ -20,23 +26,33 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 source <(fzf --zsh)
 
 #
-# zim
+# zplug
 #
 
-ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
-if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
-  # Download zimfw script if missing.
-  if (( ${+commands[curl]} )); then
-    curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
-  else
-    mkdir -p ${ZIM_HOME} && wget -nv -O ${ZIM_HOME}/zimfw.zsh https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+export ZPLUG_HOME=/opt/homebrew/opt/zplug
+
+if [ -d "$ZPLUG_HOME" ]; then
+  source $ZPLUG_HOME/init.zsh
+    
+  zplug "zsh-users/zsh-autosuggestions"
+  zplug "zsh-users/zsh-history-substring-search"
+  zplug "zsh-users/zsh-syntax-highlighting"
+  zplug "zsh-users/zsh-completions"
+  zplug "Aloxaf/fzf-tab", use:"fzf-tab.plugin.zsh"
+  zplug "plugins/git", from:oh-my-zsh
+  zplug "plugins/common-aliases", from:oh-my-zsh
+  zplug "plugins/kubectl", from:oh-my-zsh
+  zplug "plugins/kube-ps1", from:oh-my-zsh
+  
+  if ! zplug check --verbose; then
+      printf "Install? [y/N]: "
+      if read -q; then
+          echo; zplug install
+      fi
   fi
+  zplug load --verbose
 fi
-if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
-  # Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated.
-  source ${ZIM_HOME}/zimfw.zsh init -q
-fi
-source ${ZIM_HOME}/init.zsh
+
 
 #
 # cd replacement
@@ -61,12 +77,6 @@ eval "$(direnv hook bash)"
 if [ -n "$TMUX" ] && [ -n "$DIRENV_DIR" ]; then
   direnv reload
 fi
-
-#
-# kube
-#
-
-PROMPT='$(kube_ps1)'$PROMPT
 
 export PATH="$HOME/.local/bin:$PATH"
 
@@ -113,9 +123,4 @@ fi
 if type "rg" > /dev/null; then
   alias rg="rg --hidden -g '!.git/'"
 fi
-
-if type "kubectl" > /dev/null; then
-  alias k="kubectl"
-fi
-
 

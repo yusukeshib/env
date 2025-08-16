@@ -40,8 +40,7 @@ vim.pack.add({
   -- POSIX regexp
   { src = "https://github.com/othree/eregex.vim" },
   --  Git
-  { src = "https://github.com/NeogitOrg/neogit" },
-  { src = "https://github.com/sindrets/diffview.nvim" },
+  { src = "https://github.com/tpope/vim-fugitive" },
   -- Blame ghost
   { src = "https://github.com/f-person/git-blame.nvim" },
   -- Respect workspace root

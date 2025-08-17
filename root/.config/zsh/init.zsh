@@ -42,7 +42,6 @@ if [ -d "$ZPLUG_HOME" ]; then
   zplug "plugins/git", from:oh-my-zsh
   zplug "plugins/common-aliases", from:oh-my-zsh
   zplug "plugins/kubectl", from:oh-my-zsh
-  zplug "plugins/kube-ps1", from:oh-my-zsh
   
   if ! zplug check --verbose; then
       printf "Install? [y/N]: "

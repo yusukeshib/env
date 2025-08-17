@@ -198,6 +198,7 @@ Void = "void "
 Windows = "win "
 
 [package]
+disabled = true
 symbol = "pkg "
 
 [perl]
@@ -219,7 +220,7 @@ symbol = "pulumi "
 symbol = "purs "
 
 [python]
-symbol = "py "
+format = '[${pyenv_prefix}$virtualenv ]($style)'
 
 [quarto]
 symbol = "quarto "

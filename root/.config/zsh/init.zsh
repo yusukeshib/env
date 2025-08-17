@@ -72,7 +72,7 @@ export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 # ensure compatibility tmux <-> direnv
 #
 
-eval "$(direnv hook bash)"
+eval "$(direnv hook zsh)"
 if [ -n "$TMUX" ] && [ -n "$DIRENV_DIR" ]; then
   direnv reload
 fi

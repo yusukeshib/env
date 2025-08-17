@@ -49,7 +49,7 @@ if [ -d "$ZPLUG_HOME" ]; then
           echo; zplug install
       fi
   fi
-  zplug load --verbose
+  zplug load
 fi
 
 

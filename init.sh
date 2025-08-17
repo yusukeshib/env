@@ -30,12 +30,3 @@ for item in *; do
   fi
 done
 
-# Symlink all entries in .local/bin
-cd $HOME/env/root/.local/bin
-shopt -s dotglob
-for item in *; do
-  if [[ ! -e "$HOME/.local/bin/$item" && -f "$HOME/env/root/.local/bin/$item" ]]; then
-    ln -s "$HOME/env/root/.local/bin/$item" "$HOME/.local/bin/$item" && echo "Linked: $HOME/.local/bin/$item"
-  fi
-done
-

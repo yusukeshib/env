@@ -4,6 +4,7 @@ unsetopt BEEP
 export LANG=en_US.UTF-8
 export EDITOR="nvim"
 export FZF_DEFAULT_COMMAND='fd --type f -i'
+export ZOXIDE_CMD_OVERRIDE=cd
 
 # This is required to pass all zsh plugins
 export PATH="/opt/homebrew/bin:$PATH"

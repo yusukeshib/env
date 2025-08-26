@@ -27,7 +27,6 @@ if [ -d "$ZPLUG_HOME" ]; then
   zplug "plugins/git", from:oh-my-zsh
   zplug "plugins/kubectl", from:oh-my-zsh
   zplug "plugins/starship", from:oh-my-zsh
-  zplug "plugins/tmux", from:oh-my-zsh
   zplug "plugins/zoxide", from:oh-my-zsh
 
   zplug "zsh-users/zsh-autosuggestions"
@@ -63,6 +62,11 @@ function gcauto() {
 #
 # Aliases
 #
+
+if type "tmux" > /dev/null; then
+  alias a="tmux attach -d -t"
+  alias new="tmux new -s"
+fi
 
 if type "nvim" > /dev/null; then
   alias vi="nvim"

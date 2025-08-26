@@ -41,6 +41,8 @@ vim.pack.add({
   { src = "https://github.com/othree/eregex.vim" },
   --  Git
   { src = "https://github.com/tpope/vim-fugitive" },
+  -- Diff
+  { src = "https://github.com/sindrets/diffview.nvim" },
   -- Blame ghost
   { src = "https://github.com/f-person/git-blame.nvim" },
   -- Respect workspace root

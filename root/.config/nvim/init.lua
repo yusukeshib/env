@@ -138,17 +138,7 @@ require("nvim-tree").setup({
 require("nvim-rooter").setup()
 require("bufferline").setup()
 require("lualine").setup({})
-require("fidget").setup({
-  notification = {
-    poll_rate = 1,
-    filter = vim.log.levels.TRACE,
-  },
-  integration = {
-    ["nvim-tree"] = {
-      enable = true,
-    },
-  },
-})
+require("fidget").setup({})
 
 --
 -- Copilot
@@ -217,19 +207,13 @@ require("blink.cmp").setup({
 --
 
 vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function(event)
-    local fmt_group = vim.api.nvim_create_augroup("autoformat_cmds", { clear = true })
+  group = vim.api.nvim_create_augroup("lsp", { clear = true }),
+  callback = function(args)
     vim.api.nvim_create_autocmd("BufWritePre", {
-      buffer = event.buf,
-      group = fmt_group,
-      desc = "Format current buffer",
-      callback = function(e)
-        vim.lsp.buf.format({
-          bufnr = e.buf,
-          async = false,
-          timeout_ms = 10000,
-        })
-      end
+      buffer = args.buf,
+      callback = function()
+        vim.lsp.buf.format({ async = false, id = args.data.client_id })
+      end,
     })
   end
 })
@@ -264,3 +248,4 @@ vim.keymap.set("n", ";;", list_buffers, { desc = "List buffers" })
 -- vim.keymap.set("n", "<F5>", reload_configuration, { desc = "Reload configuration" })
 vim.keymap.set("n", "<F5>", vim.pack.update, { desc = "Update plugins" })
 vim.keymap.set("i", "<C-]>", require("copilot.suggestion").accept, { desc = "Accept Copilot suggestion" })
+

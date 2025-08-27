@@ -69,6 +69,8 @@ vim.pack.add({
   { src = "https://github.com/zbirenbaum/copilot.lua" },
   -- Autocomplete
   { src = "https://github.com/Saghen/blink.cmp" },
+  -- save
+  { src = "https://github.com/stevearc/conform.nvim" },
 })
 
 --
@@ -206,16 +208,19 @@ require("blink.cmp").setup({
 -- Format on save
 --
 
-vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup("lsp", { clear = true }),
-  callback = function(args)
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      buffer = args.buf,
-      callback = function()
-        vim.lsp.buf.format({ async = false, id = args.data.client_id })
-      end,
-    })
-  end
+require("conform").setup({
+  formatters_by_ft = {
+    lua = { "stylua" },
+    python = { "ruff" },
+    javascript = { "eslint_d" },
+    typescript = { "eslint_d" },
+    javascriptreact = { "eslint_d" },
+    typescriptreact = { "eslint_d" },
+  },
+  format_on_save = {
+    timeout_ms = 500,
+    lsp_format = "fallback",
+  },
 })
 
 --
@@ -248,4 +253,3 @@ vim.keymap.set("n", ";;", list_buffers, { desc = "List buffers" })
 -- vim.keymap.set("n", "<F5>", reload_configuration, { desc = "Reload configuration" })
 vim.keymap.set("n", "<F5>", vim.pack.update, { desc = "Update plugins" })
 vim.keymap.set("i", "<C-]>", require("copilot.suggestion").accept, { desc = "Accept Copilot suggestion" })
-

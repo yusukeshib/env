@@ -135,6 +135,7 @@ require("nvim-tree").setup({
   },
 })
 
+require("nvim-rooter").setup()
 require("bufferline").setup()
 require("lualine").setup({})
 require("fidget").setup({

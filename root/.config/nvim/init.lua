@@ -71,6 +71,8 @@ vim.pack.add({
   { src = "https://github.com/Saghen/blink.cmp" },
   -- save
   { src = "https://github.com/stevearc/conform.nvim" },
+  -- Which key
+  { src = "https://github.com/folke/which-key.nvim" },
 })
 
 --
@@ -246,10 +248,16 @@ vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right win
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 vim.keymap.set("n", "<C-a>", vim.cmd.NvimTreeFindFileToggle, { desc = "Toggle NvimTree" })
-vim.keymap.set("n", "<leader>rg", require("telescope.builtin").live_grep, { desc = "[R]ip[G]rep" })
-vim.keymap.set("n", "<leader>gd", vim.cmd.Gvdiffsplit, { desc = "[G]it [D]iff" })
 vim.keymap.set("n", "<C-p>", require("telescope.builtin").find_files, { desc = "Cmd+P" })
 vim.keymap.set("n", ";;", list_buffers, { desc = "List buffers" })
--- vim.keymap.set("n", "<F5>", reload_configuration, { desc = "Reload configuration" })
 vim.keymap.set("n", "<F5>", vim.pack.update, { desc = "Update plugins" })
 vim.keymap.set("i", "<C-]>", require("copilot.suggestion").accept, { desc = "Accept Copilot suggestion" })
+
+--
+-- leader shortcuts
+--
+
+vim.keymap.set("n", "<leader>cu", vim.cmd.GitBlameCopyUrl, { desc = "Copy Github URL" })
+vim.keymap.set("n", "<leader>rg", require("telescope.builtin").live_grep, { desc = "[R]ip[G]rep" })
+vim.keymap.set("n", "<leader>gd", vim.cmd.Gvdiffsplit, { desc = "[G]it [D]iff" })
+vim.keymap.set("n", "<leader>rc", reload_configuration, { desc = "Reload configuration" })

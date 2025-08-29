@@ -21,7 +21,6 @@ vim.opt.termguicolors = true
 -- prevent the built-in vim.lsp.completion autotrigger from selecting the first item
 vim.opt.completeopt = { "menuone", "noselect", "popup" }
 
-
 --
 -- Plugins
 --
@@ -32,7 +31,7 @@ vim.pack.add({
   -- Theme
   { src = "https://github.com/EdenEast/nightfox.nvim" },
   -- Syntax highlighting
-  { src = "https://github.com/nvim-treesitter/nvim-treesitter", },
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
   -- Lsp status
   { src = "https://github.com/j-hui/fidget.nvim" },
   -- Subvert
@@ -155,7 +154,7 @@ require("copilot").setup({
     accept = false,
   },
   panel = {
-    enabled = false
+    enabled = false,
   },
   filetypes = {
     markdown = true,
@@ -163,7 +162,7 @@ require("copilot").setup({
     html = true,
     javascript = true,
     typescript = true,
-    ["*"] = true
+    ["*"] = true,
   },
 })
 
@@ -176,9 +175,9 @@ vim.lsp.config("lua_ls", {
     Lua = {
       workspace = {
         library = vim.api.nvim_get_runtime_file("", true),
-      }
-    }
-  }
+      },
+    },
+  },
 })
 
 require("mason").setup()
@@ -188,14 +187,13 @@ require("mason-lspconfig").setup({
   automatic_enable = true,
 })
 
-
 --
 -- Auto complete
 --
 
 require("blink.cmp").setup({
   completion = {
-    accept = { auto_brackets = { enabled = false }, },
+    accept = { auto_brackets = { enabled = false } },
   },
   keymap = {
     preset = "default",
@@ -203,7 +201,7 @@ require("blink.cmp").setup({
     ["<Tab>"] = { "select_next", "fallback" },
     ["<CR>"] = { "accept", "fallback" },
   },
-  fuzzy = { implementation = "lua" }
+  fuzzy = { implementation = "lua" },
 })
 
 --
@@ -237,7 +235,7 @@ local list_buffers = function()
 end
 
 local reload_configuration = function()
-  local vim_rc = os.getenv('MYVIMRC')
+  local vim_rc = os.getenv("MYVIMRC")
   print("Reloading configuration from: " .. vim_rc)
   vim.cmd.luafile(vim_rc)
 end
@@ -261,3 +259,9 @@ vim.keymap.set("n", "<leader>cu", vim.cmd.GitBlameCopyUrl, { desc = "Copy Github
 vim.keymap.set("n", "<leader>rg", require("telescope.builtin").live_grep, { desc = "[R]ip[G]rep" })
 vim.keymap.set("n", "<leader>gd", vim.cmd.Gvdiffsplit, { desc = "[G]it [D]iff" })
 vim.keymap.set("n", "<leader>rc", reload_configuration, { desc = "Reload configuration" })
+
+--
+-- notification
+--
+
+vim.notify = require("fidget.notification").notify

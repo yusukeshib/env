@@ -141,7 +141,14 @@ require("nvim-tree").setup({
 require("nvim-rooter").setup()
 require("bufferline").setup()
 require("lualine").setup({})
-require("fidget").setup({})
+require("fidget").setup({
+  notification = {
+    window = {
+      align = "top",
+      border = "rounded",
+    },
+  },
+})
 
 --
 -- Copilot

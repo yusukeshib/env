@@ -82,3 +82,7 @@ fi
 if type "rg" > /dev/null; then
   alias rg="rg --hidden -g '!.git/'"
 fi
+
+
+eval "$(atuin init zsh --disable-up-arrow)"
+bindkey '^r' atuin-search

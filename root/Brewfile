@@ -1,4 +1,5 @@
 brew "asdf"
+brew "atuin"
 brew "bat"
 brew "eza"
 brew "fd"

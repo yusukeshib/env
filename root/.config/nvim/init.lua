@@ -72,6 +72,8 @@ vim.pack.add({
   { src = "https://github.com/stevearc/conform.nvim" },
   -- Which key
   { src = "https://github.com/folke/which-key.nvim" },
+  -- plugin view
+  { src = "https://github.com/adriankarlen/plugin-view.nvim" }
 })
 
 --
@@ -138,6 +140,7 @@ require("nvim-tree").setup({
   },
 })
 
+require("plugin-view").setup({})
 require("nvim-rooter").setup()
 require("bufferline").setup()
 require("lualine").setup({})
@@ -255,7 +258,7 @@ vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper win
 vim.keymap.set("n", "<C-a>", vim.cmd.NvimTreeFindFileToggle, { desc = "Toggle NvimTree" })
 vim.keymap.set("n", "<C-p>", require("telescope.builtin").find_files, { desc = "Cmd+P" })
 vim.keymap.set("n", ";;", list_buffers, { desc = "List buffers" })
-vim.keymap.set("n", "<F5>", vim.pack.update, { desc = "Update plugins" })
+vim.keymap.set("n", "<F5>", require("plugin-view").open, { desc = "Plugin view" })
 vim.keymap.set("i", "<C-]>", require("copilot.suggestion").accept, { desc = "Accept Copilot suggestion" })
 
 --

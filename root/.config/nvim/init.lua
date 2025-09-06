@@ -72,8 +72,9 @@ vim.pack.add({
   { src = "https://github.com/stevearc/conform.nvim" },
   -- Which key
   { src = "https://github.com/folke/which-key.nvim" },
-  -- plugin view
-  { src = "https://github.com/adriankarlen/plugin-view.nvim" }
+  --
+  { src = "https://github.com/folke/snacks.nvim" },
+  { src = "https://github.com/coder/claudecode.nvim", },
 })
 
 --
@@ -140,7 +141,7 @@ require("nvim-tree").setup({
   },
 })
 
-require("plugin-view").setup({})
+require("claudecode").setup({})
 require("nvim-rooter").setup()
 require("bufferline").setup()
 require("lualine").setup({})
@@ -250,6 +251,16 @@ local reload_configuration = function()
   vim.cmd.luafile(vim_rc)
 end
 
+--
+-- notification
+--
+
+vim.notify = require("fidget.notification").notify
+
+--
+-- keymaps
+--
+
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Unhighlight search word" })
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
@@ -258,20 +269,11 @@ vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper win
 vim.keymap.set("n", "<C-a>", vim.cmd.NvimTreeFindFileToggle, { desc = "Toggle NvimTree" })
 vim.keymap.set("n", "<C-p>", require("telescope.builtin").find_files, { desc = "Cmd+P" })
 vim.keymap.set("n", ";;", list_buffers, { desc = "List buffers" })
-vim.keymap.set("n", "<F5>", require("plugin-view").open, { desc = "Plugin view" })
+vim.keymap.set("n", "<F5>", vim.pack.update, { desc = "Update plugins" })
 vim.keymap.set("i", "<C-]>", require("copilot.suggestion").accept, { desc = "Accept Copilot suggestion" })
-
---
--- leader shortcuts
---
-
-vim.keymap.set("n", "<leader>cu", vim.cmd.GitBlameCopyUrl, { desc = "Copy Github URL" })
 vim.keymap.set("n", "<leader>rg", require("telescope.builtin").live_grep, { desc = "[R]ip[G]rep" })
 vim.keymap.set("n", "<leader>gd", vim.cmd.Gvdiffsplit, { desc = "[G]it [D]iff" })
 vim.keymap.set("n", "<leader>rc", reload_configuration, { desc = "Reload configuration" })
-
---
--- notification
---
-
-vim.notify = require("fidget.notification").notify
+vim.keymap.set("n", "<leader>af", "<cmd>ClaudeCodeFocus<cr>", { desc = "Focus Claude" })
+vim.keymap.set("n", "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", { desc = "Add current buffer" })
+vim.keymap.set("v", "<leader>as", "<cmd>ClaudeCodeSend<cr>", { desc = "Send to Claude" })

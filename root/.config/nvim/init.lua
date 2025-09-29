@@ -74,7 +74,7 @@ vim.pack.add({
   { src = "https://github.com/folke/which-key.nvim" },
   --
   { src = "https://github.com/folke/snacks.nvim" },
-  { src = "https://github.com/coder/claudecode.nvim", },
+  { src = "https://github.com/coder/claudecode.nvim" },
 })
 
 --
@@ -270,7 +270,7 @@ vim.keymap.set("n", "<C-a>", vim.cmd.NvimTreeFindFileToggle, { desc = "Toggle Nv
 vim.keymap.set("n", "<C-p>", require("telescope.builtin").find_files, { desc = "Cmd+P" })
 vim.keymap.set("n", ";;", list_buffers, { desc = "List buffers" })
 vim.keymap.set("n", "<F5>", vim.pack.update, { desc = "Update plugins" })
-vim.keymap.set("i", "<C-]>", require("copilot.suggestion").accept, { desc = "Accept Copilot suggestion" })
+vim.keymap.set("i", "<C-\\>", require("copilot.suggestion").accept, { desc = "Accept Copilot suggestion" })
 vim.keymap.set("n", "<leader>rg", require("telescope.builtin").live_grep, { desc = "[R]ip[G]rep" })
 vim.keymap.set("n", "<leader>gd", vim.cmd.Gvdiffsplit, { desc = "[G]it [D]iff" })
 vim.keymap.set("n", "<leader>rc", reload_configuration, { desc = "Reload configuration" })

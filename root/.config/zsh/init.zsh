@@ -8,6 +8,7 @@ export ZOXIDE_CMD_OVERRIDE=cd
 
 # This is required to pass all zsh plugins
 export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/opt/homebrew/Caskroom/gcloud-cli/latest/google-cloud-sdk/bin/:$PATH"
 
 #
 # zplug

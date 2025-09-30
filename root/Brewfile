@@ -8,6 +8,7 @@ brew "git-delta"
 cask "google-cloud-sdk"
 brew "helm"
 brew "kubectx"
+brew "neovim", args: ["HEAD"]
 brew "oven-sh/bun/bun"
 brew "reattach-to-user-namespace"
 brew "ripgrep"

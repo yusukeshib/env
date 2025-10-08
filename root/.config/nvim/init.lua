@@ -73,8 +73,7 @@ vim.pack.add({
   -- Which key
   { src = "https://github.com/folke/which-key.nvim" },
   --
-  { src = "https://github.com/folke/snacks.nvim" },
-  { src = "https://github.com/coder/claudecode.nvim" },
+  { src = "https://github.com/folke/sidekick.nvim" },
 })
 
 --
@@ -141,7 +140,15 @@ require("nvim-tree").setup({
   },
 })
 
-require("claudecode").setup({})
+require("sidekick").setup({
+  nes = { enabled = false },
+  cli = {
+    mux = {
+      backend = "tmux",
+      enabled = false,
+    },
+  },
+})
 require("nvim-rooter").setup()
 require("bufferline").setup()
 require("lualine").setup({})
@@ -274,6 +281,19 @@ vim.keymap.set("i", "<C-\\>", require("copilot.suggestion").accept, { desc = "Ac
 vim.keymap.set("n", "<leader>rg", require("telescope.builtin").live_grep, { desc = "[R]ip[G]rep" })
 vim.keymap.set("n", "<leader>gd", vim.cmd.Gvdiffsplit, { desc = "[G]it [D]iff" })
 vim.keymap.set("n", "<leader>rc", reload_configuration, { desc = "Reload configuration" })
-vim.keymap.set("n", "<C-c>", "<cmd>ClaudeCodeFocus<cr>", { desc = "Focus Claude" })
-vim.keymap.set("n", "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", { desc = "Add current buffer" })
-vim.keymap.set("v", "<leader>as", "<cmd>ClaudeCodeSend<cr>", { desc = "Send to Claude" })
+
+local sidekick_toggle = function()
+  require("sidekick.cli").toggle({ name = "claude" })
+end
+
+local sidekick_send = function()
+  require("sidekick.cli").send({ name = "claude", msg = "{this}" })
+end
+
+local sidekick_prompt = function()
+  require("sidekick.cli").prompt({ name = "claude" })
+end
+
+vim.keymap.set("n", "<leader>aa", sidekick_toggle)
+vim.keymap.set("n", "<leader>at", sidekick_send)
+vim.keymap.set("n", "<leader>ap", sidekick_prompt)

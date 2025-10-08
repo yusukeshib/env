@@ -1,0 +1,39 @@
+{
+  "plugins": {
+    "blink.cmp": {
+      "rev": "d918ebd"
+    },
+    "bufferline.nvim": [],
+    "claudecode.nvim": [],
+    "conform.nvim": [],
+    "copilot.lua": {
+      "rev": "30b98a4"
+    },
+    "diffview.nvim": [],
+    "eregex.vim": [],
+    "fidget.nvim": [],
+    "git-blame.nvim": [],
+    "gitsigns.nvim": [],
+    "lualine.nvim": [],
+    "mason-lspconfig.nvim": {
+      "rev": "6bdb14f"
+    },
+    "mason.nvim": [],
+    "nightfox.nvim": [],
+    "nvim-lspconfig": [],
+    "nvim-rooter.lua": [],
+    "nvim-tree.lua": [],
+    "nvim-treesitter": [],
+    "plenary.nvim": [],
+    "sidekick.nvim": {
+      "rev": "8b6b736",
+      "src": "https://github.com/folke/sidekick.nvim"
+    },
+    "snacks.nvim": [],
+    "telescope.nvim": [],
+    "vim-abolish": [],
+    "vim-fugitive": [],
+    "vim-sleuth": [],
+    "which-key.nvim": []
+  }
+}

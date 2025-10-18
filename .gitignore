@@ -2,3 +2,5 @@
 Brewfile.lock.json
 .luarc.json
 nvim-pack-lock.json
+*.bak
+*.bak.*

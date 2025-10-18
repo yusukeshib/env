@@ -64,9 +64,9 @@ function gcauto() {
 # Aliases
 #
 
-if type "tmux" > /dev/null; then
-  alias a="tmux attach -d -t"
-  alias new="tmux new -s"
+if type "zellij" > /dev/null; then
+  alias a="zellij attach"
+  alias new="zellij -s"
 fi
 
 if type "nvim" > /dev/null; then

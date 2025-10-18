@@ -1,3 +1,4 @@
 .DS_Store
 Brewfile.lock.json
 .luarc.json
+nvim-pack-lock.json

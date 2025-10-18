@@ -73,8 +73,7 @@ vim.pack.add({
   -- Which key
   { src = "https://github.com/folke/which-key.nvim" },
   --
-  { src = "https://github.com/folke/snacks.nvim" },
-  { src = "https://github.com/coder/claudecode.nvim" },
+  { src = "https://github.com/folke/sidekick.nvim" },
 })
 
 --
@@ -141,7 +140,6 @@ require("nvim-tree").setup({
   },
 })
 
-require("claudecode").setup({})
 require("nvim-rooter").setup()
 require("bufferline").setup()
 require("lualine").setup({})
@@ -175,6 +173,13 @@ require("copilot").setup({
     typescript = true,
     ["*"] = true,
   },
+})
+
+require("sidekick").setup({
+  nes = { enabled = false },
+  cli = {
+    mux = { enabled = false }
+  }
 })
 
 --
@@ -251,6 +256,16 @@ local reload_configuration = function()
   vim.cmd.luafile(vim_rc)
 end
 
+local sidekick_toggle = function()
+  local mode = vim.fn.mode()
+  if mode == "v" or mode == "V" then
+    -- Visual, Visual-Line, or Visual-Block mode
+    require("sidekick.cli").send({ msg = "{this}", filter = { installed = true } })
+  else
+    require("sidekick.cli").send({ msg = "{file}", filter = { installed = true } })
+  end
+end
+
 --
 -- notification
 --
@@ -274,6 +289,4 @@ vim.keymap.set("i", "<C-\\>", require("copilot.suggestion").accept, { desc = "Ac
 vim.keymap.set("n", "<leader>rg", require("telescope.builtin").live_grep, { desc = "[R]ip[G]rep" })
 vim.keymap.set("n", "<leader>gd", vim.cmd.Gvdiffsplit, { desc = "[G]it [D]iff" })
 vim.keymap.set("n", "<leader>rc", reload_configuration, { desc = "Reload configuration" })
-vim.keymap.set("n", "<C-c>", "<cmd>ClaudeCodeFocus<cr>", { desc = "Focus Claude" })
-vim.keymap.set("n", "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", { desc = "Add current buffer" })
-vim.keymap.set("v", "<leader>as", "<cmd>ClaudeCodeSend<cr>", { desc = "Send to Claude" })
+vim.keymap.set({ "n", "t", "i", "x" }, "<c-.>", sidekick_toggle, { desc = "Sidekick" })

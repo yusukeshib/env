@@ -74,6 +74,10 @@ vim.pack.add({
   { src = "https://github.com/folke/which-key.nvim" },
   --
   { src = "https://github.com/folke/sidekick.nvim" },
+  -- debug
+  { src = "https://github.com/mfussenegger/nvim-dap" },
+  { src = "https://github.com/rcarriga/nvim-dap-ui" },
+  { src = "https://github.com/nvim-neotest/nvim-nio" },
 })
 
 --
@@ -290,3 +294,37 @@ vim.keymap.set("n", "<leader>rg", require("telescope.builtin").live_grep, { desc
 vim.keymap.set("n", "<leader>gd", vim.cmd.Gvdiffsplit, { desc = "[G]it [D]iff" })
 vim.keymap.set("n", "<leader>rc", reload_configuration, { desc = "Reload configuration" })
 vim.keymap.set({ "n", "t", "i", "x" }, "<c-.>", sidekick_toggle, { desc = "Sidekick" })
+
+--
+-- debug
+--
+
+require("dapui").setup()
+
+local dap = require("dap")
+
+vim.keymap.set("n", "<leader>b", dap.toggle_breakpoint, { desc = "Toggle Breakpoint" })
+vim.keymap.set("n", "<leader>?", function()
+  require("dapui").eval(nil, { enter = true })
+end)
+vim.keymap.set("n", "<F1>", dap.continue, { desc = "Continue" })
+vim.keymap.set("n", "<F2>", dap.step_into, { desc = "Step Into" })
+vim.keymap.set("n", "<F3>", dap.step_over, { desc = "Step Over" })
+vim.keymap.set("n", "<F4>", dap.step_out, { desc = "Step Out" })
+
+-- dap.adapters.mix_task = {
+--   type = "executable",
+--   command = elixir_ls_debugger,
+-- }
+--
+-- dap.configurations.elixir = {
+--   {
+--     type = "mix_task",
+--     name = "phoenix server",
+--     task = "phx.server",
+--     request = "launch",
+--     projectDir = "${workspaceFolder}",
+--     exitAfterTaskReturns = false,
+--     debugAutoInterpretAllModules = false,
+--   },
+-- }

@@ -260,6 +260,8 @@ keybinds clear-defaults=true {
         bind "H" { Resize "Increase left"; }
         bind "J" { Resize "Increase down"; }
         bind "K" { Resize "Increase up"; }
+        bind "[" { MovePane "left"; SwitchToMode "normal"; }
+        bind "]" { MovePane "right"; SwitchToMode "normal";}
     }
 }
 

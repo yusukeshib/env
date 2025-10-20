@@ -65,6 +65,7 @@ function gcauto() {
 #
 
 if type "zellij" > /dev/null; then
+  alias z="zellij"
   alias a="zellij attach"
   alias new="zellij -s"
 fi

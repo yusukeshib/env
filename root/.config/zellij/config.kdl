@@ -262,6 +262,7 @@ keybinds clear-defaults=true {
         bind "K" { Resize "Increase up"; }
         bind "[" { MovePane "left"; SwitchToMode "normal"; }
         bind "]" { MovePane "right"; SwitchToMode "normal";}
+        bind "/" { SwitchToMode "search"; }
     }
 }
 

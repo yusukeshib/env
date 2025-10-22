@@ -66,8 +66,14 @@ function gcauto() {
 
 if type "zellij" > /dev/null; then
   alias z="zellij"
-  alias a="zellij attach"
   alias new="zellij -s"
+  function a() {
+    if [ -n "$1" ]; then
+      zellij attach "$1"
+    else
+      zellij attach $(zellij list-sessions -n -s | fzf)
+    fi
+  }
 fi
 
 if type "nvim" > /dev/null; then

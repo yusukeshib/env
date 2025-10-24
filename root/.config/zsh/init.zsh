@@ -4,7 +4,6 @@ unsetopt BEEP
 export LANG=en_US.UTF-8
 export EDITOR="nvim"
 export FZF_DEFAULT_COMMAND='fd --type f -i'
-export ZOXIDE_CMD_OVERRIDE=cd
 
 # This is required to pass all zsh plugins
 export PATH="/opt/homebrew/bin:$PATH"
@@ -28,7 +27,6 @@ if [ -d "$ZPLUG_HOME" ]; then
   zplug "plugins/git", from:oh-my-zsh
   zplug "plugins/kubectl", from:oh-my-zsh
   zplug "plugins/starship", from:oh-my-zsh
-  zplug "plugins/zoxide", from:oh-my-zsh
 
   zplug "zsh-users/zsh-autosuggestions"
   zplug "zsh-users/zsh-history-substring-search"

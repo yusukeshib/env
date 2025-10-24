@@ -68,44 +68,44 @@ vim.opt.completeopt = { "menuone", "noselect", "popup" }
 
 vim.pack.add({
   -- Editor behavior
-  { src = "https://github.com/tpope/vim-sleuth" },           -- Auto-detect indentation (tabs/spaces)
-  { src = "https://github.com/tpope/vim-abolish" },          -- Advanced search/replace with case variants
-  { src = "https://github.com/othree/eregex.vim" },          -- POSIX-style regular expressions
-  { src = "https://github.com/notjedi/nvim-rooter.lua" },    -- Auto-change working directory to project root
+  { src = "https://github.com/tpope/vim-sleuth" },        -- Auto-detect indentation (tabs/spaces)
+  { src = "https://github.com/tpope/vim-abolish" },       -- Advanced search/replace with case variants
+  { src = "https://github.com/othree/eregex.vim" },       -- POSIX-style regular expressions
+  { src = "https://github.com/notjedi/nvim-rooter.lua" }, -- Auto-change working directory to project root
 
   -- Theme and UI
-  { src = "https://github.com/EdenEast/nightfox.nvim" },     -- Color scheme
-  { src = "https://github.com/akinsho/bufferline.nvim" },    -- Tab/buffer line at the top
-  { src = "https://github.com/nvim-lualine/lualine.nvim" },  -- Status line at the bottom
-  { src = "https://github.com/j-hui/fidget.nvim" },          -- LSP progress notifications
-  { src = "https://github.com/folke/which-key.nvim" },       -- Show available key bindings in popup
+  { src = "https://github.com/EdenEast/nightfox.nvim" },    -- Color scheme
+  { src = "https://github.com/akinsho/bufferline.nvim" },   -- Tab/buffer line at the top
+  { src = "https://github.com/nvim-lualine/lualine.nvim" }, -- Status line at the bottom
+  { src = "https://github.com/j-hui/fidget.nvim" },         -- LSP progress notifications
+  { src = "https://github.com/folke/which-key.nvim" },      -- Show available key bindings in popup
 
   -- Syntax and language support
   { src = "https://github.com/nvim-treesitter/nvim-treesitter" }, -- Modern syntax highlighting
 
   -- Git integration
-  { src = "https://github.com/tpope/vim-fugitive" },         -- Git commands within vim
-  { src = "https://github.com/sindrets/diffview.nvim" },     -- Enhanced diff viewer
-  { src = "https://github.com/f-person/git-blame.nvim" },    -- Show git blame as virtual text
-  { src = "https://github.com/lewis6991/gitsigns.nvim" },    -- Git diff signs in gutter
+  { src = "https://github.com/tpope/vim-fugitive" },      -- Git commands within vim
+  { src = "https://github.com/sindrets/diffview.nvim" },  -- Enhanced diff viewer
+  { src = "https://github.com/f-person/git-blame.nvim" }, -- Show git blame as virtual text
+  { src = "https://github.com/lewis6991/gitsigns.nvim" }, -- Git diff signs in gutter
 
   -- File navigation and search
-  { src = "https://github.com/nvim-lua/plenary.nvim" },      -- Lua utility library (dependency)
+  { src = "https://github.com/nvim-lua/plenary.nvim" },         -- Lua utility library (dependency)
   { src = "https://github.com/nvim-telescope/telescope.nvim" }, -- Fuzzy finder (files, text, buffers)
-  { src = "https://github.com/nvim-tree/nvim-tree.lua" },    -- File explorer tree view
+  { src = "https://github.com/nvim-tree/nvim-tree.lua" },       -- File explorer tree view
 
   -- LSP (Language Server Protocol)
-  { src = "https://github.com/neovim/nvim-lspconfig" },      -- LSP configuration presets
-  { src = "https://github.com/mason-org/mason.nvim" },       -- Language server installer
+  { src = "https://github.com/neovim/nvim-lspconfig" },          -- LSP configuration presets
+  { src = "https://github.com/mason-org/mason.nvim" },           -- Language server installer
   { src = "https://github.com/mason-org/mason-lspconfig.nvim" }, -- Bridge mason & lspconfig
 
   -- Code completion and AI
-  { src = "https://github.com/Saghen/blink.cmp" },           -- Completion engine
-  { src = "https://github.com/zbirenbaum/copilot.lua" },     -- GitHub Copilot integration
-  { src = "https://github.com/folke/sidekick.nvim" },        -- AI assistant (Claude)
+  { src = "https://github.com/Saghen/blink.cmp" },       -- Completion engine
+  { src = "https://github.com/zbirenbaum/copilot.lua" }, -- GitHub Copilot integration
+  { src = "https://github.com/folke/sidekick.nvim" },    -- AI assistant (Claude)
 
   -- Code formatting
-  { src = "https://github.com/stevearc/conform.nvim" },      -- Format-on-save with multiple formatters
+  { src = "https://github.com/stevearc/conform.nvim" }, -- Format-on-save with multiple formatters
 
   -- Debugging
   { src = "https://github.com/mfussenegger/nvim-dap" },      -- Debug Adapter Protocol client
@@ -143,7 +143,7 @@ require("telescope").setup({
     live_grep = {
       theme = "ivy",
       preview = true,
-      hidden = true,  -- Include hidden files in search
+      hidden = true, -- Include hidden files in search
       layout_strategy = "vertical",
       layout_config = {
         width = { padding = 0 },
@@ -153,7 +153,7 @@ require("telescope").setup({
     -- File finder
     find_files = {
       theme = "ivy",
-      hidden = true,  -- Include hidden files
+      hidden = true, -- Include hidden files
       layout_config = {
         height = 15,
       },
@@ -339,16 +339,12 @@ local reload_configuration = function()
   vim.cmd.luafile(vim_rc)
 end
 
--- Toggle Sidekick AI assistant
 local sidekick_toggle = function()
-  local mode = vim.fn.mode()
-  if mode == "v" or mode == "V" then
-    -- Visual mode: Send selected text to Sidekick
-    require("sidekick.cli").send({ msg = "{this}", filter = { installed = true } })
-  else
-    -- Normal mode: Send entire file to Sidekick
-    require("sidekick.cli").send({ msg = "{file}", filter = { installed = true } })
-  end
+  require("sidekick.cli").toggle({ filter = { installed = true } })
+end
+
+local sidekick_send = function()
+  require("sidekick.cli").send({ msg = "{this}", filter = { installed = true } })
 end
 
 -- ============================================================================
@@ -381,7 +377,8 @@ vim.keymap.set("n", "<F5>", vim.pack.update, { desc = "Update plugins" })
 
 -- AI assistants
 vim.keymap.set("i", "<C-\\>", require("copilot.suggestion").accept, { desc = "Accept Copilot suggestion" })
-vim.keymap.set({ "n", "t", "i", "x" }, "<c-.>", sidekick_toggle, { desc = "Sidekick" })
+vim.keymap.set({ "n", "t", "i", "x" }, "<c-.>", sidekick_toggle, { desc = "Sidekick toggle" })
+vim.keymap.set({ "n", "t", "i", "x" }, "<c-/>", sidekick_send, { desc = "Sidekick send" })
 
 -- Leader key shortcuts (Space + ...)
 vim.keymap.set("n", "<leader>rg", require("telescope.builtin").live_grep, { desc = "[R]ip[G]rep" })

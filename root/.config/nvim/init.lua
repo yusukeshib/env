@@ -108,9 +108,9 @@ vim.pack.add({
   { src = "https://github.com/stevearc/conform.nvim" }, -- Format-on-save with multiple formatters
 
   -- Debugging
-  { src = "https://github.com/mfussenegger/nvim-dap" },      -- Debug Adapter Protocol client
-  { src = "https://github.com/rcarriga/nvim-dap-ui" },       -- UI for nvim-dap
-  { src = "https://github.com/nvim-neotest/nvim-nio" },      -- Async I/O library (dependency)
+  { src = "https://github.com/mfussenegger/nvim-dap" }, -- Debug Adapter Protocol client
+  { src = "https://github.com/rcarriga/nvim-dap-ui" },  -- UI for nvim-dap
+  { src = "https://github.com/nvim-neotest/nvim-nio" }, -- Async I/O library (dependency)
 })
 
 -- ============================================================================
@@ -407,25 +407,27 @@ vim.keymap.set("n", "<F2>", dap.step_into, { desc = "Step Into" })
 vim.keymap.set("n", "<F3>", dap.step_over, { desc = "Step Over" })
 vim.keymap.set("n", "<F4>", dap.step_out, { desc = "Step Out" })
 
--- ============================================================================
--- EXAMPLE DEBUG ADAPTER CONFIGURATIONS (commented out)
--- ============================================================================
---
--- Example: Elixir debugging with mix_task adapter
---
--- dap.adapters.mix_task = {
---   type = "executable",
---   command = elixir_ls_debugger,  -- Path to elixir-ls debugger
+-- dap.adapters.python = {
+--   type = 'executable',
+--   command = 'python', -- or 'python3' / full path if needed
+--   args = { '-m', 'debugpy.adapter' },
 -- }
 --
--- dap.configurations.elixir = {
+-- dap.configurations.python = {
 --   {
---     type = "mix_task",
---     name = "phoenix server",
---     task = "phx.server",
---     request = "launch",
---     projectDir = "${workspaceFolder}",
---     exitAfterTaskReturns = false,
---     debugAutoInterpretAllModules = false,
+--     type = 'python',
+--     request = 'attach',
+--     name = 'attach debugpy',
+--     connect = {
+--       host = '127.0.0.1', -- or the remote IP (e.g., '192.168.1.50')
+--       port = 5678,
+--     },
+--     justMyCode = false, -- optional: include library code
+--     pathMappings = {
+--       {
+--         localRoot = vim.fn.getcwd(),  -- your local project root
+--         remoteRoot = vim.fn.getcwd(), -- path on the remote machine
+--       },
+--     },
 --   },
 -- }

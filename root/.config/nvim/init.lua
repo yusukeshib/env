@@ -210,6 +210,7 @@ require("fidget").setup({
 })
 
 require("tiny-inline-diagnostic").setup({
+  preset = "minimal",
   options = {
     virt_texts = {
       priority = 10480

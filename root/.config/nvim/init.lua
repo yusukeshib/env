@@ -95,9 +95,10 @@ vim.pack.add({
   { src = "https://github.com/nvim-tree/nvim-tree.lua" },       -- File explorer tree view
 
   -- LSP (Language Server Protocol)
-  { src = "https://github.com/neovim/nvim-lspconfig" },          -- LSP configuration presets
-  { src = "https://github.com/mason-org/mason.nvim" },           -- Language server installer
-  { src = "https://github.com/mason-org/mason-lspconfig.nvim" }, -- Bridge mason & lspconfig
+  { src = "https://github.com/neovim/nvim-lspconfig" },                  -- LSP configuration presets
+  { src = "https://github.com/mason-org/mason.nvim" },                   -- Language server installer
+  { src = "https://github.com/mason-org/mason-lspconfig.nvim" },         -- Bridge mason & lspconfig
+  { src = "https://github.com/rachartier/tiny-inline-diagnostic.nvim" }, -- Inline LSP diagnostics
 
   -- Code completion and AI
   { src = "https://github.com/Saghen/blink.cmp" },       -- Completion engine
@@ -207,6 +208,15 @@ require("fidget").setup({
     },
   },
 })
+
+require("tiny-inline-diagnostic").setup({
+  options = {
+    virt_texts = {
+      priority = 10480
+    }
+  }
+})
+vim.diagnostic.config({ virtual_text = false })
 
 -- ============================================================================
 -- COPILOT & AI ASSISTANTS

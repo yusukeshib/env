@@ -65,13 +65,27 @@ function gcauto() {
 if type "zellij" > /dev/null; then
   alias z="zellij"
   alias new="zellij -s"
-  function a() {
-    if [ -n "$1" ]; then
-      zellij attach "$1"
-    else
-      zellij attach $(zellij list-sessions -n -s | fzf)
-    fi
+
+  # Note: defining 'a' as a function is more stable
+  a() { zellij attach "$@"; }
+
+  _zellij_attach_sessions() {
+    local -a sessions
+    # Important: use `list-sessions` (not `ls`)
+    sessions=("${(@f)$(zellij list-sessions --short 2>/dev/null)}")
+    (( $#sessions )) || return 1
+    compadd -Q -a sessions
   }
+
+  # Bind completion function to 'a' (required)
+  compdef _zellij_attach_sessions a
+
+  # fzf-tab preview (optional)
+  zstyle ':fzf-tab:complete:a:*' fzf-preview \
+    'echo "Zellij session: $word"; echo; zellij list-sessions --short | grep --color=always -E "^${word//\*/.*}$" || true'
+
+  # (If needed) expand aliases before completion
+  setopt complete_aliases
 fi
 
 if type "nvim" > /dev/null; then

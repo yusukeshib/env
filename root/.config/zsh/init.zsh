@@ -83,9 +83,6 @@ if type "zellij" > /dev/null; then
   # fzf-tab preview (optional)
   zstyle ':fzf-tab:complete:a:*' fzf-preview \
     'echo "Zellij session: $word"; echo; zellij list-sessions --short | grep --color=always -E "^${word//\*/.*}$" || true'
-
-  # (If needed) expand aliases before completion
-  setopt complete_aliases
 fi
 
 if type "nvim" > /dev/null; then

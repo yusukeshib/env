@@ -68,50 +68,45 @@ vim.opt.completeopt = { "menuone", "noselect", "popup" }
 
 vim.pack.add({
   -- Editor behavior
-  { src = "https://github.com/tpope/vim-sleuth" },        -- Auto-detect indentation (tabs/spaces)
-  { src = "https://github.com/tpope/vim-abolish" },       -- Advanced search/replace with case variants
-  { src = "https://github.com/othree/eregex.vim" },       -- POSIX-style regular expressions
+  { src = "https://github.com/tpope/vim-sleuth" }, -- Auto-detect indentation (tabs/spaces)
+  { src = "https://github.com/tpope/vim-abolish" }, -- Advanced search/replace with case variants
+  { src = "https://github.com/othree/eregex.vim" }, -- POSIX-style regular expressions
   { src = "https://github.com/notjedi/nvim-rooter.lua" }, -- Auto-change working directory to project root
 
   -- Theme and UI
-  { src = "https://github.com/EdenEast/nightfox.nvim" },    -- Color scheme
-  { src = "https://github.com/akinsho/bufferline.nvim" },   -- Tab/buffer line at the top
+  { src = "https://github.com/EdenEast/nightfox.nvim" }, -- Color scheme
+  { src = "https://github.com/akinsho/bufferline.nvim" }, -- Tab/buffer line at the top
   { src = "https://github.com/nvim-lualine/lualine.nvim" }, -- Status line at the bottom
-  { src = "https://github.com/j-hui/fidget.nvim" },         -- LSP progress notifications
-  { src = "https://github.com/folke/which-key.nvim" },      -- Show available key bindings in popup
+  { src = "https://github.com/j-hui/fidget.nvim" }, -- LSP progress notifications
+  { src = "https://github.com/folke/which-key.nvim" }, -- Show available key bindings in popup
 
   -- Syntax and language support
   { src = "https://github.com/nvim-treesitter/nvim-treesitter" }, -- Modern syntax highlighting
 
   -- Git integration
-  { src = "https://github.com/tpope/vim-fugitive" },      -- Git commands within vim
-  { src = "https://github.com/sindrets/diffview.nvim" },  -- Enhanced diff viewer
+  { src = "https://github.com/tpope/vim-fugitive" }, -- Git commands within vim
+  { src = "https://github.com/sindrets/diffview.nvim" }, -- Enhanced diff viewer
   { src = "https://github.com/f-person/git-blame.nvim" }, -- Show git blame as virtual text
   { src = "https://github.com/lewis6991/gitsigns.nvim" }, -- Git diff signs in gutter
 
   -- File navigation and search
-  { src = "https://github.com/nvim-lua/plenary.nvim" },         -- Lua utility library (dependency)
+  { src = "https://github.com/nvim-lua/plenary.nvim" }, -- Lua utility library (dependency)
   { src = "https://github.com/nvim-telescope/telescope.nvim" }, -- Fuzzy finder (files, text, buffers)
-  { src = "https://github.com/nvim-tree/nvim-tree.lua" },       -- File explorer tree view
+  { src = "https://github.com/nvim-tree/nvim-tree.lua" }, -- File explorer tree view
 
   -- LSP (Language Server Protocol)
-  { src = "https://github.com/neovim/nvim-lspconfig" },                  -- LSP configuration presets
-  { src = "https://github.com/mason-org/mason.nvim" },                   -- Language server installer
-  { src = "https://github.com/mason-org/mason-lspconfig.nvim" },         -- Bridge mason & lspconfig
+  { src = "https://github.com/neovim/nvim-lspconfig" }, -- LSP configuration presets
+  { src = "https://github.com/mason-org/mason.nvim" }, -- Language server installer
+  { src = "https://github.com/mason-org/mason-lspconfig.nvim" }, -- Bridge mason & lspconfig
   { src = "https://github.com/rachartier/tiny-inline-diagnostic.nvim" }, -- Inline LSP diagnostics
 
   -- Code completion and AI
-  { src = "https://github.com/Saghen/blink.cmp" },       -- Completion engine
+  { src = "https://github.com/Saghen/blink.cmp" }, -- Completion engine
   { src = "https://github.com/zbirenbaum/copilot.lua" }, -- GitHub Copilot integration
-  { src = "https://github.com/folke/sidekick.nvim" },    -- AI assistant (Claude)
+  { src = "https://github.com/folke/sidekick.nvim" }, -- AI assistant (Claude)
 
   -- Code formatting
   { src = "https://github.com/stevearc/conform.nvim" }, -- Format-on-save with multiple formatters
-
-  -- Debugging
-  { src = "https://github.com/mfussenegger/nvim-dap" }, -- Debug Adapter Protocol client
-  { src = "https://github.com/rcarriga/nvim-dap-ui" },  -- UI for nvim-dap
-  { src = "https://github.com/nvim-neotest/nvim-nio" }, -- Async I/O library (dependency)
 })
 
 -- ============================================================================
@@ -213,9 +208,9 @@ require("tiny-inline-diagnostic").setup({
   preset = "minimal",
   options = {
     virt_texts = {
-      priority = 10480
-    }
-  }
+      priority = 10480,
+    },
+  },
 })
 vim.diagnostic.config({ virtual_text = false })
 
@@ -253,8 +248,8 @@ require("sidekick").setup({
   nes = { enabled = false },
   cli = {
     -- Disable terminal multiplexer
-    mux = { enabled = false }
-  }
+    mux = { enabled = false },
+  },
 })
 
 -- ============================================================================
@@ -293,7 +288,7 @@ require("blink.cmp").setup({
   completion = {
     accept = {
       -- Don't auto-insert brackets after accepting completion
-      auto_brackets = { enabled = false }
+      auto_brackets = { enabled = false },
     },
   },
   keymap = {
@@ -395,50 +390,3 @@ vim.keymap.set({ "n", "t", "i", "x" }, "<c-/>", sidekick_send, { desc = "Sidekic
 vim.keymap.set("n", "<leader>rg", require("telescope.builtin").live_grep, { desc = "[R]ip[G]rep" })
 vim.keymap.set("n", "<leader>gd", vim.cmd.Gvdiffsplit, { desc = "[G]it [D]iff" })
 vim.keymap.set("n", "<leader>rc", reload_configuration, { desc = "Reload configuration" })
-
--- ============================================================================
--- DEBUGGING (DAP - Debug Adapter Protocol)
--- ============================================================================
-
--- DAP UI: Visual debugger interface
-require("dapui").setup()
-
-local dap = require("dap")
-
--- Debug key mappings
-vim.keymap.set("n", "<leader>b", dap.toggle_breakpoint, { desc = "Toggle Breakpoint" })
-vim.keymap.set("n", "<leader>?", function()
-  -- Evaluate expression under cursor in debug mode
-  require("dapui").eval(nil, { enter = true })
-end)
-
--- Debug control (F1-F4)
-vim.keymap.set("n", "<F1>", dap.continue, { desc = "Continue" })
-vim.keymap.set("n", "<F2>", dap.step_into, { desc = "Step Into" })
-vim.keymap.set("n", "<F3>", dap.step_over, { desc = "Step Over" })
-vim.keymap.set("n", "<F4>", dap.step_out, { desc = "Step Out" })
-
--- dap.adapters.python = {
---   type = 'executable',
---   command = 'python', -- or 'python3' / full path if needed
---   args = { '-m', 'debugpy.adapter' },
--- }
---
--- dap.configurations.python = {
---   {
---     type = 'python',
---     request = 'attach',
---     name = 'attach debugpy',
---     connect = {
---       host = '127.0.0.1', -- or the remote IP (e.g., '192.168.1.50')
---       port = 5678,
---     },
---     justMyCode = false, -- optional: include library code
---     pathMappings = {
---       {
---         localRoot = vim.fn.getcwd(),  -- your local project root
---         remoteRoot = vim.fn.getcwd(), -- path on the remote machine
---       },
---     },
---   },
--- }

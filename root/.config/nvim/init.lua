@@ -345,12 +345,20 @@ local reload_configuration = function()
   vim.cmd.luafile(vim_rc)
 end
 
-local sidekick_toggle = function()
-  require("sidekick.cli").toggle({ filter = { installed = true } })
+-- <c-.>
+local sidekick_open = function()
+  require("sidekick.cli").show({ filter = { installed = true } })
 end
 
+-- <c-/>
 local sidekick_send = function()
-  require("sidekick.cli").send({ msg = "{this}", filter = { installed = true } })
+  -- if nothing is selected, send {file}, else send {this}
+  local mode = vim.fn.mode()
+  if mode == "n" then
+    return require("sidekick.cli").send({ msg = "{file}", filter = { installed = true } })
+  else
+    require("sidekick.cli").send({ msg = "{this}", filter = { installed = true } })
+  end
 end
 
 -- ============================================================================
@@ -383,7 +391,7 @@ vim.keymap.set("n", "<F5>", vim.pack.update, { desc = "Update plugins" })
 
 -- AI assistants
 vim.keymap.set("i", "<C-\\>", require("copilot.suggestion").accept, { desc = "Accept Copilot suggestion" })
-vim.keymap.set({ "n", "t", "i", "x" }, "<c-.>", sidekick_toggle, { desc = "Sidekick toggle" })
+vim.keymap.set({ "n", "t", "i", "x" }, "<c-.>", sidekick_open, { desc = "Sidekick toggle" })
 vim.keymap.set({ "n", "t", "i", "x" }, "<c-/>", sidekick_send, { desc = "Sidekick send" })
 
 -- Leader key shortcuts (Space + ...)

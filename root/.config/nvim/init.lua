@@ -186,7 +186,7 @@ require("nvim-tree").setup({
 })
 
 -- NvimRooter: Auto-change working directory to project root
--- require("nvim-rooter").setup()
+require("nvim-rooter").setup()
 
 -- Bufferline: Tab-like buffer list at top of window
 require("bufferline").setup()

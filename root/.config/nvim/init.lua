@@ -103,7 +103,6 @@ vim.pack.add({
   -- Code completion and AI
   { src = "https://github.com/Saghen/blink.cmp" },       -- Completion engine
   { src = "https://github.com/zbirenbaum/copilot.lua" }, -- GitHub Copilot integration
-  { src = "https://github.com/folke/sidekick.nvim" },    -- AI assistant (Claude)
 
   -- Code formatting
   { src = "https://github.com/stevearc/conform.nvim" }, -- Format-on-save with multiple formatters
@@ -242,16 +241,6 @@ require("copilot").setup({
   },
 })
 
--- Sidekick: Claude AI assistant integration
-require("sidekick").setup({
-  -- Disable NES emulator feature
-  nes = { enabled = false },
-  cli = {
-    -- Disable terminal multiplexer
-    mux = { enabled = false },
-  },
-})
-
 -- ============================================================================
 -- LSP (LANGUAGE SERVER PROTOCOL)
 -- ============================================================================
@@ -345,23 +334,6 @@ local reload_configuration = function()
   vim.cmd.luafile(vim_rc)
 end
 
--- <c-.>
-local sidekick_toggle = function()
-  local State = require("sidekick.cli.state")
-
-  -- If it's already open, and the termirnal doesn't have focus, focus it
-  State.with(function(state)
-    if state.terminal:is_open() and not state.terminal:is_focused() then
-      state.terminal:focus()
-    else
-      state.terminal:toggle()
-    end
-  end, {
-    attach = true,
-    filter = { installed = true },
-  })
-end
-
 -- ============================================================================
 -- NOTIFICATIONS
 -- ============================================================================
@@ -392,7 +364,6 @@ vim.keymap.set("n", "<F5>", vim.pack.update, { desc = "Update plugins" })
 
 -- AI assistants
 vim.keymap.set("i", "<C-\\>", require("copilot.suggestion").accept, { desc = "Accept Copilot suggestion" })
-vim.keymap.set({ "n", "t", "i", "x" }, "<c-.>", sidekick_toggle, { desc = "Sidekick toggle" })
 
 -- Leader key shortcuts (Space + ...)
 vim.keymap.set("n", "<leader>rg", require("telescope.builtin").live_grep, { desc = "[R]ip[G]rep" })

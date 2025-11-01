@@ -346,19 +346,20 @@ local reload_configuration = function()
 end
 
 -- <c-.>
-local sidekick_open = function()
-  require("sidekick.cli").show({ filter = { installed = true } })
-end
+local sidekick_toggle = function()
+  local State = require("sidekick.cli.state")
 
--- <c-/>
-local sidekick_send = function()
-  -- if nothing is selected, send {file}, else send {this}
-  local mode = vim.fn.mode()
-  if mode == "n" then
-    return require("sidekick.cli").send({ msg = "{file}", filter = { installed = true } })
-  else
-    require("sidekick.cli").send({ msg = "{this}", filter = { installed = true } })
-  end
+  -- If it's already open, and the termirnal doesn't have focus, focus it
+  State.with(function(state)
+    if state.terminal:is_open() and not state.terminal:is_focused() then
+      state.terminal:focus()
+    else
+      state.terminal:toggle()
+    end
+  end, {
+    attach = true,
+    filter = { installed = true },
+  })
 end
 
 -- ============================================================================
@@ -391,8 +392,7 @@ vim.keymap.set("n", "<F5>", vim.pack.update, { desc = "Update plugins" })
 
 -- AI assistants
 vim.keymap.set("i", "<C-\\>", require("copilot.suggestion").accept, { desc = "Accept Copilot suggestion" })
-vim.keymap.set({ "n", "t", "i", "x" }, "<c-.>", sidekick_open, { desc = "Sidekick toggle" })
-vim.keymap.set({ "n", "t", "i", "x" }, "<c-/>", sidekick_send, { desc = "Sidekick send" })
+vim.keymap.set({ "n", "t", "i", "x" }, "<c-.>", sidekick_toggle, { desc = "Sidekick toggle" })
 
 -- Leader key shortcuts (Space + ...)
 vim.keymap.set("n", "<leader>rg", require("telescope.builtin").live_grep, { desc = "[R]ip[G]rep" })

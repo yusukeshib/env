@@ -169,6 +169,7 @@ keybinds clear-defaults=true {
         bind "j" { ScrollDown; }
         bind "k" { ScrollUp; }
         bind "/" { SwitchToMode "entersearch"; }
+        bind "e" { EditScrollback; SwitchToMode "normal"; }
     }
     entersearch {
         bind "esc" { SwitchToMode "scroll"; }

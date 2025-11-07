@@ -369,3 +369,6 @@ vim.keymap.set("i", "<C-\\>", require("copilot.suggestion").accept, { desc = "Ac
 vim.keymap.set("n", "<leader>rg", require("telescope.builtin").live_grep, { desc = "[R]ip[G]rep" })
 vim.keymap.set("n", "<leader>gd", vim.cmd.Gvdiffsplit, { desc = "[G]it [D]iff" })
 vim.keymap.set("n", "<leader>rc", reload_configuration, { desc = "Reload configuration" })
+
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = true, desc = "Go to definition" })
+vim.keymap.set("n", "gr", vim.lsp.buf.references, { noremap = true, silent = true, desc = "List references" })

@@ -70,7 +70,7 @@ vim.pack.add({
   -- Editor behavior
   { src = "https://github.com/tpope/vim-sleuth" }, -- Auto-detect indentation (tabs/spaces)
   { src = "https://github.com/tpope/vim-abolish" }, -- Advanced search/replace with case variants
-  { src = "https://github.com/othree/eregex.vim" }, -- POSIX-style regular expressions
+  -- { src = "https://github.com/othree/eregex.vim" }, -- POSIX-style regular expressions
   { src = "https://github.com/notjedi/nvim-rooter.lua" }, -- Auto-change working directory to project root
 
   -- Theme and UI

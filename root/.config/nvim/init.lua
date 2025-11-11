@@ -78,10 +78,6 @@ vim.pack.add({
   { src = "https://github.com/tpope/vim-abolish" },
   -- Auto-change working directory to project root
   { src = "https://github.com/notjedi/nvim-rooter.lua" },
-  -- Enhanced command-line UI and messages
-  { src = "https://github.com/folke/noice.nvim" },
-  -- UI component library (dependency)
-  { src = "https://github.com/MunifTanjim/nui.nvim" },
 
   --
   -- Theme and UI
@@ -197,12 +193,6 @@ require("bufferline").setup()
 
 -- Lualine: Status line at bottom of window
 require("lualine").setup({})
-
-require('noice').setup({
-  cmdline = {
-    view = "cmdline"
-  },
-})
 
 require('sidekick').setup({
   cli = {

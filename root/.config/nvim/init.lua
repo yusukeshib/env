@@ -166,48 +166,7 @@ vim.cmd("colorscheme cyberdream")
 -- ============================================================================
 
 -- Telescope: Fuzzy finder for files, text, buffers, etc.
-require("telescope").setup({
-  defaults = {
-    -- Disable preview by default for faster performance
-    preview = false,
-  },
-  pickers = {
-    -- Color scheme selector with preview enabled
-    colorscheme = {
-      enable_preview = true,
-      theme = "ivy",
-      layout_config = {
-        height = 10,
-      },
-    },
-    -- Live text search across project
-    live_grep = {
-      theme = "ivy",
-      preview = true,
-      hidden = true, -- Include hidden files in search
-      layout_strategy = "vertical",
-      layout_config = {
-        width = { padding = 0 },
-        height = 120,
-      },
-    },
-    -- File finder
-    find_files = {
-      theme = "ivy",
-      hidden = true, -- Include hidden files
-      layout_config = {
-        height = 15,
-      },
-    },
-    -- Open buffer list
-    buffers = {
-      theme = "ivy",
-      layout_config = {
-        height = 10,
-      },
-    },
-  },
-})
+require("telescope").setup()
 
 -- NvimTree: File explorer
 require("nvim-tree").setup({
@@ -369,19 +328,71 @@ require("conform").setup({
 -- HELPER FUNCTIONS
 -- ============================================================================
 
--- Show Telescope buffer list, sorted by most recently used
-local list_buffers = function()
-  require("telescope.builtin").buffers({
-    sort_lastused = true,
-    ignore_current_buffer = true,
-  })
-end
-
 -- Reload Neovim configuration without restarting
 local reload_configuration = function()
   local vim_rc = os.getenv("MYVIMRC")
   print("Reloading configuration from: " .. vim_rc)
   vim.cmd.luafile(vim_rc)
+end
+
+
+local sidekick_send = function()
+  require("sidekick.cli").send({ msg = "{this}", })
+end
+
+local sidekick_toggle = function()
+  require("sidekick.cli").toggle({ name = "claude", focus = true })
+end
+
+local themes = require('telescope.themes')
+
+local telescope_files = function()
+  require("telescope.builtin").find_files(themes.get_ivy({
+    preview = false,
+    hidden = true,
+    layout_config = {
+      width = { padding = 0 },
+      height = 10,
+    },
+  }))
+end
+
+local telescope_buffers = function()
+  require("telescope.builtin").buffers(themes.get_ivy({
+    preview = false,
+    hidden = true,
+    layout_config = {
+      width = { padding = 0 },
+      height = 10,
+    },
+    sort_lastused = true,
+    ignore_current_buffer = true,
+  }))
+end
+
+local telescope_rg = function()
+  require("telescope.builtin").live_grep(themes.get_ivy({
+    preview = false,
+    hidden = true,
+    layout_config = {
+      width = { padding = 0 },
+      height = 10,
+    },
+  }))
+end
+
+local telescope_lsp_refs = function()
+  require('telescope.builtin').lsp_references(themes.get_ivy({
+    preview = true,
+    hidden = true,
+    layout_strategy = "vertical",
+    layout_config = {
+      height = vim.o.lines,  -- maximally available lines
+      width = vim.o.columns, -- maximally available columns
+      prompt_position = "bottom",
+      preview_height = 0.8
+    },
+  }))
 end
 
 -- ============================================================================
@@ -399,8 +410,8 @@ vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper win
 
 -- File and buffer navigation
 vim.keymap.set("n", "<C-a>", vim.cmd.NvimTreeFindFileToggle, { desc = "Toggle NvimTree" })
-vim.keymap.set("n", "<C-p>", require("telescope.builtin").find_files, { desc = "Cmd+P" })
-vim.keymap.set("n", ";;", list_buffers, { desc = "List buffers" })
+vim.keymap.set("n", "<C-p>", telescope_files, { desc = "Cmd+P" })
+vim.keymap.set("n", ";;", telescope_buffers, { desc = "List buffers" })
 
 -- Plugin management
 vim.keymap.set("n", "<F5>", vim.pack.update, { desc = "Update plugins" })
@@ -409,21 +420,15 @@ vim.keymap.set("n", "<F5>", vim.pack.update, { desc = "Update plugins" })
 vim.keymap.set("i", "<C-\\>", require("copilot.suggestion").accept, { desc = "Accept Copilot suggestion" })
 
 -- Leader key shortcuts (Space + ...)
-vim.keymap.set("n", "<leader>rg", require("telescope.builtin").live_grep, { desc = "[R]ip[G]rep" })
+vim.keymap.set("n", "<leader>rg", telescope_rg, { desc = "[R]ip[G]rep" })
 vim.keymap.set("n", "<leader>gd", vim.cmd.Gvdiffsplit, { desc = "[G]it [D]iff" })
 vim.keymap.set("n", "<leader>rc", reload_configuration, { desc = "Reload configuration" })
 
+-- LSP
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = true, desc = "Go to definition" })
-vim.keymap.set("n", "gr", vim.lsp.buf.references, { noremap = true, silent = true, desc = "List references" })
+-- vim.keymap.set("n", "gr", vim.lsp.buf.references, { noremap = true, silent = true, desc = "List references" })
+vim.keymap.set("n", "gr", telescope_lsp_refs, { noremap = true, silent = true, desc = "List references" })
 
-
-local sidekick_send = function()
-  require("sidekick.cli").send({ msg = "{this}", })
-end
-
-local sidekick_toggle = function()
-  require("sidekick.cli").toggle({ name = "claude", focus = true })
-end
-
+-- sidekick
 vim.keymap.set({ "i", "n", "t", "x" }, "<C-.>", sidekick_toggle, { desc = "Toggle Sidekick" })
 vim.keymap.set({ "i", "n", "t", "x" }, "<C-'>", sidekick_send, { desc = "Send to Sidekick" })

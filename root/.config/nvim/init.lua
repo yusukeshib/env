@@ -206,7 +206,7 @@ require("tiny-inline-diagnostic").setup({
   preset = "minimal",
   options = {
     virt_texts = {
-      priority = 10480,
+      priority = 10240,
     },
   },
 })
@@ -225,17 +225,13 @@ require("copilot").setup({
     -- Don't auto-accept suggestions (manual with Ctrl-\)
     accept = false,
   },
+  nes = {
+    enabled = false
+  },
   panel = {
-    -- Disable Copilot panel UI
     enabled = false,
   },
-  -- Enable Copilot for all file types
   filetypes = {
-    markdown = true,
-    help = true,
-    html = true,
-    javascript = true,
-    typescript = true,
     ["*"] = true,
   },
 })
@@ -262,7 +258,7 @@ require("mason").setup()
 -- Mason-LSPConfig: Bridge between Mason and LSP
 require("mason-lspconfig").setup({
   -- Automatically install these language servers
-  ensure_installed = { "lua_ls", "pyright", "ts_ls" },
+  ensure_installed = { "lua_ls", "pyright", "ts_ls", "rust_analyzer" },
   -- Automatically enable LSP servers after installation
   automatic_enable = true,
 })

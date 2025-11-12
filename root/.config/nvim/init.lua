@@ -420,4 +420,4 @@ vim.keymap.set("n", "gr", telescope_lsp_refs, { noremap = true, silent = true, d
 
 -- sidekick
 vim.keymap.set({ "i", "n", "t", "x" }, "<C-.>", sidekick_toggle, { desc = "Toggle Sidekick" })
-vim.keymap.set({ "i", "n", "t", "x" }, "<C-'>", sidekick_send, { desc = "Send to Sidekick" })
+vim.keymap.set({ "i", "n", "t", "x" }, "<C-/>", sidekick_send, { desc = "Send to Sidekick" })

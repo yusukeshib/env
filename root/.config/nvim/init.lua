@@ -137,6 +137,7 @@ vim.pack.add({
   { src = "https://github.com/rachartier/tiny-inline-diagnostic.nvim" },
   -- Format-on-save with multiple formatters
   { src = "https://github.com/stevearc/conform.nvim" },
+  { src = "https://github.com/j-hui/fidget.nvim" },
 
   --
   -- Code completion and AI
@@ -162,7 +163,7 @@ vim.cmd("colorscheme cyberdream")
 -- ============================================================================
 
 -- Telescope: Fuzzy finder for files, text, buffers, etc.
-require("telescope").setup()
+require("telescope").setup({})
 
 -- NvimTree: File explorer
 require("nvim-tree").setup({
@@ -186,13 +187,15 @@ require("nvim-tree").setup({
 })
 
 -- NvimRooter: Auto-change working directory to project root
-require("nvim-rooter").setup()
+require("nvim-rooter").setup({})
 
 -- Bufferline: Tab-like buffer list at top of window
-require("bufferline").setup()
+require("bufferline").setup({})
 
 -- Lualine: Status line at bottom of window
 require("lualine").setup({})
+
+require("fidget").setup({})
 
 require('sidekick').setup({
   cli = {
@@ -253,7 +256,7 @@ vim.lsp.config("lua_ls", {
 })
 
 -- Mason: Install and manage language servers
-require("mason").setup()
+require("mason").setup({})
 
 -- Mason-LSPConfig: Bridge between Mason and LSP
 require("mason-lspconfig").setup({

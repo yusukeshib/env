@@ -223,19 +223,15 @@ vim.diagnostic.config({ virtual_text = false })
 require("copilot").setup({
   suggestion = {
     enabled = true,
-    -- Automatically show suggestions while typing
     auto_trigger = true,
-    -- Don't auto-accept suggestions (manual with Ctrl-\)
     accept = false,
   },
   nes = {
-    enabled = false
+    enabled = false,
+    auto_trigger = false,
   },
   panel = {
     enabled = false,
-  },
-  filetypes = {
-    ["*"] = true,
   },
 })
 

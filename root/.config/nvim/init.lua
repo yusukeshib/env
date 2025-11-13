@@ -145,10 +145,10 @@ vim.pack.add({
 
   -- Completion engine
   { src = "https://github.com/Saghen/blink.cmp" },
-  -- GitHub Copilot integration
-  { src = "https://github.com/zbirenbaum/copilot.lua" },
   -- ClaudeCode integration
   { src = "https://github.com/folke/sidekick.nvim" },
+  -- Copoilot
+  { src = "https://github.com/milanglacier/minuet-ai.nvim" },
 })
 
 -- ============================================================================
@@ -215,28 +215,25 @@ require("tiny-inline-diagnostic").setup({
 })
 vim.diagnostic.config({ virtual_text = false })
 
--- ============================================================================
--- COPILOT & AI ASSISTANTS
--- ============================================================================
-
--- GitHub Copilot: AI code suggestions
-require("copilot").setup({
-  suggestion = {
-    enabled = true,
-    -- Automatically show suggestions while typing
-    auto_trigger = true,
-    -- Don't auto-accept suggestions (manual with Ctrl-\)
-    accept = false,
-  },
-  nes = {
-    enabled = false
-  },
-  panel = {
-    enabled = false,
-  },
-  filetypes = {
-    ["*"] = true,
-  },
+require('minuet').setup({
+  provider = "claude",
+  provider_options = {
+    claude = {
+      max_tokens = 256,
+      model = 'claude-sonnet-4.5',
+      stream = true,
+      template = {
+        system = "see [Prompt] section for the default value",
+        few_shots = "see [Prompt] section for the default value",
+        chat_input = "See [Prompt Section for default value]",
+        prompt = "See [Prompt Section for default value]",
+        suffix = "See [Prompt Section for default value]",
+      },
+      api_key = 'ANTHROPIC_API_KEY',
+      -- return vim.fn.system("op read 'op://Private/claude-api-key/credential'")
+      end_point = 'https://api.anthropic.com/v1/messages',
+    },
+  }
 })
 
 -- ============================================================================
@@ -272,7 +269,25 @@ require("mason-lspconfig").setup({
 
 -- Blink.cmp: Completion engine
 require("blink.cmp").setup({
+  sources = {
+    -- Enable minuet for autocomplete
+    default = { 'minuet', 'lsp', 'path', 'buffer', 'snippets', },
+    -- For manual completion only, remove 'minuet' from default
+    providers = {
+      minuet = {
+        name = 'minuet',
+        module = 'minuet.blink',
+        async = true,
+        -- Should match minuet.config.request_timeout * 1000,
+        -- since minuet.config.request_timeout is in seconds
+        timeout_ms = 3000,
+        score_offset = 50, -- Gives minuet higher priority among suggestions
+      },
+    },
+  },
   completion = {
+    -- Recommended to avoid unnecessary request
+    trigger = { prefetch_on_insert = false },
     accept = {
       -- Don't auto-insert brackets after accepting completion
       auto_brackets = { enabled = false },
@@ -405,9 +420,6 @@ vim.keymap.set("n", ";;", telescope_buffers, { desc = "List buffers" })
 -- Plugin management
 vim.keymap.set("n", "<F5>", vim.pack.update, { desc = "Update plugins" })
 
--- AI assistants
-vim.keymap.set("i", "<C-\\>", require("copilot.suggestion").accept, { desc = "Accept Copilot suggestion" })
-
 -- Leader key shortcuts (Space + ...)
 vim.keymap.set("n", "<leader>rg", telescope_rg, { desc = "[R]ip[G]rep" })
 vim.keymap.set("n", "<leader>gd", vim.cmd.Gvdiffsplit, { desc = "[G]it [D]iff" })
@@ -421,3 +433,4 @@ vim.keymap.set("n", "gr", telescope_lsp_refs, { noremap = true, silent = true, d
 -- sidekick
 vim.keymap.set({ "i", "n", "t", "x" }, "<C-.>", sidekick_toggle, { desc = "Toggle Sidekick" })
 vim.keymap.set({ "i", "n", "t", "x" }, "<C-/>", sidekick_send, { desc = "Send to Sidekick" })
+

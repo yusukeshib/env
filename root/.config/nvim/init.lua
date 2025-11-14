@@ -202,7 +202,10 @@ require('sidekick').setup({
     mux = {
       enabled = false,
     }
-  }
+  },
+  nes = {
+    enabled = false,
+  },
 })
 
 require("tiny-inline-diagnostic").setup({
@@ -228,7 +231,6 @@ require("copilot").setup({
   },
   nes = {
     enabled = false,
-    auto_trigger = false,
   },
   panel = {
     enabled = false,
@@ -321,10 +323,6 @@ local reload_configuration = function()
 end
 
 
-local sidekick_send = function()
-  require("sidekick.cli").send({ msg = "{this}", })
-end
-
 local sidekick_toggle = function()
   require("sidekick.cli").toggle({ name = "claude", focus = true })
 end
@@ -416,4 +414,3 @@ vim.keymap.set("n", "gr", telescope_lsp_refs, { noremap = true, silent = true, d
 
 -- sidekick
 vim.keymap.set({ "i", "n", "t", "x" }, "<C-.>", sidekick_toggle, { desc = "Toggle Sidekick" })
-vim.keymap.set({ "i", "n", "t", "x" }, "<C-/>", sidekick_send, { desc = "Send to Sidekick" })

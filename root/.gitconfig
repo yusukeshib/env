@@ -7,9 +7,6 @@
   editor = nvim
   pager = delta
 
-[commit]
-  gpgsign = true
-
 [push]
   default = current
 

@@ -1,5 +1,6 @@
 brew "asdf"
 brew "atuin"
+brew "awscli"
 brew "bat"
 brew "eza"
 brew "fd"

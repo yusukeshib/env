@@ -350,11 +350,14 @@ end
 
 local telescope_rg = function()
   require("telescope.builtin").live_grep(themes.get_ivy({
-    preview = false,
+    preview = true,
     hidden = true,
+    layout_strategy = "vertical",
     layout_config = {
-      width = { padding = 0 },
-      height = 10,
+      height = vim.o.lines,  -- maximally available lines
+      width = vim.o.columns, -- maximally available columns
+      prompt_position = "bottom",
+      preview_height = 0.8
     },
   }))
 end

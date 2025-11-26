@@ -1,19 +1,21 @@
 bindkey -e
 unsetopt BEEP
 
-export LANG=en_US.UTF-8
 export EDITOR="nvim"
 export FZF_DEFAULT_COMMAND='fd --type f -i'
+export PATH="$HOME/.local/bin:/opt/homebrew/bin:$PATH"
 
-# This is required to pass all zsh plugins
-export PATH="/opt/homebrew/bin:$PATH"
-export PATH="/opt/homebrew/Caskroom/gcloud-cli/latest/google-cloud-sdk/bin/:$PATH"
+test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 #
 # zplug
 #
 
-export ZPLUG_HOME=/opt/homebrew/opt/zplug
+if uname -r |grep -q 'microsoft' ; then
+  export ZPLUG_HOME=/home/linuxbrew/.linuxbrew/opt/zplug
+else
+  export ZPLUG_HOME=/opt/homebrew/opt/zplug
+fi
 
 if [ -d "$ZPLUG_HOME" ]; then
   source $ZPLUG_HOME/init.zsh
@@ -43,8 +45,6 @@ if [ -d "$ZPLUG_HOME" ]; then
   zplug load
 fi
 
-
-export PATH="$HOME/.local/bin:$PATH"
 
 #
 # Functions
@@ -120,5 +120,7 @@ if type "rg" > /dev/null; then
 fi
 
 
-eval "$(atuin init zsh --disable-up-arrow)"
-bindkey '^r' atuin-search
+if type "atuin" > /dev/null; then
+  eval "$(atuin init zsh --disable-up-arrow)"
+  bindkey '^r' atuin-search
+fi

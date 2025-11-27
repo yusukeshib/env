@@ -356,14 +356,17 @@ end
 
 local telescope_buffers = function()
   require("telescope.builtin").buffers(themes.get_ivy({
-    preview = false,
+    preview = true,
     hidden = true,
+    layout_strategy = "vertical",
     layout_config = {
-      width = { padding = 0 },
-      height = 10,
+      height = vim.o.lines,  -- maximally available lines
+      width = vim.o.columns, -- maximally available columns
+      prompt_position = "bottom",
+      preview_height = 0.8
     },
     sort_lastused = true,
-    ignore_current_buffer = true,
+    ignore_current_buffer = false,
   }))
 end
 

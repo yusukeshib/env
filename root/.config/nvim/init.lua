@@ -79,6 +79,9 @@ vim.pack.add({
   -- Auto-change working directory to project root
   { src = "https://github.com/notjedi/nvim-rooter.lua" },
 
+  -- File
+  { src = "https://github.com/stevearc/oil.nvim" },
+
   --
   -- Theme and UI
   --
@@ -149,6 +152,8 @@ vim.pack.add({
   { src = "https://github.com/zbirenbaum/copilot.lua" },
   -- ClaudeCode integration
   { src = "https://github.com/folke/sidekick.nvim" },
+  -- terminal integration
+  { src = "https://github.com/waiting-for-dev/ergoterm.nvim" },
 })
 
 -- ============================================================================
@@ -164,6 +169,14 @@ vim.cmd("colorscheme cyberdream")
 
 -- Telescope: Fuzzy finder for files, text, buffers, etc.
 require("telescope").setup({})
+
+require('ergoterm').setup({
+  terminal_defaults = {
+    layout = "right",
+    cleanup_on_success = false,
+    auto_scroll = true
+  }
+})
 
 -- NvimTree: File explorer
 require("nvim-tree").setup({

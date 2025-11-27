@@ -85,6 +85,8 @@ vim.pack.add({
 
   -- GitHub-themed color schemes
   { src = "https://github.com/scottmckendry/cyberdream.nvim" },
+  -- Tab/buffer line at the top
+  { src = "https://github.com/akinsho/bufferline.nvim" },
   -- Status line at the bottom
   { src = "https://github.com/nvim-lualine/lualine.nvim" },
   -- Show available key bindings in popup
@@ -186,6 +188,9 @@ require("nvim-tree").setup({
 
 -- NvimRooter: Auto-change working directory to project root
 require("nvim-rooter").setup({})
+
+-- Bufferline: Tab-like buffer list at top of window
+require("bufferline").setup({})
 
 -- Lualine: Status line at bottom of window
 require("lualine").setup({})
@@ -345,7 +350,7 @@ local telescope_buffers = function()
       height = 10,
     },
     sort_lastused = true,
-    -- ignore_current_buffer = true,
+    ignore_current_buffer = true,
   }))
 end
 

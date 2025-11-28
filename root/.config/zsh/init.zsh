@@ -81,28 +81,7 @@ function w () {
 # Aliases
 #
 
-if type "zellij" > /dev/null; then
-  alias z="zellij"
-  alias new="zellij -s"
-
-  # Note: defining 'a' as a function is more stable
-  a() { zellij attach "$@"; }
-
-  _zellij_attach_sessions() {
-    local -a sessions
-    # Important: use `list-sessions` (not `ls`)
-    sessions=("${(@f)$(zellij list-sessions --short 2>/dev/null)}")
-    (( $#sessions )) || return 1
-    compadd -Q -a sessions
-  }
-
-  # Bind completion function to 'a' (required)
-  compdef _zellij_attach_sessions a
-
-  # fzf-tab preview (optional)
-  zstyle ':fzf-tab:complete:a:*' fzf-preview \
-    'echo "Zellij session: $word"; echo; zellij list-sessions --short | grep --color=always -E "^${word//\*/.*}$" || true'
-elif type "tmux" > /dev/null; then
+if type "tmux" > /dev/null; then
   alias a="tmux attach -t"
   alias new="tmux new -s"
 
@@ -116,7 +95,31 @@ elif type "tmux" > /dev/null; then
 
   zstyle ':fzf-tab:complete:a:*' fzf-preview \
     'echo "Tmux session: $word"; echo; tmux ls | grep --color=always -E "^${word//\*/.*}:" || true'
+else
+  echo "No tmux installed"
 fi
+# elif type "zellij" > /dev/null; then
+#   alias z="zellij"
+#   alias new="zellij -s"
+# 
+#   # Note: defining 'a' as a function is more stable
+#   a() { zellij attach "$@"; }
+# 
+#   _zellij_attach_sessions() {
+#     local -a sessions
+#     # Important: use `list-sessions` (not `ls`)
+#     sessions=("${(@f)$(zellij list-sessions --short 2>/dev/null)}")
+#     (( $#sessions )) || return 1
+#     compadd -Q -a sessions
+#   }
+# 
+#   # Bind completion function to 'a' (required)
+#   compdef _zellij_attach_sessions a
+# 
+#   # fzf-tab preview (optional)
+#   zstyle ':fzf-tab:complete:a:*' fzf-preview \
+#     'echo "Zellij session: $word"; echo; zellij list-sessions --short | grep --color=always -E "^${word//\*/.*}$" || true'
+# fi
 
 if type "nvim" > /dev/null; then
   alias vi="nvim"

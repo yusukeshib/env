@@ -102,6 +102,20 @@ if type "zellij" > /dev/null; then
   # fzf-tab preview (optional)
   zstyle ':fzf-tab:complete:a:*' fzf-preview \
     'echo "Zellij session: $word"; echo; zellij list-sessions --short | grep --color=always -E "^${word//\*/.*}$" || true'
+elif type "tmux" > /dev/null; then
+  alias a="tmux attach -t"
+  alias new="tmux new -s"
+
+  _tmux_attach_sessions() {
+    local -a sessions
+    sessions=("${(@f)$(tmux ls 2>/dev/null | cut -d: -f1)}")
+    (( $#sessions )) || return 1
+    compadd -Q -a sessions
+  }
+  compdef _tmux_attach_sessions a
+
+  zstyle ':fzf-tab:complete:a:*' fzf-preview \
+    'echo "Tmux session: $word"; echo; tmux ls | grep --color=always -E "^${word//\*/.*}:" || true'
 fi
 
 if type "nvim" > /dev/null; then

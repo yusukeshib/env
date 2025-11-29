@@ -1,9 +1,19 @@
 bindkey -e
 unsetopt BEEP
 
-export EDITOR="nvim"
-export FZF_DEFAULT_COMMAND='fd --type f -i'
-export PATH="$HOME/.local/bin:/opt/homebrew/bin:$PATH"
+if type "nvim" > /dev/null; then
+  export EDITOR="nvim"
+elif type "vim" > /dev/null; then
+  export EDITOR="vim"
+else
+  export EDITOR="vi"
+fi
+
+if type "fd" > /dev/null; then
+  export FZF_DEFAULT_COMMAND='fd --type f -i'
+fi
+
+export PATH="$HOME/.local/bin:$PATH"
 
 test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
@@ -19,7 +29,7 @@ fi
 
 if [ -d "$ZPLUG_HOME" ]; then
   source $ZPLUG_HOME/init.zsh
-    
+
   zplug "plugins/asdf", from:oh-my-zsh
   zplug "plugins/brew", from:oh-my-zsh
   zplug "plugins/common-aliases", from:oh-my-zsh

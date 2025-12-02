@@ -433,4 +433,4 @@ vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = tru
 vim.keymap.set("n", "gr", telescope_lsp_refs, { noremap = true, silent = true, desc = "List references" })
 
 -- sidekick
-vim.keymap.set({ "i", "n", "t", "x" }, "<M-.>", sidekick_toggle, { desc = "Toggle Sidekick" })
+vim.keymap.set({ "i", "n", "t", "x" }, "<C-.>", sidekick_toggle, { desc = "Toggle Sidekick" })

@@ -168,7 +168,17 @@ vim.cmd("colorscheme cyberdream")
 -- ============================================================================
 
 -- Telescope: Fuzzy finder for files, text, buffers, etc.
-require("telescope").setup({})
+local actions = require("telescope.actions")
+require("telescope").setup({
+  defaults = {
+    mappings = {
+      i = {
+        ["<S-Down>"] = actions.cycle_history_next,
+        ["<S-Up>"] = actions.cycle_history_prev,
+      }
+    }
+  }
+})
 
 require('ergoterm').setup({
   terminal_defaults = {

@@ -147,3 +147,7 @@ if type "atuin" > /dev/null; then
   eval "$(atuin init zsh --disable-up-arrow)"
   bindkey '^r' atuin-search
 fi
+
+if type "te" > /dev/null; then
+  eval "$(te init zsh --bindkey ^H)"
+fi

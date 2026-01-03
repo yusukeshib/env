@@ -6,27 +6,21 @@ if [ ! -d "$HOME/env" ]; then
   git clone https://github.com/yusukeshibata/env.git $HOME/env
   echo '-> Cloned.'
 fi
-# Make sure $HOME/.config exists
-if [ ! -d "$HOME/.config" ]; then
-  mkdir -p $HOME/.config
-  echo '-> Created .config dir.' 
-fi
 
-# Symlink all entries in the root
+# Symlink all files in the root directory recursively, mkdir if necessary
 cd $HOME/env/root
-shopt -s dotglob
-for item in *; do
-  if [[ ! -e "$HOME/$item" && -f "$HOME/env/root/$item" ]]; then
-    ln -s "$HOME/env/root/$item" "$HOME/$item" && echo "Linked: $HOME/$item"
-  fi
-done
+find . -type f | while read -r file; do
+  # Remove leading ./
+  rel_path="${file#./}"
+  target="$HOME/$rel_path"
 
-# Symlink all entries in .config
-cd $HOME/env/root/.config
-shopt -s dotglob
-for item in *; do
-  if [[ ! -e "$HOME/.config/$item" ]]; then
-    ln -s "$HOME/env/root/.config/$item" "$HOME/.config/$item" && echo "Linked: $HOME/.config/$item"
+  # Create parent directory if it doesn't exist
+  parent_dir="$(dirname "$target")"
+  mkdir -p "$parent_dir"
+
+  # Create symlink if it doesn't already exist
+  if [ ! -e "$target" ]; then
+    ln -s "$HOME/env/root/$rel_path" "$target" && echo "Linked: $target"
   fi
 done
 

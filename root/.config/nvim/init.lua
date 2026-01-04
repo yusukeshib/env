@@ -439,6 +439,7 @@ vim.keymap.set("n", "<leader>rc", reload_configuration, { desc = "Reload configu
 
 -- LSP
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = true, desc = "Go to definition" })
+vim.keymap.set("n", "lr", vim.lsp.buf.rename, { noremap = true, silent = true, desc = "Rename symbol" })
 -- vim.keymap.set("n", "gr", vim.lsp.buf.references, { noremap = true, silent = true, desc = "List references" })
 vim.keymap.set("n", "gr", telescope_lsp_refs, { noremap = true, silent = true, desc = "List references" })
 

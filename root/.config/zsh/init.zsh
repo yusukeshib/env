@@ -149,5 +149,5 @@ if type "atuin" > /dev/null; then
 fi
 
 if type "te" > /dev/null; then
-  eval "$(te init zsh --bindkey ^H)"
+  eval "$(te init zsh)"
 fi

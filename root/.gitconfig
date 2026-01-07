@@ -9,6 +9,7 @@
 
 [push]
   default = current
+  autoSetupRemote = true
 
 [filter "lfs"]
   clean = git-lfs clean -- %f
@@ -44,3 +45,6 @@
 
 [rerere]
   enabled = true
+
+[pull]
+  autoSetupRemote = true

@@ -65,28 +65,6 @@ function rp () {
 }
 
 
-# git worktree shortcut
-# with branch name `{git-config-email-prefix}/{name}`
-# in the directory `~/worktrees/{git-repo-name}-{git-worktree-name}`
-# then, change current directory to the new worktree
-
-function w () {
-  if [ -z "$1" ]; then
-    echo "Usage: w <worktree-name> [<start-point>]"
-    return 1
-  fi
-
-  local WORKTREE_NAME="$1"
-  local START_POINT="${2:-main}"
-  local REPO_NAME=$(basename "$(git rev-parse --show-toplevel)")
-  local WORKTREE_DIR="$HOME/worktrees/$REPO_NAME-$WORKTREE_NAME"
-  local EMAIL_PREFIX=$(git config user.email | cut -d'@' -f1)
-  local BRANCH_NAME="$EMAIL_PREFIX/$WORKTREE_NAME"
-
-  git worktree add -b "$BRANCH_NAME" "$WORKTREE_DIR" "$START_POINT"
-  cd "$WORKTREE_DIR" || return
-}
-
 #
 # Aliases
 #

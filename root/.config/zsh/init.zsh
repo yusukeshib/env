@@ -13,7 +13,7 @@ if type "fd" > /dev/null; then
   export FZF_DEFAULT_COMMAND='fd --type f -i'
 fi
 
-export PATH="$HOME/.cargo/bin:/opt/homebrew/share/google-cloud-sdk/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.cargo/bin:/opt/homebrew/share/google-cloud-sdk/bin:$PATH"
 
 test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
@@ -133,4 +133,3 @@ fi
 if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
 
 
-export PATH="$HOME/.local/bin:$PATH"

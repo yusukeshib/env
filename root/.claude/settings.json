@@ -51,19 +51,15 @@
       "Bash(make:*)",
       "Bash(docker:*)",
       "Bash(docker-compose:*)",
-      "WebSearch"
+      "WebSearch",
+      "WebFetch",
+      "Read",
+      "Write"
     ],
     "deny": [
       "Bash(rm -rf:*)",
       "Bash(sudo:*)",
-      "Bash(chmod 777:*)",
-      "Bash(curl|bash:*)",
-      "Bash(wget|bash:*)",
-      "Read(.env)",
-      "Read(.env.*)",
-      "Read(**/secrets/**)",
-      "Read(**/*secret*)",
-      "Read(**/*credential*)"
+      "Bash(chmod 777:*)"
     ]
   },
   "hooks": {

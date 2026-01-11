@@ -8,4 +8,4 @@ background-opacity = 1.0
 window-width = 220
 window-height = 72
 auto-update-channel = tip
-keybind = shift+enter=text:\x1b\r
+macos-option-as-alt = true

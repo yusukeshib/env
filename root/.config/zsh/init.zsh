@@ -30,7 +30,7 @@ fi
 if [ -d "$ZPLUG_HOME" ]; then
   source $ZPLUG_HOME/init.zsh
 
-  # zplug "plugins/asdf", from:oh-my-zsh
+  zplug "plugins/asdf", from:oh-my-zsh
   zplug "plugins/brew", from:oh-my-zsh
   zplug "plugins/common-aliases", from:oh-my-zsh
   zplug "plugins/direnv", from:oh-my-zsh

@@ -258,7 +258,6 @@ require("copilot").setup({
   panel = {
     enabled = false,
   },
-  copilot_node_command = vim.fn.expand("$HOME") .. "/.asdf/installs/nodejs/24.11.1/bin/node",
 })
 
 -- ============================================================================

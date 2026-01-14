@@ -1,7 +1,5 @@
 {
-  "model": "opus",
   "permissions": {
-    "defaultMode": "acceptEdits",
     "allow": [
       "Bash(npm run:*)",
       "Bash(npm test:*)",
@@ -60,8 +58,10 @@
       "Bash(rm -rf:*)",
       "Bash(sudo:*)",
       "Bash(chmod 777:*)"
-    ]
+    ],
+    "defaultMode": "acceptEdits"
   },
+  "model": "opus",
   "hooks": {
     "Notification": [
       {

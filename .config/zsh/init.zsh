@@ -34,7 +34,7 @@ if [ -d "$ZPLUG_HOME" ]; then
   zplug "plugins/brew", from:oh-my-zsh
   zplug "plugins/common-aliases", from:oh-my-zsh
   zplug "plugins/direnv", from:oh-my-zsh
-  # zplug "plugins/eza", from:oh-my-zsh
+  zplug "plugins/eza", from:oh-my-zsh
   zplug "plugins/fzf", from:oh-my-zsh
   zplug "plugins/git", from:oh-my-zsh
   zplug "plugins/kubectl", from:oh-my-zsh

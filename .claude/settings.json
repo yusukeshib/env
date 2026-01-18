@@ -62,27 +62,6 @@
     "defaultMode": "acceptEdits"
   },
   "model": "opus",
-  "hooks": {
-    "Notification": [
-      {
-        "matcher": "permission_prompt",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "terminal-notifier -title 'Claude Code' -message 'Claude needs your permission' -sound Glass -activate com.mitchellh.ghostty"
-          }
-        ]
-      },
-      {
-        "matcher": "idle_prompt",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "terminal-notifier -title 'Claude Code' -message 'Claude is waiting for your input' -sound Tink -activate com.mitchellh.ghostty"
-          }
-        ]
-      }
-    ]
   },
   "enabledPlugins": {
     "pyright-lsp@claude-plugins-official": true,

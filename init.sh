@@ -29,9 +29,13 @@ find . -type f -not -path "./.git/*" -not -name "README.md" -not -name "init.sh"
     rm "$target" && echo "Removed broken symlink: $target"
   fi
 
-  # If --force is specified, remove existing file/symlink
+  # If --force is specified, remove existing file/symlink (unless it's already a valid symlink to the correct target)
   if [ "$FORCE" = true ] && [ -e "$target" ]; then
-    rm -f "$target" && echo "Removed existing file (--force): $target"
+    if [ -L "$target" ] && [ "$(readlink "$target")" = "$HOME/env/$rel_path" ]; then
+      : # Already a valid symlink, skip
+    else
+      rm -f "$target" && echo "Removed existing file (--force): $target"
+    fi
   fi
 
   # Create symlink if it doesn't already exist

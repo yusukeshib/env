@@ -126,10 +126,12 @@ if type "atuin" > /dev/null; then
   bindkey '^r' atuin-search
 fi
 
-if type "te" > /dev/null; then
-  eval "$(te init zsh)"
+if type "wt" >/dev/null; then
+  eval "$(command wt config shell init zsh)";
 fi
 
-if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
-
+# dev
+if type "sel" > /dev/null; then
+  eval "$(sel init zsh)"
+fi
 

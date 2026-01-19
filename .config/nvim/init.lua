@@ -393,6 +393,20 @@ local telescope_rg = function()
   }))
 end
 
+local telescope_lsp_symbols = function()
+  require('telescope.builtin').lsp_document_symbols(themes.get_ivy({
+    preview = true,
+    hidden = true,
+    layout_strategy = "vertical",
+    layout_config = {
+      height = vim.o.lines,  -- maximally available lines
+      width = vim.o.columns, -- maximally available columns
+      prompt_position = "bottom",
+      preview_height = 0.8
+    },
+  }))
+end
+
 local telescope_lsp_refs = function()
   require('telescope.builtin').lsp_references(themes.get_ivy({
     preview = true,
@@ -439,8 +453,8 @@ vim.keymap.set("n", "<leader>rc", reload_configuration, { desc = "Reload configu
 -- LSP
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = true, desc = "Go to definition" })
 vim.keymap.set("n", "lr", vim.lsp.buf.rename, { noremap = true, silent = true, desc = "Rename symbol" })
--- vim.keymap.set("n", "gr", vim.lsp.buf.references, { noremap = true, silent = true, desc = "List references" })
 vim.keymap.set("n", "gr", telescope_lsp_refs, { noremap = true, silent = true, desc = "List references" })
+vim.keymap.set("n", "gs", telescope_lsp_symbols, { noremap = true, silent = true, desc = "List document symbols" })
 
 -- sidekick
 vim.keymap.set({ "i", "n", "t", "x" }, "<C-.>", sidekick_toggle, { desc = "Toggle Sidekick" })

@@ -16,6 +16,7 @@ brew "neovim", args: ["HEAD"]
 brew "oven-sh/bun/bun"
 brew "ripgrep"
 brew "starship"
-brew "zellij"
+brew "terminal-notifier"
 brew "uv"
+brew "zellij"
 brew "zplug"

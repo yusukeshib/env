@@ -67,5 +67,29 @@
     "rust-analyzer-lsp@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true
   },
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": true,
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "terminal-notifier -title 'Claude Code' -message 'Task completed' -sound default -activate com.mitchellh.ghostty -appIcon '/Applications/Ghostty.app/Contents/Resources/Ghostty.icns'"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.message' | xargs -I {} terminal-notifier -title 'Claude Code' -message '{}' -sound default -activate com.mitchellh.ghostty -appIcon '/Applications/Ghostty.app/Contents/Resources/Ghostty.icns'"
+          }
+        ]
+      }
+    ]
+  }
 }

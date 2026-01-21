@@ -110,12 +110,15 @@ vim.pack.add({
 
   -- Git commands within vim
   { src = "https://github.com/tpope/vim-fugitive" },
+  { src = "https://github.com/tpope/vim-rhubarb", },
   -- Enhanced diff viewer
   { src = "https://github.com/sindrets/diffview.nvim" },
   -- Show git blame as virtual text
   { src = "https://github.com/f-person/git-blame.nvim" },
   -- Git diff signs in gutter
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
+  -- Git history
+  { src = "https://github.com/aaronhallaert/advanced-git-search.nvim" },
 
   --
   -- File navigation and search
@@ -179,6 +182,7 @@ require("telescope").setup({
     }
   },
   extensions = {
+    advanced_git_search = {},
     aerial = {
       -- Set the width of the first two columns (the second
       -- is relevant only when show_columns is set to 'both')
@@ -200,6 +204,7 @@ require("telescope").setup({
 
 require("aerial").setup({})
 require("telescope").load_extension("aerial")
+require("telescope").load_extension("advanced_git_search")
 
 -- NvimTree: File explorer
 require("nvim-tree").setup({
@@ -406,6 +411,20 @@ local telescope_rg = function()
   }))
 end
 
+local telescope_git_history = function()
+  require("telescope").extensions.advanced_git_search.search_log_content_file(themes.get_ivy({
+    preview = true,
+    hidden = true,
+    layout_strategy = "vertical",
+    layout_config = {
+      height = vim.o.lines,  -- maximally available lines
+      width = vim.o.columns, -- maximally available columns
+      prompt_position = "bottom",
+      preview_height = 0.8
+    },
+  }))
+end
+
 local telescope_aerial = function()
   require("telescope").extensions.aerial.aerial(themes.get_ivy({
     preview = true,
@@ -469,6 +488,7 @@ vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = tru
 vim.keymap.set("n", "lr", vim.lsp.buf.rename, { noremap = true, silent = true, desc = "Rename symbol" })
 vim.keymap.set("n", "gr", telescope_lsp_refs, { noremap = true, silent = true, desc = "List references" })
 vim.keymap.set("n", "go", telescope_aerial, { noremap = true, silent = true, desc = "List document symbols" })
+vim.keymap.set("n", "gh", telescope_git_history, { noremap = true, silent = true, desc = "Git history" })
 
 -- sidekick
 vim.keymap.set({ "i", "n", "t", "x" }, "<C-.>", sidekick_toggle, { desc = "Toggle Sidekick" })

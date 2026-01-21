@@ -99,6 +99,8 @@ vim.pack.add({
   -- Syntax and language support
   --
 
+  { src = "https://github.com/stevearc/aerial.nvim" },
+
   -- Modern syntax highlighting
   { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 
@@ -152,8 +154,6 @@ vim.pack.add({
   { src = "https://github.com/zbirenbaum/copilot.lua" },
   -- ClaudeCode integration
   { src = "https://github.com/folke/sidekick.nvim" },
-  -- terminal integration
-  { src = "https://github.com/waiting-for-dev/ergoterm.nvim" },
 })
 
 -- ============================================================================
@@ -177,16 +177,29 @@ require("telescope").setup({
         ["<S-Up>"] = actions.cycle_history_prev,
       }
     }
-  }
+  },
+  extensions = {
+    aerial = {
+      -- Set the width of the first two columns (the second
+      -- is relevant only when show_columns is set to 'both')
+      col1_width = 4,
+      col2_width = 30,
+      -- How to format the symbols
+      format_symbol = function(symbol_path, filetype)
+        if filetype == "json" or filetype == "yaml" then
+          return table.concat(symbol_path, ".")
+        else
+          return symbol_path[#symbol_path]
+        end
+      end,
+      -- Available modes: symbols, lines, both
+      show_columns = "both",
+    },
+  },
 })
 
-require('ergoterm').setup({
-  terminal_defaults = {
-    layout = "right",
-    cleanup_on_success = false,
-    auto_scroll = true
-  }
-})
+require("aerial").setup({})
+require("telescope").load_extension("aerial")
 
 -- NvimTree: File explorer
 require("nvim-tree").setup({
@@ -393,8 +406,8 @@ local telescope_rg = function()
   }))
 end
 
-local telescope_lsp_symbols = function()
-  require('telescope.builtin').lsp_document_symbols(themes.get_ivy({
+local telescope_aerial = function()
+  require("telescope").extensions.aerial.aerial(themes.get_ivy({
     preview = true,
     hidden = true,
     layout_strategy = "vertical",
@@ -435,6 +448,7 @@ vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower win
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 -- File and buffer navigation
+vim.keymap.set("n", "<C-o>", "<cmd>Outline<CR>", { desc = "Toggle Outline" })
 vim.keymap.set("n", "<C-a>", vim.cmd.NvimTreeFindFileToggle, { desc = "Toggle NvimTree" })
 vim.keymap.set("n", "<C-p>", telescope_files, { desc = "Cmd+P" })
 vim.keymap.set("n", ";;", telescope_buffers, { desc = "List buffers" })
@@ -454,7 +468,7 @@ vim.keymap.set("n", "<leader>rc", reload_configuration, { desc = "Reload configu
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = true, desc = "Go to definition" })
 vim.keymap.set("n", "lr", vim.lsp.buf.rename, { noremap = true, silent = true, desc = "Rename symbol" })
 vim.keymap.set("n", "gr", telescope_lsp_refs, { noremap = true, silent = true, desc = "List references" })
-vim.keymap.set("n", "gs", telescope_lsp_symbols, { noremap = true, silent = true, desc = "List document symbols" })
+vim.keymap.set("n", "go", telescope_aerial, { noremap = true, silent = true, desc = "List document symbols" })
 
 -- sidekick
 vim.keymap.set({ "i", "n", "t", "x" }, "<C-.>", sidekick_toggle, { desc = "Toggle Sidekick" })

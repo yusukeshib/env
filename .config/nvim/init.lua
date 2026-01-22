@@ -457,38 +457,43 @@ end
 -- KEY MAPPINGS
 -- ============================================================================
 
--- General editor shortcuts
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Unhighlight search word" })
+local wk = require("which-key")
 
--- Window navigation (Ctrl + hjkl)
-vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
-vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
-vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
-vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+wk.add({
+  -- General editor shortcuts
+  { "<Esc>",      "<cmd>nohlsearch<CR>",                desc = "Unhighlight search word",        mode = "n", },
 
--- File and buffer navigation
-vim.keymap.set("n", "<C-o>", "<cmd>Outline<CR>", { desc = "Toggle Outline" })
-vim.keymap.set("n", "<C-a>", vim.cmd.NvimTreeFindFileToggle, { desc = "Toggle NvimTree" })
-vim.keymap.set("n", "<C-p>", telescope_files, { desc = "Cmd+P" })
-vim.keymap.set("n", ";;", telescope_buffers, { desc = "List buffers" })
+  -- Window navigation (Ctrl + hjkl)
+  { "<C-h>",      "<C-w><C-h>",                         desc = "Move focus to the left window",  mode = "n", },
+  { "<C-l>",      "<C-w><C-l>",                         desc = "Move focus to the right window", mode = "n", },
+  { "<C-j>",      "<C-w><C-j>",                         desc = "Move focus to the lower window", mode = "n", },
+  { "<C-k>",      "<C-w><C-k>",                         desc = "Move focus to the upper window", mode = "n", },
 
--- Plugin management
-vim.keymap.set("n", "<F5>", vim.pack.update, { desc = "Update plugins" })
+  -- File and buffer navigation
+  { "<C-a>",      "<cmd>NvimTreeFindFileToggle<CR>",    desc = "Toggle NvimTree",                mode = "n", },
+  { "<C-p>",      telescope_files,                      desc = "Cmd+P",                          mode = "n", },
+  { ";;",         telescope_buffers,                    desc = "List buffers",                   mode = "n", },
 
--- AI assistants
-vim.keymap.set("i", "<C-\\>", require("copilot.suggestion").accept, { desc = "Accept Copilot suggestion" })
+  -- Plugin management
+  { "<F5>",       vim.pack.update,                      desc = "Update plugins",                 mode = "n", },
 
--- Leader key shortcuts (Space + ...)
-vim.keymap.set("n", "<leader>rg", telescope_rg, { desc = "[R]ip[G]rep" })
-vim.keymap.set("n", "<leader>gd", vim.cmd.Gvdiffsplit, { desc = "[G]it [D]iff" })
-vim.keymap.set("n", "<leader>rc", reload_configuration, { desc = "Reload configuration" })
+  -- AI assistants
+  { "<C-\\>",     require("copilot.suggestion").accept, desc = "Accept Copilot suggestion",      mode = "i", },
 
--- LSP
-vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = true, desc = "Go to definition" })
-vim.keymap.set("n", "lr", vim.lsp.buf.rename, { noremap = true, silent = true, desc = "Rename symbol" })
-vim.keymap.set("n", "gr", telescope_lsp_refs, { noremap = true, silent = true, desc = "List references" })
-vim.keymap.set("n", "go", telescope_aerial, { noremap = true, silent = true, desc = "List document symbols" })
-vim.keymap.set("n", "gh", telescope_git_history, { noremap = true, silent = true, desc = "Git history" })
+  -- Leader key shortcuts (Space + ...)
+  { "<leader>rg", telescope_rg,                         desc = "[R]ip[G]rep",                    mode = "n", },
+  { "<leader>gd", vim.cmd.Gvdiffsplit,                  desc = "[G]it [D]iff",                   mode = "n", },
+  { "<leader>rc", reload_configuration,                 desc = "Reload configuration",           mode = "n", },
 
--- sidekick
-vim.keymap.set({ "i", "n", "t", "x" }, "<C-.>", sidekick_toggle, { desc = "Toggle Sidekick" })
+  -- Git
+  { "<C-h>",      telescope_git_history,                desc = "Git history",                    mode = "n", },
+
+  -- LSP
+  { "gd",         vim.lsp.buf.definition,               desc = "Go to definition",               mode = "n", },
+  { "lr",         vim.lsp.buf.rename,                   desc = "Rename symbol",                  mode = "n", },
+  { "gr",         telescope_lsp_refs,                   desc = "List references",                mode = "n", },
+  { "<C-o>",      telescope_aerial,                     desc = "List document symbols",          mode = "n", },
+
+  -- sidekick
+  { "<C-.>",      sidekick_toggle,                      desc = "Toggle Sidekick",                mode = { "i", "n", "t", "x" } },
+})

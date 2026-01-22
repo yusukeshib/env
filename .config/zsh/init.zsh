@@ -93,8 +93,11 @@ elif type "zellij" > /dev/null; then
     local -a sessions
     # Important: use `list-sessions` (not `ls`)
     sessions=("${(@f)$(zellij list-sessions --short 2>/dev/null)}")
-    (( $#sessions )) || return 1
-    compadd -Q -a sessions
+    if (( ! $#sessions )); then
+      _message 'no sessions'
+      return 1
+    fi
+    compadd -S '' -Q -a sessions
   }
 
   # Bind completion function to 'a' (required)

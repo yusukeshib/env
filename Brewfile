@@ -11,7 +11,7 @@ cask "google-cloud-sdk"
 brew "withgraphite/tap/graphite"
 brew "helm"
 brew "kubectx"
-brew "max-sixty/worktrunk/wt"
+brew "k1LoW/tap/git-wt"
 brew "neovim", args: ["HEAD"]
 brew "oven-sh/bun/bun"
 brew "ripgrep"

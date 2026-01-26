@@ -1,6 +1,13 @@
 bindkey -e
 unsetopt BEEP
 
+# Nix
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
+
+eval "$(nixy config zsh)"
+
 if type "nvim" > /dev/null; then
   export EDITOR="nvim"
 elif type "vim" > /dev/null; then
@@ -13,18 +20,16 @@ if type "fd" > /dev/null; then
   export FZF_DEFAULT_COMMAND='fd --type f -i'
 fi
 
-export PATH="$HOME/.local/bin:$HOME/.cargo/bin:/opt/homebrew/share/google-cloud-sdk/bin:$PATH"
-
-test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
 
 #
 # zplug
 #
 
-if uname -r |grep -q 'microsoft' ; then
-  export ZPLUG_HOME=/home/linuxbrew/.linuxbrew/opt/zplug
-else
-  export ZPLUG_HOME=/opt/homebrew/opt/zplug
+export ZPLUG_HOME=$HOME/.zplug
+
+if [[ ! -d "$ZPLUG_HOME" ]]; then
+  git clone https://github.com/zplug/zplug $ZPLUG_HOME
 fi
 
 if [ -d "$ZPLUG_HOME" ]; then

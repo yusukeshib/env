@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "packages": [
+    "atuin",
+    "awscli",
+    "bash",
+    "bat",
+    "bun",
+    "cargo",
+    "clippy",
+    "delta",
+    "direnv",
+    "entr",
+    "eza",
+    "fd",
+    "fzf",
+    "gh",
+    "glow",
+    "graphite-cli",
+    "kubectx",
+    "kubernetes-helm",
+    "nix-direnv",
+    "nodejs",
+    "python3",
+    "ripgrep",
+    "rustfmt",
+    "starship",
+    "terminal-notifier",
+    "uv",
+    "vhs",
+    "zellij",
+    "zplug"
+  ],
+  "custom_packages": [
+    {
+      "name": "neovim",
+      "input_name": "github-nix-community-neovim-nightly-overlay",
+      "input_url": "github:nix-community/neovim-nightly-overlay",
+      "package_output": "packages",
+      "source_name": null
+    }
+  ]
+}

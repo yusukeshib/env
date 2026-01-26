@@ -6,8 +6,6 @@ if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
   . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 fi
 
-eval "$(nixy config zsh)"
-
 if type "nvim" > /dev/null; then
   export EDITOR="nvim"
 elif type "vim" > /dev/null; then
@@ -21,6 +19,10 @@ if type "fd" > /dev/null; then
 fi
 
 export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
+
+if type "nixy" > /dev/null; then
+  eval "$(nixy config zsh)"
+fi
 
 #
 # zplug
@@ -143,4 +145,5 @@ fi
 if type "sel" > /dev/null; then
   eval "$(sel init zsh)"
 fi
+
 

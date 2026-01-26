@@ -15,7 +15,18 @@ fi
 
 # Symlink all files in the directory recursively, mkdir if necessary
 cd $HOME/env
-find . -type f -not -path "./.git/*" -not -name "README.md" -not -name "init.sh" | while read -r file; do
+
+# Collect unique directories and remove all broken symlinks in them
+find . -type f -not -path "./.gitignore" -not -path "./.git/*" -not -name "README.md" -not -name "init.sh" | xargs -n1 dirname | sort -u | while read -r dir; do
+  target_dir="$HOME/${dir#./}"
+  if [ -d "$target_dir" ]; then
+    find "$target_dir" -maxdepth 1 -type l | while read -r link; do
+      [ ! -e "$link" ] && rm "$link" && echo "Removed broken symlink: $link"
+    done
+  fi
+done
+
+find . -type f -not -path "./.gitignore" -not -path "./.git/*" -not -name "README.md" -not -name "init.sh" | while read -r file; do
   # Remove leading ./
   rel_path="${file#./}"
   target="$HOME/$rel_path"
@@ -23,11 +34,6 @@ find . -type f -not -path "./.git/*" -not -name "README.md" -not -name "init.sh"
   # Create parent directory if it doesn't exist
   parent_dir="$(dirname "$target")"
   mkdir -p "$parent_dir"
-
-  # Remove broken symlink if it exists
-  if [ -L "$target" ] && [ ! -e "$target" ]; then
-    rm "$target" && echo "Removed broken symlink: $target"
-  fi
 
   # If --force is specified, remove existing file/symlink (unless it's already a valid symlink to the correct target)
   if [ "$FORCE" = true ] && [ -e "$target" ]; then

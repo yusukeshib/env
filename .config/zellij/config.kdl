@@ -200,7 +200,7 @@ keybinds clear-defaults=true {
         bind "right" { MoveFocus "right"; SwitchToMode "normal"; }
         bind "h" { MoveFocus "left"; SwitchToMode "normal"; }
         bind "j" { MoveFocus "down"; SwitchToMode "normal"; }
-        bind "k" { MoveFocus "up"; SwitchToMode "normal"; }
+        // bind "k" { MoveFocus "up"; SwitchToMode "normal"; }
         bind "l" { MoveFocus "right"; SwitchToMode "normal"; }
         bind "o" { FocusNextPane; SwitchToMode "normal"; }
         bind "p" { GoToPreviousTab; SwitchToMode "normal"; }
@@ -223,6 +223,7 @@ keybinds clear-defaults=true {
         bind "{" { MovePane "left"; SwitchToMode "normal"; }
         bind "}" { MovePane "right"; SwitchToMode "normal";}
         bind "/" { SwitchToMode "search"; }
+        bind "k" { CloseFocus; SwitchToMode "normal"; }
     }
 }
 

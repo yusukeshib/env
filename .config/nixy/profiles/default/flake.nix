@@ -46,7 +46,6 @@
           zellij = pkgs.zellij;
           zplug = pkgs.zplug;
           gke-gcloud-auth-plugin = inputs.gke-gcloud-auth-plugin.packages.${system}.default;
-          git-wt = pkgs.callPackage ./packages/git-wt.nix {};
           neovim = inputs.github-nix-community-neovim-nightly-overlay.packages.${system}.neovim;
 
           default = pkgs.buildEnv {
@@ -81,7 +80,6 @@
               vhs
               zellij
               zplug
-              git-wt
               gke-gcloud-auth-plugin
               neovim
             ];

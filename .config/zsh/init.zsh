@@ -143,9 +143,8 @@ if type "atuin" > /dev/null; then
   bindkey '^r' atuin-search
 fi
 
-if type "git-wt" >/dev/null; then
-  alias wt="git wt"
-  eval "$(wt --init zsh)"
+if command -v wt >/dev/null 2>&1; then
+  eval "$(command wt config shell init zsh)";
 fi
 
 # dev

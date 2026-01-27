@@ -38,6 +38,13 @@
       "input_url": "github:nix-community/neovim-nightly-overlay",
       "package_output": "packages",
       "source_name": null
+    },
+    {
+      "name": "worktrunk",
+      "input_name": "github-max-sixty-worktrunk",
+      "input_url": "github:max-sixty/worktrunk",
+      "package_output": "packages",
+      "source_name": null
     }
   ]
 }

@@ -5,9 +5,10 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     gke-gcloud-auth-plugin.url = "path:./packages/gke-gcloud-auth-plugin";
     github-nix-community-neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    github-max-sixty-worktrunk.url = "github:max-sixty/worktrunk";
   };
 
-  outputs = { self, nixpkgs, github-nix-community-neovim-nightly-overlay, gke-gcloud-auth-plugin }@inputs:
+  outputs = { self, nixpkgs, github-max-sixty-worktrunk, github-nix-community-neovim-nightly-overlay, gke-gcloud-auth-plugin }@inputs:
     let
       systems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
@@ -47,6 +48,7 @@
           zplug = pkgs.zplug;
           gke-gcloud-auth-plugin = inputs.gke-gcloud-auth-plugin.packages.${system}.default;
           neovim = inputs.github-nix-community-neovim-nightly-overlay.packages.${system}.neovim;
+          worktrunk = inputs.github-max-sixty-worktrunk.packages.${system}.worktrunk;
 
           default = pkgs.buildEnv {
             name = "nixy-env";
@@ -82,6 +84,7 @@
               zplug
               gke-gcloud-auth-plugin
               neovim
+              worktrunk
             ];
             extraOutputsToInstall = [ "man" "doc" "info" ];
           };

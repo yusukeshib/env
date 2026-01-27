@@ -40,12 +40,19 @@ if [ -d "$ZPLUG_HOME" ]; then
   zplug "plugins/asdf", from:oh-my-zsh
   zplug "plugins/brew", from:oh-my-zsh
   zplug "plugins/common-aliases", from:oh-my-zsh
-  zplug "plugins/direnv", from:oh-my-zsh
+
+  if type "direnv" > /dev/null; then
+    zplug "plugins/direnv", from:oh-my-zsh
+  fi
+
   zplug "plugins/eza", from:oh-my-zsh
   zplug "plugins/fzf", from:oh-my-zsh
   zplug "plugins/git", from:oh-my-zsh
   zplug "plugins/kubectl", from:oh-my-zsh
-  zplug "plugins/starship", from:oh-my-zsh
+
+  if type "starship" > /dev/null; then
+    zplug "plugins/starship", from:oh-my-zsh
+  fi
 
   zplug "zsh-users/zsh-autosuggestions"
   zplug "zsh-users/zsh-history-substring-search"

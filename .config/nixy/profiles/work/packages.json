@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "packages": [
+    "delta",
+    "starship"
+  ],
+  "custom_packages": []
+}

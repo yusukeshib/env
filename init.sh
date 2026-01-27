@@ -1,5 +1,48 @@
 #!/bin/bash
 
+# Handle import command
+if [ "$1" = "import" ]; then
+  if [ -z "$2" ]; then
+    echo "Usage: ./init.sh import <path>"
+    echo "Example: ./init.sh import .config/nixy/"
+    exit 1
+  fi
+
+  source_dir="$HOME/$2"
+
+  if [ ! -d "$source_dir" ]; then
+    echo "Error: $source_dir is not a directory"
+    exit 1
+  fi
+
+  # Find all regular files (not symlinks, not directories)
+  while IFS= read -r file; do
+    # Get relative path from $HOME
+    rel_path="${file#$HOME/}"
+    target_in_repo="$HOME/env/$rel_path"
+
+    # Skip if already exists in repo
+    if [ -e "$target_in_repo" ]; then
+      echo "Already in repo: $rel_path"
+      continue
+    fi
+
+    echo -n "Import $rel_path? [y/N] "
+    read -r answer </dev/tty
+    if [ "$answer" = "y" ] || [ "$answer" = "Y" ]; then
+      # Create parent directory in repo if needed
+      mkdir -p "$(dirname "$target_in_repo")"
+      # Move file to repo
+      mv "$file" "$target_in_repo"
+      # Create symlink
+      ln -s "$target_in_repo" "$file"
+      echo "Imported: $rel_path"
+    fi
+  done < <(find "$source_dir" -type f)
+
+  exit 0
+fi
+
 # Parse arguments
 FORCE=false
 if [ "$1" = "--force" ]; then

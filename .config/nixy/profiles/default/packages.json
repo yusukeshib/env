@@ -26,6 +26,7 @@
     "rustfmt",
     "starship",
     "terminal-notifier",
+    "terraform",
     "uv",
     "vhs",
     "zellij",

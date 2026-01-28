@@ -42,6 +42,7 @@
           rustfmt = pkgs.rustfmt;
           starship = pkgs.starship;
           terminal-notifier = pkgs.terminal-notifier;
+          terraform = pkgs.terraform;
           uv = pkgs.uv;
           vhs = pkgs.vhs;
           zellij = pkgs.zellij;
@@ -78,6 +79,7 @@
               rustfmt
               starship
               terminal-notifier
+              terraform
               uv
               vhs
               zellij

@@ -151,5 +151,3 @@ fi
 if type "sel" > /dev/null; then
   eval "$(sel init zsh)"
 fi
-
-

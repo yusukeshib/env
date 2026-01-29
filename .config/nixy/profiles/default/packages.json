@@ -17,6 +17,7 @@
     "gh",
     "glow",
     "graphite-cli",
+    "jujutsu",
     "kubectx",
     "kubernetes-helm",
     "nix-direnv",

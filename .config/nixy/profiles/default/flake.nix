@@ -33,6 +33,7 @@
           gh = pkgs.gh;
           glow = pkgs.glow;
           graphite-cli = pkgs.graphite-cli;
+          jujutsu = pkgs.jujutsu;
           kubectx = pkgs.kubectx;
           kubernetes-helm = pkgs.kubernetes-helm;
           nix-direnv = pkgs.nix-direnv;
@@ -70,6 +71,7 @@
               gh
               glow
               graphite-cli
+              jujutsu
               kubectx
               kubernetes-helm
               nix-direnv

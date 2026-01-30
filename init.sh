@@ -15,7 +15,7 @@ if [ "$1" = "import" ]; then
     exit 1
   fi
 
-  # Find all regular files (not symlinks, not directories)
+  # Find all regular files (not symlinks, not directories) in source and intermediate dirs
   while IFS= read -r file; do
     # Get relative path from $HOME
     rel_path="${file#$HOME/}"
@@ -38,7 +38,16 @@ if [ "$1" = "import" ]; then
       ln -s "$target_in_repo" "$file"
       echo "Imported: $rel_path"
     fi
-  done < <(find "$source_dir" -type f)
+  done < <(
+    # Files in source dir (recursive)
+    find "$source_dir" -type f
+    # Files in intermediate parent dirs (non-recursive)
+    dir="$(dirname "$source_dir")"
+    while [ "$dir" != "$HOME" ] && [ "$dir" != "/" ]; do
+      find "$dir" -maxdepth 1 -type f
+      dir="$(dirname "$dir")"
+    done
+  )
 
   exit 0
 fi

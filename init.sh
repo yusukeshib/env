@@ -59,8 +59,18 @@ fi
 # Symlink all files in the directory recursively, mkdir if necessary
 cd $HOME/env
 
-# Collect unique directories and remove all broken symlinks in them
-find . -type f -not -path "./.gitignore" -not -path "./.git/*" -not -name "README.md" -not -name "init.sh" | xargs -n1 dirname | sort -u | while read -r dir; do
+# Collect unique directories (including all parent directories) and remove broken symlinks
+collect_all_dirs() {
+  local dir="$1"
+  while [ "$dir" != "." ]; do
+    echo "$dir"
+    dir="$(dirname "$dir")"
+  done
+}
+
+find . -type f -not -path "./.gitignore" -not -path "./.git/*" -not -name "README.md" -not -name "init.sh" | xargs -n1 dirname | while read -r dir; do
+  collect_all_dirs "$dir"
+done | sort -u | while read -r dir; do
   target_dir="$HOME/${dir#./}"
   if [ -d "$target_dir" ]; then
     find "$target_dir" -maxdepth 1 -type l | while read -r link; do

@@ -4,11 +4,11 @@
 if [ "$1" = "import" ]; then
   if [ -z "$2" ]; then
     echo "Usage: ./init.sh import <path>"
-    echo "Example: ./init.sh import .config/nixy/"
+    echo "Example: ./init.sh import ~/.config/nixy/"
     exit 1
   fi
 
-  source_dir="$HOME/$2"
+  source_dir="$2"
 
   if [ ! -d "$source_dir" ]; then
     echo "Error: $source_dir is not a directory"

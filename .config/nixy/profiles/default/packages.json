@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "packages": [
     "atuin",
     "awscli",
@@ -21,7 +21,6 @@
     "kubectx",
     "kubernetes-helm",
     "nix-direnv",
-    "nodejs",
     "python3",
     "ripgrep",
     "rustfmt",
@@ -32,6 +31,22 @@
     "vhs",
     "zellij",
     "zplug"
+  ],
+  "resolved_packages": [
+    {
+      "name": "buf",
+      "version_spec": null,
+      "resolved_version": "1.60.0",
+      "attribute_path": "buf",
+      "commit_hash": "a1bab9e494f5f4939442a57a58d0449a109593fe"
+    },
+    {
+      "name": "nodejs",
+      "version_spec": "24.9",
+      "resolved_version": "24.9.0",
+      "attribute_path": "nodejs_24",
+      "commit_hash": "bce5fe2bb998488d8e7e7856315f90496723793c"
+    }
   ],
   "custom_packages": [
     {

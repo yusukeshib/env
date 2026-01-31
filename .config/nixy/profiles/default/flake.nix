@@ -3,8 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-a1bab9e4.url = "github:NixOS/nixpkgs/a1bab9e494f5f4939442a57a58d0449a109593fe";
     nixpkgs-bce5fe2b.url = "github:NixOS/nixpkgs/bce5fe2bb998488d8e7e7856315f90496723793c";
+    nixpkgs-a1bab9e4.url = "github:NixOS/nixpkgs/a1bab9e494f5f4939442a57a58d0449a109593fe";
     gke-gcloud-auth-plugin.url = "path:./packages/gke-gcloud-auth-plugin";
     github-nix-community-neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     github-max-sixty-worktrunk.url = "github:max-sixty/worktrunk";
@@ -48,9 +48,9 @@
           vhs = pkgs.vhs;
           zellij = pkgs.zellij;
           zplug = pkgs.zplug;
+          nodejs = inputs.nixpkgs-bce5fe2b.legacyPackages.${system}.nodejs_24;
           buf = inputs.nixpkgs-a1bab9e4.legacyPackages.${system}.buf;
           python = inputs.nixpkgs-a1bab9e4.legacyPackages.${system}.python311;
-          nodejs = inputs.nixpkgs-bce5fe2b.legacyPackages.${system}.nodejs_24;
           gke-gcloud-auth-plugin = inputs.gke-gcloud-auth-plugin.packages.${system}.default;
           neovim = inputs.github-nix-community-neovim-nightly-overlay.packages.${system}.neovim;
           worktrunk = inputs.github-max-sixty-worktrunk.packages.${system}.worktrunk;
@@ -87,9 +87,9 @@
               vhs
               zellij
               zplug
+              nodejs
               buf
               python
-              nodejs
               gke-gcloud-auth-plugin
               neovim
               worktrunk

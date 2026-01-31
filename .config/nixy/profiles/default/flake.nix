@@ -39,7 +39,6 @@
           kubectx = pkgs.kubectx;
           kubernetes-helm = pkgs.kubernetes-helm;
           nix-direnv = pkgs.nix-direnv;
-          python3 = pkgs.python3;
           ripgrep = pkgs.ripgrep;
           rustfmt = pkgs.rustfmt;
           starship = pkgs.starship;
@@ -50,6 +49,7 @@
           zellij = pkgs.zellij;
           zplug = pkgs.zplug;
           buf = inputs.nixpkgs-a1bab9e4.legacyPackages.${system}.buf;
+          python = inputs.nixpkgs-a1bab9e4.legacyPackages.${system}.python311;
           nodejs = inputs.nixpkgs-bce5fe2b.legacyPackages.${system}.nodejs_24;
           gke-gcloud-auth-plugin = inputs.gke-gcloud-auth-plugin.packages.${system}.default;
           neovim = inputs.github-nix-community-neovim-nightly-overlay.packages.${system}.neovim;
@@ -78,7 +78,6 @@
               kubectx
               kubernetes-helm
               nix-direnv
-              python3
               ripgrep
               rustfmt
               starship
@@ -89,6 +88,7 @@
               zellij
               zplug
               buf
+              python
               nodejs
               gke-gcloud-auth-plugin
               neovim

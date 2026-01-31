@@ -21,7 +21,6 @@
     "kubectx",
     "kubernetes-helm",
     "nix-direnv",
-    "python3",
     "ripgrep",
     "rustfmt",
     "starship",
@@ -46,6 +45,13 @@
       "resolved_version": "24.9.0",
       "attribute_path": "nodejs_24",
       "commit_hash": "bce5fe2bb998488d8e7e7856315f90496723793c"
+    },
+    {
+      "name": "python",
+      "version_spec": "3.11",
+      "resolved_version": "3.11.14",
+      "attribute_path": "python311",
+      "commit_hash": "a1bab9e494f5f4939442a57a58d0449a109593fe"
     }
   ],
   "custom_packages": [

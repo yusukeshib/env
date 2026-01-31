@@ -155,8 +155,8 @@ vim.pack.add({
   { src = "https://github.com/Saghen/blink.cmp" },
   -- GitHub Copilot integration
   { src = "https://github.com/zbirenbaum/copilot.lua" },
-  -- ClaudeCode integration
-  { src = "https://github.com/folke/sidekick.nvim" },
+  -- OpenCode
+  { src = "https://github.com/nickjvandyke/opencode.nvim" },
 })
 
 -- ============================================================================
@@ -237,17 +237,6 @@ require("bufferline").setup({})
 require("lualine").setup({})
 
 require("fidget").setup({})
-
-require('sidekick').setup({
-  cli = {
-    mux = {
-      enabled = false,
-    }
-  },
-  nes = {
-    enabled = false,
-  },
-})
 
 require("tiny-inline-diagnostic").setup({
   preset = "minimal",
@@ -364,10 +353,9 @@ local reload_configuration = function()
 end
 
 
-local sidekick_toggle = function()
-  require("sidekick.cli").toggle({ name = "claude", focus = true })
+local opencode_ask = function()
+  require("opencode").ask("@this: ", { submit = true })
 end
-
 local themes = require('telescope.themes')
 
 local telescope_files = function()
@@ -494,6 +482,7 @@ wk.add({
   { "gr",         telescope_lsp_refs,                   desc = "List references",                mode = "n", },
   { "<C-o>",      telescope_aerial,                     desc = "List document symbols",          mode = "n", },
 
-  -- sidekick
-  { "<C-.>",      sidekick_toggle,                      desc = "Toggle Sidekick",                mode = { "i", "n", "t", "x" } },
+  -- opencode
+  { "<C-.>",      opencode_ask,                         desc = "Opencode",                       mode = { "i", "n", "t", "x" } },
+
 })
